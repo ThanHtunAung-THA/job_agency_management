@@ -1,0 +1,46 @@
+overseas-jobs-agency/
+├── assets/
+│   ├── css/
+│   │   └── styles.css
+│   ├── js/
+│   │   ├── scripts.js
+│   │   └── animations.js
+│   ├── images/
+│   │   └── (all your image files)
+│   └── fonts/
+│       └── (all your font files)
+├── includes/
+│   ├── header.php
+│   ├── footer.php
+│   └── config.php
+├── templates/
+│   ├── admin/
+│   │   ├── dashboard.php
+│   │   ├── manage_jobs.php
+│   │   ├── manage_applicants.php
+│   │   └── (other admin-related pages)
+│   ├── user/
+│   │   ├── profile.php
+│   │   ├── apply_job.php
+│   │   ├── view_jobs.php
+│   │   └── (other user-related pages)
+│   ├── common/
+│   │   ├── login.php
+│   │   ├── register.php
+│   │   ├── home.php
+│   │   └── about.php
+├── classes/
+│   ├── Database.php
+│   ├── User.php
+│   ├── Job.php
+│   └── (other class files)
+├── vendor/
+│   └── (composer packages and other third-party libraries)
+├── public/
+│   ├── index.php
+│   ├── admin.php
+│   ├── user.php
+│   └── (other public-facing PHP files)
+├── tests/
+│   └── (unit and integration tests)
+└── .htaccess
