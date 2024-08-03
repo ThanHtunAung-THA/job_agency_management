@@ -64,16 +64,15 @@ $db->close();
         <div class="success"><?= htmlspecialchars($success); ?></div>
     <?php endif; ?>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-12 col-md-6 bsb-tpl-bg-platinum">
-        <div class="d-flex flex-column justify-content-between h-100 p-3 p-md-4 p-xl-5">
+  <div class="container ">
+    <div class="row fixed-height">
+      <div class="col-12 col-md-6 bsb-tpl-bg-platinum card">
+        <div class="d-flex flex-column justify-content-between p-3 p-md-4 p-xl-5">
           <h3 class="m-0">Welcome!</h3>
-          <img class="img-fluid rounded mx-auto my-4" loading="lazy" src="" width="245" height="80" alt="sign in Logo">
-          <p class="mb-0">Already had an account? <a href="login.php" class="link-secondary text-decoration-none">Sign in now</a></p>
+          <img class="img-fluid rounded mx-auto my-4" src="../../assets/image/fallout-thumbsup.png" width="auto" height="auto" alt="thumbsup">
         </div>
       </div>
-      <div class="col-12 col-md-6 bsb-tpl-bg-lotion">
+      <div class="col-12 col-md-6 bsb-tpl-bg-lotion card">
         <div class="p-3 p-md-4 p-xl-5">
           <div class="row">
             <div class="col-12">
@@ -82,7 +81,7 @@ $db->close();
               </div>
             </div>
           </div>
-          <form method="POST">
+          <form method="POST" class="card-body">
             <div class="row gy-3 gy-md-4 overflow-hidden">
               <div class="col-12">
                 <label for="username" class="form-label">Email <span class="text-danger">*</span></label>
@@ -98,7 +97,7 @@ $db->close();
               </div>
               <div class="col-12">
                 <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
-                <select name="role" id="role" required>
+                <select name="role" id="role" class="form-select" required>
                     <option value="employee">Employee</option>
                     <option value="employer">Employer</option>
                 </select>
@@ -111,6 +110,11 @@ $db->close();
               </div>
             </div>
           </form>
+          <div class="row">
+              <hr class="mt-5 mb-4 border-secondary-subtle">
+              <p class="mb-0">Already had an account?<a href="login.php" class="link-secondary text-decoration-none hovering"> Log in now </a></p>    
+          </div>
+
         </div>
       </div>
     </div>

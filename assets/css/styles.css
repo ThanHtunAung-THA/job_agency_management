@@ -164,9 +164,21 @@ footer {
   /* Background Colors */
   .bsb-tpl-bg-platinum {
     background: #e5e5e5 !important;
+    /* background-image: url('../image/fallout-thumbsup.png') !important;
+    background-repeat: no-repeat !important;
+    background-size: auto !important;
+    background-position: center center !important; */
+    
   }
   
   .bsb-tpl-bg-lotion {
     background: #fafafa !important;
   }
   
+  .fixed-height {
+    height: 740px;
+  }
+
+  .hovering:hover {
+    color: #0d6efd !important;
+}
