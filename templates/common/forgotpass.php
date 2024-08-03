@@ -16,31 +16,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $role = $_POST['role'];
-    $image = $_FILES['image']['name'];
-    $target = UPLOAD_PATH . basename($image);
+    
 
     // Validate form data
-    if (empty($username) || empty($email) || empty($password) || empty($role) || empty($image)) {
+    if (empty($username) || empty($email) || empty($password)) {
         $error = 'All fields are required.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Invalid email format.';
     } elseif (strlen($password) < 6) {
-        $error = 'Password must be at least 6 characters long.';
-    } elseif (!move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-        $error = 'Failed to upload image.';
+        $error = 'Password must be at least 6 characters long.'; 
     } else {
         // Hash password
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
         // Prepare SQL query
-        $query = "INSERT INTO users (username, email, password, role, image) VALUES (?, ?, ?, ?, ?)";
+        $query = "UPDATE `users` SET `password` = ? WHERE  `users`.`name` = ?, `users`.`email` = ? ";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param('sssss', $username, $email, $hashed_password, $role, $image);
+        $stmt->bind_param('sssss', $username, $email, $hashed_password);
 
         // Execute query
         if ($stmt->execute()) {
-            $success = 'Registration successful!';
+            $success = 'Password reset successful!';
         } else {
             $error = 'Error: ' . $stmt->error;
         }
@@ -77,7 +73,7 @@ $db->close();
           <div class="row">
             <div class="col-12">
               <div class="mb-5">
-                <h3>Register</h3>
+                <h3>Password Reset</h3>
               </div>
             </div>
           </div>
@@ -85,34 +81,32 @@ $db->close();
             <div class="row gy-3 gy-md-4 overflow-hidden">
               <div class="col-12">
                 <label for="username" class="form-label">Name <span class="text-danger">*</span></label>
-                <input type="username" class="form-control" name="username" id="username" placeholder="John Weed" required>
+                <input type="username" class="form-control" name="username" id="username" placeholder="account user name" required>
               </div>
+
               <div class="col-12">
                 <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
+                <input type="email" class="form-control" name="email" id="email" placeholder="account email" required>
               </div>
+
               <div class="col-12">
                 <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                <input type="password" class="form-control" name="password" id="password" value="" placeholder="* * * * * * * *" required>
-              </div>
-              <div class="col-12">
-                <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
-                <select name="role" id="role" class="form-select" required>
-                    <option value="employee">Employee</option>
-                    <option value="employer">Employer</option>
-                </select>
+                <input type="password" class="form-control" name="password" id="password" value="" placeholder="new password" required>
               </div>
               
               <div class="col-12">
                 <div class="d-grid">
-                  <button class="btn bsb-btn-xl btn-primary" type="submit">Register now</button>
+                  <button class="btn bsb-btn-xl btn-primary" type="submit">Reset password</button>
                 </div>
               </div>
             </div>
           </form>
           <div class="row">
               <hr class="mt-5 mb-4 border-secondary-subtle">
-              <p class="mb-0">Already had an account?<a href="login.php" class="link-secondary text-decoration-none hovering"> Log in now </a></p>    
+              <p class="mb-0">
+                <a href="login.php" class="link-secondary text-decoration-none hovering"> Goto login </a>
+                <a href="register.php" class="link-secondary text-decoration-none hovering"> Goto register </a>
+              </p>    
           </div>
 
         </div>

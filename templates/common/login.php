@@ -122,8 +122,14 @@ $db->close();
                   <a href="register.php" class="link-secondary text-decoration-none hovering"> Register now </a><br/>
                   Not have an account yet?<br/>
                 </span>
-                <a href="#!" class="link-secondary text-decoration-none hovering">Forgot password</a>
+                <a href="forgotpass.php" class="link-secondary text-decoration-none hovering">Forgot password</a>
               </p>
+              
+              <p class="mb-0">
+                <a href="login.php" class="link-secondary text-decoration-none hovering"> Goto login </a>
+                <a href="register.php" class="link-secondary text-decoration-none hovering"> Goto register </a>
+              </p>    
+
             </div>
           </div>
         </div>
