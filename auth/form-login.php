@@ -1,68 +1,3 @@
-<?php
-// Include the Database class
-include '../../classes/Database.php';
-
-// Initialize variables
-$error = '';
-$success = '';
-
-// Create a new Database instance
-$db = new Database();
-$conn = $db->getConnection();
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Retrieve form data
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-
-    // Validate form data
-    if (empty($email) || empty($password)) {
-        $error = 'Both fields are required.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = 'Invalid email format.';
-    } else {
-        // Prepare SQL query
-        $query = "SELECT * FROM users WHERE email = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
-        if ($result->num_rows == 1) {
-            // Fetch user data
-            $user = $result->fetch_assoc();
-
-            // Verify password
-            if (password_verify($password, $user['password'])) {
-                // Start session and set session variables
-                session_start();
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['role'] = $user['role'];
-
-                // Redirect based on role
-                if ($user['role'] == 'admin') {
-                    header('Location: admin.php');
-                } elseif ($user['role'] == 'employee' || $user['role'] == 'employer') {
-                    header('Location: user.php');
-                }
-                exit();
-            } else {
-                $error = 'Invalid email or password.';
-            }
-        } else {
-            $error = 'Invalid email or password.';
-        }
-
-        // Close statement
-        $stmt->close();
-    }
-}
-
-// Close database connection
-$db->close();
-?>
-
 <?php include '../../includes/header.php'; ?>
 
 <section class="p-3 p-md-4 p-xl-5">
@@ -122,14 +57,8 @@ $db->close();
                   <a href="register.php" class="link-secondary text-decoration-none hovering"> Register now </a><br/>
                   Not have an account yet?<br/>
                 </span>
-                <a href="forgotpass.php" class="link-secondary text-decoration-none hovering">Forgot password</a>
+                <a href="password_reset.php" class="link-secondary text-decoration-none hovering">Forgot password ?</a>
               </p>
-              
-              <p class="mb-0">
-                <a href="login.php" class="link-secondary text-decoration-none hovering"> Goto login </a>
-                <a href="register.php" class="link-secondary text-decoration-none hovering"> Goto register </a>
-              </p>    
-
             </div>
           </div>
         </div>

@@ -25,26 +25,26 @@ include 'config.php'; // Adjust the path according to your file structure
                         <a class="nav-link" href="<?php echo BASE_URL; ?>/public">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo BASE_URL; ?>/view_jobs.php">Jobs</a>
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/_user/jobs-list.php">Jobs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo BASE_URL; ?>/templates/common/about.php">About</a>
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/common/about.php">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo BASE_URL; ?>/templates/common/contact.php">Contact</a>
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/common/contact.php">Contact</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <?php if (!isset($_SESSION['user_id'])): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/templates/common/login.php">Login</a>
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/auth/form-login.php">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/templates/common/register.php">Register</a>
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/auth/register.php">Register</a>
                         </li>
                     <?php else: ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/templates/common/logout.php">Logout</a>
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/auth/logout.php">Logout</a>
                         </li>
                     <?php endif; ?>
                 </ul>

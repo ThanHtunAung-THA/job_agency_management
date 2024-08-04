@@ -10,7 +10,7 @@ if (!defined('BASE_URL')) {
 
 // File upload path
 if (!defined('UPLOAD_PATH')) {
-    define('UPLOAD_PATH', 'uploads/');
+    define('UPLOAD_PATH', '/overseas-jobs.com/uploads/');
 }
 
 // Application name

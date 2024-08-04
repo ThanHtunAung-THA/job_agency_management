@@ -1,6 +1,5 @@
 <?php
 // Include the Database class
-// include '../../includes/config.php';
 include '../../classes/Database.php';
 
 // Initialize variables
@@ -13,36 +12,46 @@ $conn = $db->getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Retrieve form data
-    $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $role = $_POST['role'];
-    $image = $_FILES['image']['name'];
-    $target = UPLOAD_PATH . basename($image);
 
     // Validate form data
-    if (empty($username) || empty($email) || empty($password) || empty($role) || empty($image)) {
-        $error = 'All fields are required.';
+    if (empty($email) || empty($password)) {
+        $error = 'Both fields are required.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Invalid email format.';
-    } elseif (strlen($password) < 6) {
-        $error = 'Password must be at least 6 characters long.';
-    } elseif (!move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-        $error = 'Failed to upload image.';
     } else {
-        // Hash password
-        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
         // Prepare SQL query
-        $query = "INSERT INTO users (username, email, password, role, image) VALUES (?, ?, ?, ?, ?)";
+        $query = "SELECT * FROM users WHERE email = ?";
         $stmt = $conn->prepare($query);
-        $stmt->bind_param('sssss', $username, $email, $hashed_password, $role, $image);
+        $stmt->bind_param('s', $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
 
-        // Execute query
-        if ($stmt->execute()) {
-            $success = 'Registration successful!';
+        if ($result->num_rows == 1) {
+            // Fetch user data
+            $user = $result->fetch_assoc();
+
+            // Verify password
+            if (password_verify($password, $user['password'])) {
+                // Start session and set session variables
+                session_start();
+                $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
+                $_SESSION['role'] = $user['role'];
+
+                // Redirect based on role
+                if ($user['role'] == 'admin') {
+                    header('Location: admin.php');
+                } elseif ($user['role'] == 'employee' || $user['role'] == 'employer') {
+                    header('Location: user.php');
+                }
+                exit();
+            } else {
+                $error = 'Invalid email or password.';
+            }
         } else {
-            $error = 'Error: ' . $stmt->error;
+            $error = 'Invalid email or password.';
         }
 
         // Close statement
@@ -60,16 +69,15 @@ $db->close();
 
     <?php if ($error): ?>
         <div class="error"><?= htmlspecialchars($error); ?></div>
-    <?php elseif ($success): ?>
-        <div class="success"><?= htmlspecialchars($success); ?></div>
     <?php endif; ?>
 
   <div class="container ">
     <div class="row fixed-height">
       <div class="col-12 col-md-6 bsb-tpl-bg-platinum card">
-        <div class="d-flex flex-column justify-content-between p-3 p-md-4 p-xl-5">
-          <h3 class="m-0">Welcome!</h3>
+        <div class="d-flex flex-column justify-content-between  p-3 p-md-4 p-xl-5">
+          <h3 class="m-0 ">Welcome!</h3>
           <img class="img-fluid rounded mx-auto my-4" src="../../assets/image/fallout-thumbsup.png" width="auto" height="auto" alt="thumbsup">
+
         </div>
       </div>
       <div class="col-12 col-md-6 bsb-tpl-bg-lotion card">
@@ -77,16 +85,12 @@ $db->close();
           <div class="row">
             <div class="col-12">
               <div class="mb-5">
-                <h3>Register</h3>
+                <h3 class="">Log in</h3>
               </div>
             </div>
           </div>
           <form method="POST" class="card-body">
             <div class="row gy-3 gy-md-4 overflow-hidden">
-              <div class="col-12">
-                <label for="username" class="form-label">Name <span class="text-danger">*</span></label>
-                <input type="username" class="form-control" name="username" id="username" placeholder="John Weed" required>
-              </div>
               <div class="col-12">
                 <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                 <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
@@ -96,25 +100,32 @@ $db->close();
                 <input type="password" class="form-control" name="password" id="password" value="" placeholder="* * * * * * * *" required>
               </div>
               <div class="col-12">
-                <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
-                <select name="role" id="role" class="form-select" required>
-                    <option value="employee">Employee</option>
-                    <option value="employer">Employer</option>
-                </select>
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" value="" name="remember_me" id="remember_me">
+                  <label class="form-check-label text-secondary" for="remember_me">
+                    Keep me logged in
+                  </label>
+                </div>
               </div>
-              
               <div class="col-12">
                 <div class="d-grid">
-                  <button class="btn bsb-btn-xl btn-primary" type="submit">Register now</button>
+                  <button class="btn bsb-btn-xl btn-primary" type="submit">Log in now</button>
                 </div>
               </div>
             </div>
           </form>
           <div class="row">
+            <div class="col-12">
               <hr class="mt-5 mb-4 border-secondary-subtle">
-              <p class="mb-0">Already had an account?<a href="login.php" class="link-secondary text-decoration-none hovering"> Log in now </a></p>    
+              <p class="d-flex justify-content-between mb-0">
+                <span>
+                  <a href="register.php" class="link-secondary text-decoration-none hovering"> Register now </a><br/>
+                  Not have an account yet?<br/>
+                </span>
+                <a href="password_reset.php" class="link-secondary text-decoration-none hovering">Forgot password ?</a>
+              </p>
+            </div>
           </div>
-
         </div>
       </div>
     </div>
