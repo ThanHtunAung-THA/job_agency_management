@@ -33,6 +33,9 @@ h1 {
 } */
 
 /* ===== HEADER ====== */
+.dropdown-menu {
+  margin-right: 10%;
+}
 
 /* ===== BODY ====== */
 body {

@@ -1,26 +1,22 @@
 <?php
-// Include the Database class
 include '../includes/config.php';
 include '../includes/Database.php';
 
-// Initialize variables
 $error = '';
 $success = '';
 
-// Create a new Database instance
 $db = new Database();
 $conn = $db->getConnection();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Retrieve form data
+
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $role = $_POST['role'];
     $image = $_FILES['image']['name'];
-    $target = '../uploads/' . basename($image);
+    $target = UPLOAD_PATH . basename($image);
 
-    // Validate form data
     if (empty($username) || empty($email) || empty($password) || empty($role)) {
         $error = 'All fields except profile image are required.';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -49,6 +45,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Execute query
             if ($stmt->execute()) {
                 $success = 'Registration successful!';
+                // Get the newly created user's ID and role
+                $userId = $conn->insert_id;
+                $role = $_POST['role'];
+                // Create a session to store the user's ID and role
+                session_start();
+                $_SESSION['userId'] = $userId;
+                $_SESSION['role'] = $role;
+                // Redirect to the dashboard page
+                header('Location: dashboard.php');
+                exit;
             } else {
                 $error = 'Error: ' . $stmt->error;
             }
@@ -119,11 +125,10 @@ $db->close();
                                     <option value="employer">Employer</option>
                                 </select>
                             </div>
-                            <div class="col-12" style="height: 100px;" data-bs-toggle="tooltip" data-bs-placement="bottom" title="This is Optional">
+                            <div class="col-12" style="height: 100px;" >
                               <label for="image">Profile Image:</label>
-                              <input type="file" name="image" id="image" accept="image/*" onchange="showThumbnail(this)">
+                              <input type="file" name="image" id="image" accept="image/*" onchange="showThumbnail(this)" data-bs-toggle="tooltip" data-bs-placement="left" title="This is Optional">
                               <div id="thumbnail-container" class="thumbnail-container"></div>
-                              <!-- <span class="optional-hint">Optional</span> -->
                             </div>
                             <div class="col-12">
                                 <div class="d-grid">

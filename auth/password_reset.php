@@ -1,6 +1,6 @@
 <?php
 // Include the Database class
-include '../../classes/Database.php';
+include '../includes/Database.php';
 
 // Initialize variables
 $error = '';
@@ -48,11 +48,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 // Close database connection
 $db->close();
-header('Location: login.php');
-exit;
 ?>
 
-<?php include '../../includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
 
 <section class="p-3 p-md-4 p-xl-5">
 <?php if ($error || $success): ?>
@@ -75,7 +73,7 @@ exit;
             <div class="col-12 col-md-6 bsb-tpl-bg-platinum card">
                 <div class="d-flex flex-column justify-content-between p-3 p-md-4 p-xl-5">
                     <h3 class="m-0">Welcome!</h3>
-                    <img class="img-fluid rounded mx-auto my-4" src="../../assets/image/fallout-thumbsup.png" width="auto" height="auto" alt="thumbsup">
+                    <img class="img-fluid rounded mx-auto my-4" src="../assets/image/fallout-thumbsup.png" width="auto" height="auto" alt="thumbsup">
                 </div>
             </div>
             <div class="col-12 col-md-6 bsb-tpl-bg-lotion card">
@@ -124,4 +122,4 @@ exit;
     </div>
 </section>
 
-<?php include '../../includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

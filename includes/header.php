@@ -1,5 +1,7 @@
 <?php
 include 'config.php'; // Adjust the path according to your file structure
+// session_start();
+
 ?>
 
 <!DOCTYPE html>
@@ -28,23 +30,29 @@ include 'config.php'; // Adjust the path according to your file structure
                         <a class="nav-link" href="<?php echo BASE_URL; ?>/_user/jobs-list.php">Jobs</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo BASE_URL; ?>/common/about.php">About</a>
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/public/about.php">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo BASE_URL; ?>/common/contact.php">Contact</a>
+                        <a class="nav-link" href="<?php echo BASE_URL; ?>/public/contact.php">Contact</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <?php if (!isset($_SESSION['user_id'])): ?>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/auth/form-login.php">Login</a>
+                            <a class="nav-link" href="<?php echo BASE_URL; ?>/auth/login.php">Login</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?php echo BASE_URL; ?>/auth/register.php">Register</a>
                         </li>
                     <?php else: ?>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?php echo BASE_URL; ?>/auth/logout.php">Logout</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <?php echo $_SESSION['user_name']; ?>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/auth/profile.php">Profile</a></li>
+                                <li><a class="dropdown-item" href="<?php echo BASE_URL; ?>/auth/logout.php">Logout</a></li>
+                            </ul>
                         </li>
                     <?php endif; ?>
                 </ul>

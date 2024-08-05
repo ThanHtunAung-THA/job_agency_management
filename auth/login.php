@@ -1,6 +1,6 @@
 <?php
 // Include the Database class
-include '../../classes/Database.php';
+include '../includes/Database.php';
 
 // Initialize variables
 $error = '';
@@ -21,30 +21,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Invalid email format.';
     } else {
-        // Prepare SQL query
-        $query = "SELECT * FROM users WHERE email = ?";
-        $stmt = $conn->prepare($query);
-        $stmt->bind_param('s', $email);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        // Prepare SQL query for admins table
+        $query_admins = "SELECT * FROM admins WHERE email = ?";
+        $stmt_admins = $conn->prepare($query_admins);
+        $stmt_admins->bind_param('s', $email);
+        $stmt_admins->execute();
+        $result_admins = $stmt_admins->get_result();
 
-        if ($result->num_rows == 1) {
+        // Prepare SQL query for users table
+        $query_users = "SELECT * FROM users WHERE email = ?";
+        $stmt_users = $conn->prepare($query_users);
+        $stmt_users->bind_param('s', $email);
+        $stmt_users->execute();
+        $result_users = $stmt_users->get_result();
+
+        // Check if email exists in either table
+        if ($result_admins->num_rows == 1) {
+            // Fetch admin data
+            $admin = $result_admins->fetch_assoc();
+
+            // Verify password
+            if (password_verify($password, $admin['password'])) {
+                // Start session and set session variables
+                session_start();
+                $_SESSION['admin_id'] = $admin['id'];
+                $_SESSION['admin_username'] = $admin['username'];
+                $_SESSION['admin_role'] = $admin['role'];
+
+                // Redirect to admin dashboard
+                header('Location: ../_admin/dashboard.php');
+                exit();
+            } else {
+                $error = 'Invalid email or password.';
+            }
+        } elseif ($result_users->num_rows == 1) {
             // Fetch user data
-            $user = $result->fetch_assoc();
+            $user = $result_users->fetch_assoc();
 
             // Verify password
             if (password_verify($password, $user['password'])) {
                 // Start session and set session variables
                 session_start();
                 $_SESSION['user_id'] = $user['id'];
-                $_SESSION['username'] = $user['username'];
-                $_SESSION['role'] = $user['role'];
+                $_SESSION['user_name'] = $user['username'];
+                $_SESSION['user_role'] = $user['role'];
 
-                // Redirect based on role
-                if ($user['role'] == 'admin') {
-                    header('Location: admin.php');
-                } elseif ($user['role'] == 'employee' || $user['role'] == 'employer') {
-                    header('Location: user.php');
+                // Redirect to user dashboard
+                if ($user['role'] == 'employer') {
+                    header('Location: ../_user/employer_dashboard.php');
+                } elseif ($user['role'] == 'employee') {
+                    header('Location: ../_user/employee_dashboard.php');
                 }
                 exit();
             } else {
@@ -54,8 +80,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $error = 'Invalid email or password.';
         }
 
-        // Close statement
-        $stmt->close();
+        // Close statements
+        $stmt_admins->close();
+        $stmt_users->close();
     }
 }
 
@@ -63,20 +90,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $db->close();
 ?>
 
-<?php include '../../includes/header.php'; ?>
+<?php include '../includes/header.php'; ?>
 
 <section class="p-3 p-md-4 p-xl-5">
 
-    <?php if ($error): ?>
-        <div class="error"><?= htmlspecialchars($error); ?></div>
-    <?php endif; ?>
+<?php if ($error || $success): ?>
+    <div id="popup-message" class="popup-message-overlay">
+        <div class="popup-message-box">
+            <button id="close-popup" class="close-btn">&times;</button>
+            <div class="popup-message-content">
+                <?php if ($error): ?>
+                    <div class="error"><?= htmlspecialchars($error); ?></div>
+                <?php elseif ($success): ?>
+                    <div class="success"><?= htmlspecialchars($success); ?></div>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
 
   <div class="container ">
     <div class="row fixed-height">
       <div class="col-12 col-md-6 bsb-tpl-bg-platinum card">
         <div class="d-flex flex-column justify-content-between  p-3 p-md-4 p-xl-5">
           <h3 class="m-0 ">Welcome!</h3>
-          <img class="img-fluid rounded mx-auto my-4" src="../../assets/image/fallout-thumbsup.png" width="auto" height="auto" alt="thumbsup">
+          <img class="img-fluid rounded mx-auto my-4" src="../assets/image/fallout-thumbsup.png" width="auto" height="auto" alt="thumbsup">
 
         </div>
       </div>
@@ -132,4 +170,4 @@ $db->close();
   </div>
 </section>
 
-<?php include '../../includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>
