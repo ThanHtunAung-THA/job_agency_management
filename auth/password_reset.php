@@ -74,15 +74,31 @@ $db->close();
 <section class="container ">
     <div class="row">
 
-        <div class="col-12 col-md-6 bsb-tpl-bg-fallout">
+        <div class="col-12 col-md-6 bsb-tpl-bg-left card">
             <div class="d-flex flex-column justify-content-between p-md-4 p-xl-5">
                 <h3 class="m-0 ">Welcome!</h3>
-                <img src="../assets/image/fallout-thumbsup.png" alt="Login Image" class="img-fluid mx-auto my-4">
+                <img src="../assets/images/ojc-round.png" alt="Login Image" class="img-fluid mx-auto my-4">
             </div>
+            <center>
+            <p class="mb-5">
+                <div class="alert-link">
+                    Already had an account ? ...
+                    <a href="login.php" class="alert"> 
+                    Login here 
+                    </a>
+                </div><br>
+                <div class="alert-link">
+                    If you did'nt have an account yet ? ... 
+                    <a href="register.php" class="alert">
+                    Register here
+                    </a>
+                </div>
+            </p>
+            </center>
         </div>
 
 
-        <div class="col-12 col-md-6 bsb-tpl-bg-lotion ">
+        <div class="col-12 col-md-6 bsb-tpl-bg-left card ">
 
             <div class="p-3 p-md-4 p-xl-5">
                 <div class="row">
@@ -94,7 +110,7 @@ $db->close();
                 </div>
 
                 
-                <form method="POST" class="card-body" enctype="multipart/form-data">
+                <form method="POST" class="card card-body" enctype="multipart/form-data">
                     <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                     <div class="form-group">
                         <label class="form-label" for="username">Name <span class="text-danger">*</span></label>
@@ -108,7 +124,7 @@ $db->close();
                         <label class="form-label" for="password">New Password <span class="text-danger">*</span></label>
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary mb-1">Reset password</button>
+                    <button type="submit" class="btn btn-primary btn-box mb-1">Reset password</button>
                     <hr class="mb-5 border-secondary-subtle">
                 </form>
             </div>

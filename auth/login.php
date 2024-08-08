@@ -21,12 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Invalid email format.';
     } else {
-        // Prepare SQL query for admins table
-        $query_admins = "SELECT * FROM admins WHERE email = ?";
-        $stmt_admins = $conn->prepare($query_admins);
-        $stmt_admins->bind_param('s', $email);
-        $stmt_admins->execute();
-        $result_admins = $stmt_admins->get_result();
 
         // Prepare SQL query for employer table
         $query_employer = "SELECT * FROM employers WHERE email = ?";
@@ -44,34 +38,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
         // Check if email exists in either table
-        if ($result_admins->num_rows == 1) {
-            // Fetch admin data
-            $admin = $result_admins->fetch_assoc();
+        if ($result_employer->num_rows == 1) {
+            // Fetch employer data
+            $employer = $result_employer->fetch_assoc();
 
             // Verify password
-            if (password_verify($password, $admin['password'])) {
+            if (password_verify($password, $employer['password'])) {
                 // Start session and set session variables
                 session_start();
-                $_SESSION['admin_id'] = $admin['id'];
-                $_SESSION['admin_username'] = $admin['username'];
-                $_SESSION['admin_role'] = $admin['role'];
+                $_SESSION['user_id'] = $employer['id'];
+                $_SESSION['user_name'] = $employer['username'];
+                $_SESSION['role'] = 'employer';
 
-                // Redirect to admin dashboard
-                header('Location: ../_admin/dashboard.php');
-                exit();
-            } else {
-                $error = 'Invalid email or password.';
-            }
-        } elseif ($result_employer->num_rows == 1) {
-            // Fetch user data
-            $user = $result_employer->fetch_assoc();
-
-            // Verify password
-            if (password_verify($password, $user['password'])) {
-                // Start session and set session variables
-                session_start();
-                $_SESSION['user_id'] = $user['id'];
-                $_SESSION['user_name'] = $user['username'];
 
                 header('Location: ../employers/dashboard.php');
                 exit();
@@ -79,16 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $error = 'Invalid email or password.';
             }
         } elseif ($result_employee->num_rows == 1) {
-          // Fetch user data
-          $user = $result_employee->fetch_assoc();
+          // Fetch employee data
+          $employee = $result_employee->fetch_assoc();
 
           // Verify password
-          if (password_verify($password, $user['password'])) {
+          if (password_verify($password, $employee['password'])) {
               // Start session and set session variables
               session_start();
-              $_SESSION['user_id'] = $user['id'];
-              $_SESSION['user_name'] = $user['username'];
-              $_SESSION['user_role'] = $user['role'];
+              $_SESSION['user_id'] = $employee['id'];
+              $_SESSION['user_name'] = $employee['username'];
+              $_SESSION['role'] = 'employee';
 
               header('Location: ../employees/dashboard.php');
               exit();
@@ -100,7 +78,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         // Close statements
-        $stmt_admins->close();
         $stmt_employer->close();
         $stmt_employee->close();
     }
@@ -135,38 +112,41 @@ $db->close();
 <section class="container ">
   <div class="row">
 
-    <div class="col-12 col-md-6 bsb-tpl-bg-fallout">
+    <div class="col-12 col-md-6 bsb-tpl-bg-left card">
       <div class="d-flex flex-column justify-content-between p-md-4 p-xl-5">
         <h3 class="m-0 ">Welcome!</h3>
-        <img src="../assets/image/fallout-thumbsup.png" alt="Login Image" class="img-fluid mx-auto my-4">
+        <img src="../assets/images/ojc-round.png" alt="Login Image" class="img-fluid mx-auto my-4">
       </div>
       <center>
       <p class="mb-5">
-          <span>
-            Not have an account yet ?
-            <a href="register.php" class="link-secondary text-decoration-none"> Register here </a><br/>
-          </span>
-          <br/>Or...<br/>
-          <span>
-            Forgot your password ?
-            <a href="password_reset.php" class="link-secondary text-decoration-none">Reset here</a>
-          </span>
+          <div class="alert-link">
+            If you did'nt have an account yet ? ... 
+            <a href="register.php" class="alert"> 
+            Register here 
+            </a>
+          </div><br>
+          <div class="alert-link">
+            If you forgot your password ? ... 
+            <a href="password_reset.php" class="alert">
+              Reset here
+            </a>
+          </div>
       </p>
       </center>
     </div>
     
-    <div class="col-12 col-md-6 bsb-tpl-bg-lotion ">
+    <div class="col-12 col-md-6 bsb-tpl-bg-left card">
 
-      <div class="p-3 p-md-4 p-xl-5">
-        <div class="row">
-          <div class="col-12">
+      <div class="p-3 p-md-4 p-xl-5 ">
+        <div class="row ">
+          <div class="col-12 ">
             <div class="mb-5">
-              <h3>Login</h3>
+              <h3 class="">Login</h3>
             </div>
           </div>
         </div>
 
-        <form method="post" class="card-body">
+        <form method="post" class="card card-body">
           <div class="form-group">
             <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
             <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
@@ -181,7 +161,7 @@ $db->close();
               Keep me logged in
             </label>
           </div>
-          <button type="submit" class="btn btn-primary mb-1">Login</button>
+          <button type="submit" class="btn btn-primary btn-box mb-1">Login</button>
           <hr class="mb-0 border-secondary-subtle">
         </form>
       </div>

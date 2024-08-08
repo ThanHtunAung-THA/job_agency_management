@@ -14,7 +14,7 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav  ml-auto">
-          <li class="nav-item active">
+          <li class="nav-item">
               <a class="nav-link" href="<?php echo PUBLIC_URL; ?>"> Home </a>
           </li>
           <li class="nav-item">
@@ -23,10 +23,6 @@
           <li class="nav-item">
               <a class="nav-link" href="<?php echo PUBLIC_URL; ?>/jobs.php"> Jobs </a>
           </li>
-          <li class="nav-item">
-              <a class="nav-link" href="<?php echo PUBLIC_URL; ?>/contact.php"> Contact </a>
-          </li>
-
           <?php if (!isset($_SESSION['user_id'])): ?>
 
           <li class="nav-item">
@@ -51,7 +47,12 @@
                     <?php echo $_SESSION['user_name']; ?>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="<?php echo USER_URL; ?>/profile.php">Profile</a></li>
+                    <li>
+                        <?php if ($_SESSION['role'] == 'employer'): ?>
+                            <a class="dropdown-item" href="<?php echo EMPLOYER_URL; ?>/profile.php">My Profile <span class="text-danger">*</span></a>
+                        <?php elseif ($_SESSION['role'] == 'employee'): ?>
+                            <a class="dropdown-item" href="<?php echo EMPLOYEE_URL; ?>/profile.php">My  Profile <span class="text-danger">*</span></a>
+                        <?php endif; ?>                    </li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="<?php echo AUTH_URL; ?>/logout.php">Logout</a></li>
                 </ul>

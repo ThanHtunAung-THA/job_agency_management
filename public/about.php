@@ -1,14 +1,14 @@
 <?php session_start(); ?>
 <?php include '../includes/head.php'; ?>
-<body style="  background-image: linear-gradient(to right, #6fbae2, #7168c9);">
+<body style="  background-image: linear-gradient(to right, #1f2766, #1f2766);">
 <?php include '../includes/header.php'; ?>
-<!-- about section -->
-<section class="about_section layout_padding">
-    <div class="container">
+
+<section class="info_section layout_margin">
+    <div class="container ">
         <div class="row align-items-center">
             
-            <div class="col-md-12">
-                <div class="card bg-light shadow-sm">
+            <div class="col-md-12 card bg-transparent">
+                <div class="shadow-sm">
                     <div class="card-body">
                         <h2 class="card-title">About Us</h2>
                         <p class="card-text" style="font-size: 18px; line-height: 1.5;">
@@ -38,7 +38,6 @@
         </div>
     </div>
 </section>
-<!-- end about section -->
 
 <?php include '../includes/footer.php'; ?>
 <?php include '../includes/foot.php'; ?>

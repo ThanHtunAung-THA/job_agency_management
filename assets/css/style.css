@@ -5,6 +5,12 @@ body {
   overflow-x: hidden;
 }
 
+.layout_margin {
+  margin-left: 20em; 
+  margin-right: 20em; 
+  margin-bottom: 5em;
+}
+
 .layout_padding {
   padding: 90px 0;
 }
@@ -100,10 +106,10 @@ a:focus {
           flex-direction: column;
   /* background-image: -webkit-gradient(linear, left top, right top, from(rgba(8, 19, 92, 0.9)), to(rgba(8, 19, 92, 0.9))), url(../images/slider-bg.jpg); */
   background-image: -webkit-gradient(linear, left top, right top, from(rgba(8, 19, 92, 0.9)), to(rgba(8, 19, 92, 0.9))), url(../images/slider-bg2.jpg);
-  background-image: -webkit-linear-gradient(left, rgba(0, 157, 255, 0.549), rgba(0, 0, 207, 0.549)), url(../images/slider-bg2.jpg);
-  background-image: -moz-linear-gradient(left, rgba(0, 157, 255, 0.549), rgba(0, 0, 207, 0.549)), url(../images/slider-bg2.jpg);
-  background-image: -o-linear-gradient(left, rgba(0, 157, 255, 0.549), rgba(0, 0, 207, 0.549)), url(../images/slider-bg2.jpg);
-  background-image: linear-gradient(to right, rgba(0, 157, 255, 0.549), rgba(0, 0, 207, 0.549)), url(../images/slider-bg2.jpg);
+  background-image: -webkit-linear-gradient(left, rgba(8, 19, 92, 0.9), rgba(8, 19, 92, 0.9)), url(../images/slider-bg2.jpg);
+  background-image: -moz-linear-gradient(left, rgba(8, 19, 92, 0.9), rgba(8, 19, 92, 0.9)), url(../images/slider-bg2.jpg);
+  background-image: -o-linear-gradient(left, rgba(8, 19, 92, 0.9), rgba(8, 19, 92, 0.9)), url(../images/slider-bg2.jpg);
+  background-image: linear-gradient(to right, rgba(8, 19, 92, 0.9), rgba(8, 19, 92, 0.9)), url(../images/slider-bg2.jpg);
   background-size: cover;
 }
 
@@ -385,9 +391,12 @@ a:focus {
   text-transform: uppercase;
 }
 
-.slider_section .find_container form .btn-box button.btn:hover {
+.slider_section .find_container form .btn-box button.btn:hover,
+form button.btn.btn-box:hover {
   background-color: transparent;
   color: #e41a2b;
+  border: 1px solid #e41a2b;
+
 }
 
 .slider_section .find_container .nice-select:after {
@@ -1096,12 +1105,15 @@ a:focus {
 .fixed-height {
   height: 750px;
 }
-.bsb-tpl-bg-fallout {
-  color: #477bb7;
-  background: #ffd761 !important;
+.bsb-tpl-bg-left {
+  color: #000000;
+  background: #ffffffcb !important;
 }
-.bsb-tpl-bg-lotion {
+.bsb-tpl-bg-right {
   background: #fafafa !important;
+}
+.alert-link a.alert:hover {
+  color: #e41a2b;
 }
 
 /* ===== POPUP msg box ====== */

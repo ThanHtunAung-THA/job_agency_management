@@ -1,8 +1,5 @@
-<?php 
-session_start();
-include '../includes/head.php'; 
-?>
-
+<?php session_start(); ?>
+<?php include '../includes/head.php'; ?>
 <body>
 
 <?php include '../includes/header.php'; ?>
@@ -22,6 +19,10 @@ include '../includes/head.php';
 <!-- job section -->
 <?php include '../components/jobs_recent.php'; ?>
 <!-- end job section -->
+
+<!-- info section -->
+<?php include '../components/contact.php'; ?>
+<!-- end info_section -->
 
 <?php include '../includes/footer.php'; ?>
 

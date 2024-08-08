@@ -1,9 +1,4 @@
-<?php session_start(); ?>
-<?php include '../includes/head.php'; ?>
-<body style="  background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/header.php'; ?>
-
-  <section class="info_section layout_margin">
+<section class="info_section">
     <div class="container">
       <div class="row">
         <div class="col-md-2 info_links">
@@ -12,17 +7,17 @@
           </h4>
           <ul>
             <li class="active">
-              <a href="index.html">
+              <a href="<?php echo PUBLIC_URL; ?>">
                 Home
               </a>
             </li>
             <li>
-              <a href="about.html">
+              <a href="<?php echo PUBLIC_URL; ?>/about.php">
                 About
               </a>
             </li>
             <li>
-              <a class="" href="contact.html">
+              <a class="" href="<?php echo PUBLIC_URL; ?>/contact.php">
                 Contact
               </a>
             </li>
@@ -43,8 +38,9 @@
             </h4>
             <p>
               Address: 123 Main St, Anytown, USA 12345<br>
-              Phone: (555) 555-5555<br>
-              Email: <a href="mailto:info@example.com">info@example.com</a>
+              Phone 1: (+959) 798174380<br>
+              Phone 2: (+959) 974847753<br>
+              Email: <a href="mailto:t.thantunaung@gmail.com">info@m2y2.com</a>
             </p>
           </div>
         </div>
@@ -67,7 +63,3 @@
       </div>
     </div>
   </section>
-
-<?php include '../includes/foot.php'; ?>
-</body>
-</html>

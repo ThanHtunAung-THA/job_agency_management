@@ -91,22 +91,31 @@ $db->close();
 
   <section class="container">
     <div class="row">
-        <div class="col-12 col-md-6 bsb-tpl-bg-fallout">
+        <div class="col-12 col-md-6 bsb-tpl-bg-left card">
             <div class="d-flex flex-column justify-content-between p-md-4 p-xl-5">
                 <h3 class="m-0 ">Welcome!</h3>
-                <img src="../assets/image/fallout-thumbsup.png" alt="Login Image" class="img-fluid mx-auto my-4">
+                <img src="../assets/images/ojc-round.png" alt="Login Image" class="img-fluid mx-auto my-4">
             </div>
             <center>
-            <p class="mb-0 ">
-                Already had an account ?
-                <a href="login.php" class="link-secondary text-decoration-none"> 
-                    Log in here 
-                </a>
+            <p class="mb-5">
+                <div class="alert-link">
+                    Already had an account ? ...
+                    <a href="login.php" class="alert"> 
+                    Login here 
+                    </a>
+                </div><br>
+                <div class="alert-link">
+                    If you forgot your password ? ... 
+                    <a href="password_reset.php" class="alert">
+                    Reset here
+                    </a>
+                </div>
             </p>
             </center>
         </div>
 
-        <div class="col-12 col-md-6 bsb-tpl-bg-lotion ">
+        <div class="col-12 col-md-6 bsb-tpl-bg-left card">
+
             <div class="p-3 p-md-4 p-xl-5">
                 <div class="row">
                 <div class="col-12">
@@ -116,7 +125,7 @@ $db->close();
                 </div>
             </div>       
 
-            <form method="POST" class="card-body" enctype="multipart/form-data">
+            <form method="POST" class="card card-body" enctype="multipart/form-data">
                 <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                 <div class="form-group">
                     <label class="form-label" for="username">Name <span class="text-danger">*</span></label>
@@ -137,7 +146,7 @@ $db->close();
                         <option value="employer">Employer</option>
                     </select>    
                 </div>
-                <button type="submit" class="btn btn-primary mb-1">Register</button>
+                <button type="submit" class="btn btn-primary btn-box mb-1">Register</button>
                 <hr class="mb-0 border-secondary-subtle">
             </form>
             </div>
