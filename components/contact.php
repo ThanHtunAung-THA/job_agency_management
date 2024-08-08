@@ -49,12 +49,12 @@
             <h4>
               Send a Message
             </h4>
-            <form action="">
-              <input type="text" placeholder="Your Name" />
-              <input type="email" placeholder="Your Email" />
-              <input type="text" placeholder="Subject" />
-              <textarea placeholder="Message"></textarea>
-              <button type="submit">
+            <form action="" id="contactForm">
+              <input id="name" type="text" placeholder="Your Name"  required/>
+              <input id="email" type="email" placeholder="Your Email"  required/>
+              <input id="subj" type="text" placeholder="Subject"  required/>
+              <textarea id="msg" placeholder="Message" required></textarea>
+              <button id="sendButton" type="submit">
                 Send Message
               </button>
             </form>

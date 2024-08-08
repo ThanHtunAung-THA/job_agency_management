@@ -1,3 +1,19 @@
+// ========= sending email =========
+document.getElementById('sendButton').addEventListener('click', function() {
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var subj = document.getElementById('subj').value;
+    var msg = document.getElementById('msg').value;
+  
+    var mailtoLink = 'mailto:t.thantunaung@gmail.com?subject=Contact%20Form%20Submission&body=' +
+      'Name: ' + encodeURIComponent(name) + '%0D%0A' +
+      'Email: ' + encodeURIComponent(email) + '%0D%0A' +
+      'Subj: ' + encodeURIComponent(subj) + '%0D%0A' +
+      'Message: ' + encodeURIComponent(msg);
+  
+    window.location.href = mailtoLink;
+  });
+
 // ========= popup msg box ==========
 document.addEventListener('DOMContentLoaded', (event) => {
     const popupMessage = document.getElementById('popup-message');
@@ -34,3 +50,15 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl)
 });
 
+// ========= get current year ==========
+function getYear() {
+    var currentDate = new Date();
+    var currentYear = currentDate.getFullYear();
+    document.querySelector("#displayYear").innerHTML = currentYear;
+}
+getYear();
+
+// nice select
+$(document).ready(function () {
+    $('select').niceSelect();
+});

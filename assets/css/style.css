@@ -1013,7 +1013,8 @@ form button.btn.btn-box:hover {
   background-color: #e41a2b;
 }
 
-.info_section .info_form input {
+.info_section .info_form input,
+.info_section .info_form textarea {
   width: 100%;
   border: none;
   height: 45px;
@@ -1022,6 +1023,9 @@ form button.btn.btn-box:hover {
   background-color: #eaeaea;
   outline: none;
   color: #101010;
+}
+.info_section .info_form textarea {
+  height: 100px;
 }
 
 .info_section .info_form button {

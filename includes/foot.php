@@ -4,5 +4,4 @@
   <!-- nice select -->
   <script src="<?php echo ASSETS_URL; ?>/js/jquery-nice-select.min.js" crossorigin="anonymous"></script>
   <!-- custom js -->
-  <script src="<?php echo ASSETS_URL; ?>/js/custom.js"></script>
   <script src="<?php echo ASSETS_URL; ?>/js/scripts.js"></script>
