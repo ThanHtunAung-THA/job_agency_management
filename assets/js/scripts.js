@@ -1,5 +1,5 @@
-// ========= sending email =========
-document.getElementById('sendButton').addEventListener('click', function() {
+// Email function
+function sendEmail() {
     var name = document.getElementById('name').value;
     var email = document.getElementById('email').value;
     var subj = document.getElementById('subj').value;
@@ -12,77 +12,75 @@ document.getElementById('sendButton').addEventListener('click', function() {
       'Message: ' + encodeURIComponent(msg);
   
     window.location.href = mailtoLink;
-  });
-
-// ========= popup msg box ==========
-document.addEventListener('DOMContentLoaded', (event) => {
+  }
+  
+  // Popup message box function
+  function popupMessageBox() {
     const popupMessage = document.getElementById('popup-message');
     const closePopup = document.getElementById('close-popup');
-
+  
     if (popupMessage && closePopup) {
-        closePopup.addEventListener('click', () => {
-            popupMessage.style.display = 'none';
-        });
-
-        popupMessage.addEventListener('click', (e) => {
-            if (e.target === popupMessage) {
-                popupMessage.style.display = 'none';
-            }
-        });
+      closePopup.addEventListener('click', () => {
+        popupMessage.style.display = 'none';
+      });
+  
+      popupMessage.addEventListener('click', (e) => {
+        if (e.target === popupMessage) {
+          popupMessage.style.display = 'none';
+        }
+      });
     }
-});
-
-// ========= imgae thumbnail ==========
-function showThumbnail(input) {
+  }
+  
+  // Show thumbnail function
+  function showThumbnail(input) {
     if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-            var thumbnail = document.getElementById('thumbnail-container');
-            thumbnail.innerHTML = '<img src="' + e.target.result + '" style="width: 100%; height: 100%; object-fit: cover;">';
-        };
-        reader.readAsDataURL(input.files[0]);
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        var thumbnail = document.getElementById('thumbnail-container');
+        thumbnail.innerHTML = '<img src="' + e.target.result + '" style="width: 100%; height: 100%; object-fit: cover;">';
+      };
+      reader.readAsDataURL(input.files[0]);
     }
-}
-
-// ========= Initialize tooltip feature =========
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl)
-});
-
-// ========= get current year ==========
-function getYear() {
+  }
+  
+  // Initialize tooltip feature function
+  function initTooltips() {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    });
+  }
+  
+  // Get current year function
+  function getYear() {
     var currentDate = new Date();
     var currentYear = currentDate.getFullYear();
     document.querySelector("#displayYear").innerHTML = currentYear;
-}
-getYear();
-
-// nice select
-$(document).ready(function () {
-    $('select').niceSelect();
-});
-
-
-// ========= search btn in jobs.php ==========
-$(document).ready(function(){
-  $("#searchBtn").click(function(){
-    var searchTerm = $("#searchBar").val();
-    $.ajax({
-      type: "POST",
-      url: "search-jobs.php",
-      data: {searchTerm: searchTerm},
-      success: function(data){
-        $("#job-list").html(data);
-      }
+  }
+  
+  // Nice select function
+  function niceSelect() {
+    $(document).ready(function () {
+      $('select').niceSelect();
     });
+  }
+  
+  // Search bar function
+  function searchBar() {
+    var searchBar = document.getElementById('searchBar').value.trim();
+    if (searchBar !== '') {
+      window.location.href = '/ojc.com/jobs/search.php?q=' + searchBar;
+    }
+  }
+  
+  // Run functions on page load
+  document.addEventListener('DOMContentLoaded', function () {
+    popupMessageBox();
+    initTooltips();
+    getYear();
+    niceSelect();
   });
-});
-
-// ========= search in jobs.php ==========
-// document.getElementById('searchBtn').addEventListener('click', function() {
-//   var searchBar = document.getElementById('searchBar').value.trim();
-//   if (searchBar !== '') {
-//     window.location.href = 'search.php?q=' + searchBar;
-//   }
-// });
+  
+  // Add event listener to send button
+  document.getElementById('sendButton').addEventListener('click', sendEmail);

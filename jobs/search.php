@@ -14,11 +14,11 @@ $limit = 5;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-$sql = "SELECT * FROM jobs WHERE job_title LIKE '%$searchQuery%' OR job_desc LIKE '%$searchQuery%'";
+$sql = "SELECT * FROM jobs WHERE id = '$searchQuery' OR job_title LIKE '%$searchQuery%' LIMIT $offset, $limit";
 $results = $conn->query($sql);
 
 // Get total number of rows
-$sqlTotal = "SELECT COUNT(*) as total FROM jobs WHERE job_title LIKE '%$searchQuery%' OR job_desc LIKE '%$searchQuery%'";
+$sqlTotal = "SELECT COUNT(*) as total FROM jobs WHERE job_title LIKE '%$searchQuery%' ";
 $resultTotal = $conn->query($sqlTotal);
 $totalRows = $resultTotal->fetch_assoc()['total'];
 $totalPages = ceil($totalRows / 5);
@@ -40,7 +40,7 @@ $totalPages = ceil($totalRows / 5);
         <div class="input-group input-group-lg">
           <input type="text" id="searchBar" class="form-control" placeholder="Search job">
           <span class="input-group-btn">
-            <button id="searchBtn" type="button" class="btn btn-info">Go!</button>
+            <button id="searchBtn" type="button" class="btn btn-info" onclick="searchBar()">Go!</button>
           </span>
         </div>
       </div>
@@ -79,7 +79,7 @@ $totalPages = ceil($totalRows / 5);
     <ul class="pagination justify-content-center">
       <?php if ($page > 1): ?>
         <li class="page-item">
-          <a class="page-link" href="?page=<?= $page - 1; ?>" aria-label="Previous">
+          <a class="page-link" href="?q=<?= $searchQuery; ?>&page=<?= $page - 1; ?>" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">Previous</span>
           </a>
@@ -87,12 +87,12 @@ $totalPages = ceil($totalRows / 5);
       <?php endif; ?>
       <?php for ($i = 1; $i <= $totalPages; $i++): ?>
         <li class="page-item <?= $page == $i ? 'active' : ''; ?>">
-          <a class="page-link" href="?page=<?= $i; ?>"><?= $i; ?></a>
+          <a class="page-link" href="?q=<?= $searchQuery; ?>&page=<?= $i; ?>"><?= $i; ?></a>
         </li>
       <?php endfor; ?>
       <?php if ($page < $totalPages): ?>
         <li class="page-item">
-          <a class="page-link" href="?page=<?= $page + 1; ?>" aria-label="Next">
+          <a class="page-link" href="?q=<?= $searchQuery; ?>&page=<?= $page + 1; ?>" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>
           </a>
@@ -101,17 +101,8 @@ $totalPages = ceil($totalRows / 5);
     </ul>
   </nav>
 </section>
-</div>
 
-<!-- content here -->
-<script>
-document.getElementById('searchBtn').addEventListener('click', function() {
-var searchBar = document.getElementById('searchBar').value.trim();
-if (searchBar !== '') {
-    window.location.href = 'search.php?q=' + searchBar;
-}
-});
-</script>
+</div>
 
 <?php include '../includes/foot.php'; ?>
 </body>

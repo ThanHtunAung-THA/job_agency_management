@@ -1,209 +1,3 @@
-<?php
-include '../includes/config.php';
-include '../includes/Database.php';
-
-$error = '';
-$success = '';
-
-$db = new Database();
-$conn = $db->getConnection();
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $cv_file_path = $_FILES['cv_file_path']['name'];
-    $description = $_POST['description'];
-    $image = $_FILES['image']['name'];
-    $target = UPLOAD_PATH . basename($image);
-
-    if (empty($username) || empty($email) || empty($password)) {
-        $error = 'All fields except profile image, CV file, and description are required.';
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $error = 'Invalid email format.';
-    } elseif (strlen($password) < 6) {
-        $error = 'Password must be at least 6 characters long.';
-    } else {
-        // If an image is uploaded, try to move it to the target directory
-        if (!empty($image) && !move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-            $error = 'Failed to upload image.';
-        } else {
-            // Hash password
-            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-            // Prepare SQL query
-            if (empty($image)) {
-                $query = "INSERT INTO employees (username, email, password, cv_file_path, description) VALUES (?, ?, ?, ?, ?)";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param('sssss', $username, $email, $hashed_password, $cv_file_path, $description);
-            } else {
-                $query = "INSERT INTO employees (username, email, password, image, cv_file_path, description) VALUES (?, ?, ?, ?, ?, ?)";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param('ssssss', $username, $email, $hashed_password, $image, $cv_file_path, $description);
-            }
-
-            // Execute query
-            if ($stmt->execute()) {
-                $success = 'Registration successful!';
-                // Get the newly created user's ID
-                $userId = $conn->insert_id;
-                // Create a session to store the user's ID
-                session_start();
-                $_SESSION['user_id'] = $userId;
-                $_SESSION['user_name'] = $username;
-
-                header('Location: ../_user/employee_dashboard.php');
-                exit;
-            } else {
-                $error = 'Error: ' . $stmt->error;
-            }
-
-            // Close statement
-            $stmt->close();
-        }
-    }
-}
-
-// Close database connection
-$db->close();
-?>
-
-<?php include '../includes/head.php'; ?>
-
-<body style="background-image: linear-gradient(to right, #6fbae2, #7168c9);">
-  <?php include '../includes/header.php'; ?>
-
-  <?php if ($error || $success): ?>
-    <div id="popup-message" class="popup-message-overlay">
-        <div class="popup-message-box">
-            <button id="close-popup" class="close-btn">&times;</button>
-            <div class="popup-message-content">
-                <?php if ($error): ?>
-                    <div class="error"><?= htmlspecialchars($error); ?></div>
-                <?php elseif ($success): ?>
-                    <div class="success"><?= htmlspecialchars($success); ?></div>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-  <?php endif; ?>
-
-  <section class="container">
-    <div class="row">
-        <div class="col-12 col-md-6 bsb-tpl-bg-fallout">
-            <div class="d-flex flex-column justify-content-between p-md-4 p-xl-5">
-                <h3 class="m-0 ">Welcome!</h3>
-                <img src="../assets/image/fallout-thumbsup.png" alt="Login Image" class="img-fluid mx-auto my-4">
-            </div>
-            <center>
-            <p class="mb-0 ">
-                Already had an account ?
-                <a href="login.php" class="link-secondary text-decoration-none"> 
-                    Log in here 
-                </a>
-            </p>
-            </center>
-        </div>
-
-        <div class="col-12 col-md-6 bsb-tpl-bg-lotion ">
-            <div class="p-3 p-md-4 p-xl-5">
-                <div class="row">
-                <div class="col-12">
-                    <div class="mb-5">
-                        <h3>Register</h3>
-                    </div>
-                </div>
-            </div>       
-
-            <form method="POST" class="card-body" enctype="multipart/form-data">
-                <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
-                <div class="form-group">
-                    <label class="form-label" for="username">Name <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="password">Password <span class="text-danger">*</span></label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="role">Role <span class="text-danger">*</span></label>
-                    <select name="role" id="role" class="form-control" required>
-                        <option value="employee">Employee</option>
-                        <option value="employer">Employer</option>
-                    </select>    
-                </div>
-                <div class="form-group">
-                    <label for="image">Profile Image:</label>
-                    <input type="file" name="image" id="image" accept="image/*" onchange="showThumbnail(this)" data-bs-toggle="tooltip" data-bs-placement="left" title="This is Optional">
-                    <div id="thumbnail-container" class="thumbnail-container"></div>
-                </div>
-                <button type="submit" class="btn btn-primary mb-1">Register</button>
-                <hr class="mb-0 border-secondary-subtle">
-            </form>
-            </div>
-        </div>
-    </div>
-
-</section>
-
-<?php include '../includes/foot.php'; ?>
-</body>
-</html>
-
-///////////////////////////////////////////////////////
-
-<?php
-
-        if (!empty($image) && !move_uploaded_file($_FILES['image']['tmp_name'], $target)) {
-            $error = 'Failed to upload image.';
-        } else {
-            // Hash password
-            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-            // Prepare SQL query
-            if (empty($image)) {
-                $query = "INSERT INTO employees (username, email, password, cv_file_path, description) VALUES (?, ?, ?, ?, ?)";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param('sssss', $username, $email, $hashed_password, $cv_file_path, $description);
-            } else {
-                $query = "INSERT INTO employees (username, email, password, image, cv_file_path, description) VALUES (?, ?, ?, ?, ?, ?)";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param('ssssss', $username, $email, $hashed_password, $image, $cv_file_path, $description);
-            }
-
-            // Execute query
-            if ($stmt->execute()) {
-                $success = 'Registration successful!';
-                // Get the newly created user's ID
-                $userId = $conn->insert_id;
-                // Create a session to store the user's ID
-                session_start();
-                $_SESSION['user_id'] = $userId;
-                $_SESSION['user_name'] = $username;
-
-                header('Location: ../_user/employee_dashboard.php');
-                exit;
-            } else {
-                $error = 'Error: ' . $stmt->error;
-            }
-
-            // Close statement
-            $stmt->close();
-        }
-    }
-}
-
-// Close database connection
-$db->close();
-?>
-
-
-
 =======================
 
 <div class="form-group">
@@ -310,27 +104,165 @@ $db->close();
   </div>
 
 
-========================
-
-      <?php
-
-      $limit = 5;
-
-      $sql = "SELECT COUNT(id_jobpost) AS id FROM job_post";
-      $result = $conn->query($sql);
-      if($result->num_rows > 0)
-      {
-        $row = $result->fetch_assoc();
-        $total_records = $row['id'];
-        $total_pages = ceil($total_records / $limit);
-      } else {
-        $total_pages = 1;
-      }
-
-      ?>
 
 
-///////////////////
 
 
-ALTER TABLE `jobs` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
+
+
+  ======================================
+
+
+  <section class="slider_section ">
+  <div class="container ">
+    <div class="row">
+      <div class="col-lg-7 col-md-8 mx-auto">
+        <div class="detail-box">
+          <h1>
+            Find Your Dream Job <br>
+            ADVANCE YOUR CAREER
+          </h1>
+          <p>
+            Search thousands of job openings, get expert career advice, and connect with top employers in your industry.
+          </p>
+          <a href="<?php echo JOBS_URL; ?>/jobs.php" class="btn btn-primary btn-lg btn-block">Search Jobs Now</a>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</section>
+</div> <!-- this is from header>div -->
+
+========================================================================================================================
+========================================================================================================================
+========================================================================================================================
+
+Job Title: Development Team Lead
+
+Reports to: Engineering Manager/Director of Engineering
+
+Location: [Insert Location]
+
+Job Type: Full-time
+
+About Us:
+
+[Company Name] is a [briefly describe the company and its mission]. We're seeking an experienced Development Team Lead to join our team and help drive the development of our [products/projects]. As a Development Team Lead, you will play a critical role in leading a team of software engineers, guiding the technical direction of our projects, and ensuring the delivery of high-quality software products.
+
+Job Summary:
+
+We're looking for a seasoned Development Team Lead to lead a team of talented software engineers. The successful candidate will have a strong technical background, excellent leadership skills, and a passion for delivering high-quality software products. The Development Team Lead will be responsible for guiding the technical direction of our projects, mentoring team members, and collaborating with cross-functional teams to drive business outcomes.
+
+Key Responsibilities:
+
+Technical Leadership:
+Provide technical guidance and oversight to a team of software engineers.
+Collaborate with the engineering team to design, develop, and deliver high-quality software products.
+Ensure that the team is following best practices, coding standards, and industry trends.
+Team Management:
+Lead, mentor, and coach a team of software engineers to achieve their full potential.
+Foster a culture of innovation, collaboration, and continuous learning.
+Conduct regular 1-on-1 meetings, performance reviews, and provide constructive feedback.
+Project Planning and Execution:
+Collaborate with the product management team to define project requirements and deliverables.
+Develop and manage project plans, resource allocation, and timelines.
+Ensure that projects are delivered on time, within budget, and meet the required quality standards.
+Communication and Collaboration:
+Communicate technical plans, progress, and results to stakeholders, including non-technical audiences.
+Collaborate with cross-functional teams, including product management, design, and QA.
+Participate in code reviews, provide feedback, and ensure that the team is following best practices.
+Process Improvement:
+Identify areas for process improvement and implement changes to optimize team efficiency and productivity.
+Develop and maintain technical documentation, including architecture diagrams, technical notes, and best practices.
+Requirements:
+
+Technical Skills:
+Proficiency in one or more programming languages (e.g., Java, Python, C++, JavaScript).
+Experience with software development methodologies (e.g., Agile, Scrum, Kanban).
+Strong understanding of computer science fundamentals, including data structures, algorithms, and software design patterns.
+Leadership Experience:
+2+ years of experience leading a team of software engineers.
+Proven track record of delivering high-quality software products on time and on budget.
+Experience with mentoring, coaching, and developing the skills of team members.
+Communication and Collaboration:
+Excellent communication and interpersonal skills.
+Ability to communicate technical concepts to non-technical audiences.
+Experience with collaboration tools, including version control systems (e.g., Git), project management tools (e.g., Jira), and communication platforms (e.g., Slack).
+Education:
+Bachelor's degree in Computer Science, Software Engineering, or a related field.
+Nice to Have:
+
+Master's degree in Computer Science, Software Engineering, or a related field.
+Experience with cloud-based technologies (e.g., AWS, Azure, Google Cloud).
+Experience with DevOps practices and tools (e.g., Docker, Kubernetes, Jenkins).
+Certifications in software development methodologies (e.g., Scrum Master, Agile Coach).
+What We Offer:
+
+Competitive salary and benefits package.
+Opportunities for professional growth and development.
+Collaborative and dynamic work environment.
+Flexible working hours and remote work options.
+Access to cutting-edge technologies and tools.
+
+========================================================
+
+Job Title: Front-end Developer - Responsive Web Design
+
+Reports to: Technical Lead/Project Manager
+
+Location: [Insert Location]
+
+Job Type: Full-time
+
+About Us:
+
+[Company Name] is a [briefly describe the company and its mission]. We're seeking an experienced Front-end Developer to join our team and help make our website responsive and device compatible. As a Front-end Developer, you will play a critical role in ensuring that our website provides an optimal user experience across various devices and browsers.
+
+Job Summary:
+
+We're looking for a skilled Front-end Developer to lead the effort in making our website responsive and device compatible. The successful candidate will have a strong background in front-end development, excellent problem-solving skills, and a passion for delivering high-quality user experiences. The Front-end Developer will be responsible for designing, developing, and testing responsive web pages, ensuring that our website is accessible and usable across various devices and browsers.
+
+Key Responsibilities:
+
+Responsive Web Design:
+Design and develop responsive web pages that adapt to different screen sizes, devices, and browsers.
+Ensure that the website is accessible and usable across various devices, including desktops, laptops, tablets, and mobile phones.
+Implement responsive design principles, including flexible grids, images, and media queries.
+Front-end Development:
+Write clean, efficient, and well-documented front-end code using HTML, CSS, and JavaScript.
+Utilize front-end frameworks and libraries, such as Bootstrap, Foundation, or React, to build responsive web pages.
+Ensure that the website is compatible with various browsers, including Chrome, Firefox, Safari, and Internet Explorer.
+Testing and Debugging:
+Test and debug responsive web pages to ensure that they are functioning as expected across various devices and browsers.
+Identify and resolve front-end bugs and issues, including those related to layout, styling, and JavaScript functionality.
+Collaborate with the QA team to ensure that the website meets the required quality standards.
+Collaboration and Communication:
+Collaborate with the design team to ensure that the responsive design meets the required design standards.
+Communicate technical plans, progress, and results to stakeholders, including non-technical audiences.
+Participate in code reviews and provide feedback to ensure that the front-end code is of high quality.
+Requirements:
+
+Technical Skills:
+Proficiency in front-end development technologies, including HTML, CSS, and JavaScript.
+Experience with responsive web design principles, including flexible grids, images, and media queries.
+Familiarity with front-end frameworks and libraries, such as Bootstrap, Foundation, or React.
+Experience:
+2+ years of experience in front-end development, with a focus on responsive web design.
+Portfolio that showcases responsive web design work.
+Experience with testing and debugging front-end code.
+Education:
+Bachelor's degree in Computer Science, Web Development, or a related field.
+Nice to Have:
+
+Experience with CSS preprocessors, such as Sass or Less.
+Familiarity with JavaScript frameworks, such as Angular or Vue.js.
+Experience with accessibility guidelines, including WCAG 2.1.
+Certifications in front-end development, such as Certified Front-end Developer (CFD).
+What We Offer:
+
+Competitive salary and benefits package.
+Opportunities for professional growth and development.
+Collaborative and dynamic work environment.
+Flexible working hours and remote work options.
+Access to cutting-edge technologies and tools.

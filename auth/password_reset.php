@@ -97,7 +97,6 @@ $db->close();
             </center>
         </div>
 
-
         <div class="col-12 col-md-6 bsb-tpl-bg-left card ">
 
             <div class="p-3 p-md-4 p-xl-5">
@@ -109,7 +108,6 @@ $db->close();
                     </div>
                 </div>
 
-                
                 <form method="POST" class="card card-body" enctype="multipart/form-data">
                     <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                     <div class="form-group">
@@ -125,7 +123,7 @@ $db->close();
                         <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password" required>
                     </div>
                     <button type="submit" class="btn btn-primary btn-box mb-1">Reset password</button>
-                    <hr class="mb-5 border-secondary-subtle">
+                    <hr class="mb-0 border-secondary-subtle">
                 </form>
             </div>
         </div>

@@ -17,57 +17,17 @@
     <div class="find_container ">
       <div class="container">
         <div class="row">
-          <div class="col">
-            <form>
-              <div class="form-row ">
-                <div class="form-group col-lg-3">
-                  <input type="text" class="form-control" id="inputPatientName" placeholder="Keywords">
-                </div>
-                <div class="form-group col-lg-3">
-                  <select name="" class="form-control wide" id="inputDoctorName">
-                    <option value="Normal distribution ">All Locations</option>
-                    <option value="Normal distribution ">Location 2 </option>
-                    <option value="Normal distribution ">Location 3 </option>
-                  </select>
-                </div>
-                <div class="form-group col-lg-3">
-                  <select name="" class="form-control wide" id="inputDepartmentName">
-                    <option value="Normal distribution ">SEO Expert </option>
-                    <option value="Normal distribution ">Web Designer </option>
-                    <option value="Normal distribution ">Web Developer</option>
-                    <option value="Normal distribution ">Graphic Deesigner</option>
-                    <option value="Normal distribution ">Content Writer</option>
-                  </select>
-                </div>
-                <div class="form-group col-lg-3">
-                  <div class="btn-box">
-                    <button type="submit" class="btn ">Submit Now</button>
-                  </div>
-                </div>
-              </div>
-            </form>
+          <div class="col-md-12">
+            <div class="input-group input-group-lg container" style="width: 70%;">
+              <input type="text" id="searchBar" class="form-control" placeholder="Search job">
+              <span class="input-group-btn">
+                <button id="searchBtn" type="button" class="btn btn-info" onclick="searchBar()">Go!</button>
+              </span>
+            </div>
           </div>
+
         </div>
-        <ul class="job_check_list">
-          <li class=" ">
-            <input id="checkbox_qu_01" type="checkbox" class="styled-checkbox">
-            <label for="checkbox_qu_01">
-              Freelancer
-            </label>
-          </li>
-          <li class=" ">
-            <input id="checkbox_qu_02" type="checkbox" class="styled-checkbox">
-            <label for="checkbox_qu_02">
-              Part Time
-            </label>
-          </li>
-          <li class=" ">
-            <input id="checkbox_qu_03" type="checkbox" class="styled-checkbox">
-            <label for="checkbox_qu_03">
-              Full Time
-            </label>
-          </li>
-        </ul>
+        
       </div>
     </div>
   </div>

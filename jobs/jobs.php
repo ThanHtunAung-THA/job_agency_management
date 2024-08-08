@@ -34,7 +34,7 @@ $totalPages = ceil($totalRows / $limit);
         <div class="input-group input-group-lg">
           <input type="text" id="searchBar" class="form-control" placeholder="Search job">
           <span class="input-group-btn">
-            <button id="searchBtn" type="button" class="btn btn-info">Go!</button>
+            <button id="searchBtn" type="button" class="btn btn-info" onclick="searchBar()">Go!</button>
           </span>
         </div>
       </div>
@@ -52,8 +52,9 @@ $totalPages = ceil($totalRows / $limit);
           <?php while ($result = mysqli_fetch_array($results)): ?>
             <a href="detail.php?id=<?= $result['id']; ?>" class="job-listing-link">
             <li class="list-group-item">
-                <h3><?= $result['job_title']; ?></h3>
-                <p><?= substr($result['job_desc'], 0, 150); ?>...</p>
+                <h4 class="card-title"><?= "Job Sr.No - 233".$result['id']; ?></h4>
+                <h5 class="card-title"><?= $result['job_title']; ?></h5>
+                <p class="card-text"><?= substr($result['job_desc'], 0, 300); ?>...</p>
                 <a href="#" class="btn btn-success float-right">Apply job</a>
             </li>
             </a>
@@ -97,14 +98,6 @@ $totalPages = ceil($totalRows / $limit);
 </div>
 
 <!-- content here -->
-<script>
-document.getElementById('searchBtn').addEventListener('click', function() {
-var searchBar = document.getElementById('searchBar').value.trim();
-if (searchBar !== '') {
-    window.location.href = 'search.php?q=' + searchBar;
-}
-});
-</script>
 
 <?php include '../includes/foot.php'; ?>
 </body>

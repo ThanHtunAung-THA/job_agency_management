@@ -41,8 +41,8 @@
                 <button class="fav-btn">
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </button>
-                <a href="" class="apply-btn">
-                Apply Now
+                <a href="<?php echo JOBS_URL; ?>/search.php?q=67" class="apply-btn">
+                Read More
                 </a>
             </div>
             </div>
@@ -77,8 +77,8 @@
                 <button class="fav-btn">
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </button>
-                <a href="" class="apply-btn">
-                Apply Now
+                <a href="<?php echo JOBS_URL; ?>/search.php?q=68" class="apply-btn">
+                Read More
                 </a>
             </div>
             </div>
@@ -120,8 +120,8 @@
                 <button class="fav-btn">
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </button>
-                <a href="" class="apply-btn">
-                Apply Now
+                <a href="<?php echo JOBS_URL; ?>/search.php?q=69" class="apply-btn">
+                Read More
                 </a>
             </div>
             </div>
@@ -156,8 +156,8 @@
                 <button class="fav-btn">
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </button>
-                <a href="" class="apply-btn">
-                Apply Now
+                <a href="<?php echo JOBS_URL; ?>/search.php?q=70" class="apply-btn">
+                Read More
                 </a>
             </div>
             </div>
@@ -192,8 +192,8 @@
                 <button class="fav-btn">
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </button>
-                <a href="" class="apply-btn">
-                Apply Now
+                <a href="<?php echo JOBS_URL; ?>/search.php?q=40" class="apply-btn">
+                Read More
                 </a>
             </div>
             </div>
@@ -228,8 +228,8 @@
                 <button class="fav-btn">
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </button>
-                <a href="" class="apply-btn">
-                Apply Now
+                <a href="<?php echo JOBS_URL; ?>/search.php?q=1" class="apply-btn">
+                Read More
                 </a>
             </div>
             </div>
