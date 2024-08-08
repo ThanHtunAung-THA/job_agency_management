@@ -28,12 +28,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt_admins->execute();
         $result_admins = $stmt_admins->get_result();
 
-        // Prepare SQL query for users table
-        $query_users = "SELECT * FROM users WHERE email = ?";
-        $stmt_users = $conn->prepare($query_users);
-        $stmt_users->bind_param('s', $email);
-        $stmt_users->execute();
-        $result_users = $stmt_users->get_result();
+        // Prepare SQL query for employer table
+        $query_employer = "SELECT * FROM employers WHERE email = ?";
+        $stmt_employer = $conn->prepare($query_employer);
+        $stmt_employer->bind_param('s', $email);
+        $stmt_employer->execute();
+        $result_employer = $stmt_employer->get_result();
+
+        // Prepare SQL query for employee table
+        $query_employee = "SELECT * FROM employees WHERE email = ?";
+        $stmt_employee = $conn->prepare($query_employee);
+        $stmt_employee->bind_param('s', $email);
+        $stmt_employee->execute();
+        $result_employee = $stmt_employee->get_result();
+
 
         // Check if email exists in either table
         if ($result_admins->num_rows == 1) {
@@ -54,9 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             } else {
                 $error = 'Invalid email or password.';
             }
-        } elseif ($result_users->num_rows == 1) {
+        } elseif ($result_employer->num_rows == 1) {
             // Fetch user data
-            $user = $result_users->fetch_assoc();
+            $user = $result_employer->fetch_assoc();
 
             // Verify password
             if (password_verify($password, $user['password'])) {
@@ -64,25 +72,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 session_start();
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['user_name'] = $user['username'];
-                $_SESSION['user_role'] = $user['role'];
 
-                // Redirect to user dashboard
-                if ($user['role'] == 'employer') {
-                    header('Location: ../_user/employer_dashboard.php');
-                } elseif ($user['role'] == 'employee') {
-                    header('Location: ../_user/employee_dashboard.php');
-                }
+                header('Location: ../employers/dashboard.php');
                 exit();
             } else {
                 $error = 'Invalid email or password.';
             }
+        } elseif ($result_employee->num_rows == 1) {
+          // Fetch user data
+          $user = $result_employee->fetch_assoc();
+
+          // Verify password
+          if (password_verify($password, $user['password'])) {
+              // Start session and set session variables
+              session_start();
+              $_SESSION['user_id'] = $user['id'];
+              $_SESSION['user_name'] = $user['username'];
+              $_SESSION['user_role'] = $user['role'];
+
+              header('Location: ../employees/dashboard.php');
+              exit();
+          } else {
+              $error = 'Invalid email or password.';
+          }
         } else {
             $error = 'Invalid email or password.';
         }
 
         // Close statements
         $stmt_admins->close();
-        $stmt_users->close();
+        $stmt_employer->close();
+        $stmt_employee->close();
     }
 }
 
@@ -90,9 +110,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 $db->close();
 ?>
 
-<?php include '../includes/header.php'; ?>
+<?php include '../includes/head.php'; ?>
 
-<section class="p-3 p-md-4 p-xl-5">
+<body style="  background-image: linear-gradient(to right, #6fbae2, #7168c9);">
+  
+<?php include '../includes/header.php'; ?>
 
 <?php if ($error || $success): ?>
     <div id="popup-message" class="popup-message-overlay">
@@ -109,65 +131,64 @@ $db->close();
     </div>
 <?php endif; ?>
 
-  <div class="container ">
-    <div class="row fixed-height">
-      <div class="col-12 col-md-6 bsb-tpl-bg-platinum card">
-        <div class="d-flex flex-column justify-content-between  p-3 p-md-4 p-xl-5">
-          <h3 class="m-0 ">Welcome!</h3>
-          <img class="img-fluid rounded mx-auto my-4" src="../assets/image/fallout-thumbsup.png" width="auto" height="auto" alt="thumbsup">
 
-        </div>
+<section class="container ">
+  <div class="row">
+
+    <div class="col-12 col-md-6 bsb-tpl-bg-fallout">
+      <div class="d-flex flex-column justify-content-between p-md-4 p-xl-5">
+        <h3 class="m-0 ">Welcome!</h3>
+        <img src="../assets/image/fallout-thumbsup.png" alt="Login Image" class="img-fluid mx-auto my-4">
       </div>
-      <div class="col-12 col-md-6 bsb-tpl-bg-lotion card">
-        <div class="p-3 p-md-4 p-xl-5">
-          <div class="row">
-            <div class="col-12">
-              <div class="mb-5">
-                <h3 class="">Log in</h3>
-              </div>
-            </div>
-          </div>
-          <form method="POST" class="card-body">
-            <div class="row gy-3 gy-md-4 overflow-hidden">
-              <div class="col-12">
-                <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com" required>
-              </div>
-              <div class="col-12">
-                <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                <input type="password" class="form-control" name="password" id="password" value="" placeholder="* * * * * * * *" required>
-              </div>
-              <div class="col-12">
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" value="" name="remember_me" id="remember_me">
-                  <label class="form-check-label text-secondary" for="remember_me">
-                    Keep me logged in
-                  </label>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="d-grid">
-                  <button class="btn bsb-btn-xl btn-primary" type="submit">Log in now</button>
-                </div>
-              </div>
-            </div>
-          </form>
-          <div class="row">
-            <div class="col-12">
-              <hr class="mt-5 mb-4 border-secondary-subtle">
-              <p class="d-flex justify-content-between mb-0">
-                <span>
-                  <a href="register.php" class="link-secondary text-decoration-none hovering"> Register now </a><br/>
-                  Not have an account yet?<br/>
-                </span>
-                <a href="password_reset.php" class="link-secondary text-decoration-none hovering">Forgot password ?</a>
-              </p>
+      <center>
+      <p class="mb-5">
+          <span>
+            Not have an account yet ?
+            <a href="register.php" class="link-secondary text-decoration-none"> Register here </a><br/>
+          </span>
+          <br/>Or...<br/>
+          <span>
+            Forgot your password ?
+            <a href="password_reset.php" class="link-secondary text-decoration-none">Reset here</a>
+          </span>
+      </p>
+      </center>
+    </div>
+    
+    <div class="col-12 col-md-6 bsb-tpl-bg-lotion ">
+
+      <div class="p-3 p-md-4 p-xl-5">
+        <div class="row">
+          <div class="col-12">
+            <div class="mb-5">
+              <h3>Login</h3>
             </div>
           </div>
         </div>
+
+        <form method="post" class="card-body">
+          <div class="form-group">
+            <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="password">Password <span class="text-danger">*</span></label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password">
+          </div>
+          <div class="form-check mb-5">
+            <input class="form-check-input" type="checkbox" value="" name="remember_me" id="remember_me">
+            <label class="form-check-label text-secondary" for="remember_me">
+              Keep me logged in
+            </label>
+          </div>
+          <button type="submit" class="btn btn-primary mb-1">Login</button>
+          <hr class="mb-0 border-secondary-subtle">
+        </form>
       </div>
     </div>
   </div>
 </section>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../includes/foot.php'; ?>
+</body>
+</html>

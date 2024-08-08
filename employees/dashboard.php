@@ -4,6 +4,7 @@
 <?php include '../includes/header.php'; ?>
 
 <!-- content here -->
+<h1>employee</h1>
 
 <?php include '../includes/footer.php'; ?>
 <?php include '../includes/foot.php'; ?>

@@ -3,7 +3,7 @@
 define('DB_HOST', 'localhost');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('DB_NAME', 'overseas_jobs_agency');
+define('DB_NAME', 'overseas_job_central');
 
 class Database {
     private $conn;

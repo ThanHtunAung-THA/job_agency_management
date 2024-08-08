@@ -89,7 +89,7 @@ footer {
     bottom: 0;
 }
 
-/* ===== SIGN IN / REGISTER ====== */
+/* ===== LOG IN / REGISTER ====== */
 
 /* Extra Large Button */
 .bsb-btn-xl {
@@ -178,10 +178,6 @@ footer {
   .fixed-height {
     height: 740px;
   }
-
-  .hovering:hover {
-    color: #0d6efd !important;
-}
 
 /* ===== POPUP msg box ====== */
 
