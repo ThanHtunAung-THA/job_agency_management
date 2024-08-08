@@ -328,3 +328,9 @@ $db->close();
       }
 
       ?>
+
+
+///////////////////
+
+
+ALTER TABLE `jobs` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;

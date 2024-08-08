@@ -1185,3 +1185,10 @@ form button.btn.btn-box:hover {
 #searchBtn {
   height: calc(100% - 1px);
 }
+.job-listing-link {
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}

@@ -28,6 +28,9 @@ if (!defined('EMPLOYER_URL')) {
 if (!defined('EMPLOYEE_URL')) {
     define('EMPLOYEE_URL', '/ojc.com/employees');
 }
+if (!defined('JOBS_URL')) {
+    define('JOBS_URL', '/ojc.com/jobs');
+}
 
 
 // File upload path

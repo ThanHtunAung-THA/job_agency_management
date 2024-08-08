@@ -62,3 +62,27 @@ getYear();
 $(document).ready(function () {
     $('select').niceSelect();
 });
+
+
+// ========= search btn in jobs.php ==========
+$(document).ready(function(){
+  $("#searchBtn").click(function(){
+    var searchTerm = $("#searchBar").val();
+    $.ajax({
+      type: "POST",
+      url: "search-jobs.php",
+      data: {searchTerm: searchTerm},
+      success: function(data){
+        $("#job-list").html(data);
+      }
+    });
+  });
+});
+
+// ========= search in jobs.php ==========
+// document.getElementById('searchBtn').addEventListener('click', function() {
+//   var searchBar = document.getElementById('searchBar').value.trim();
+//   if (searchBar !== '') {
+//     window.location.href = 'search.php?q=' + searchBar;
+//   }
+// });

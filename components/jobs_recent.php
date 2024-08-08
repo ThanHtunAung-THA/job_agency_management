@@ -237,7 +237,7 @@
         </div>
     </div>
     <div class="btn-box">
-        <a href="<?php echo PUBLIC_URL; ?>/jobs.php">
+        <a href="<?php echo JOBS_URL; ?>/jobs.php">
         View All
         </a>
     </div>

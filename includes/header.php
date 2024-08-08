@@ -21,7 +21,7 @@
               <a class="nav-link" href="<?php echo PUBLIC_URL; ?>/about.php"> About</a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="<?php echo PUBLIC_URL; ?>/jobs.php"> Jobs </a>
+              <a class="nav-link" href="<?php echo JOBS_URL; ?>/jobs.php"> Jobs </a>
           </li>
           <?php if (!isset($_SESSION['user_id'])): ?>
 
