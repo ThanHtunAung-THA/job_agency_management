@@ -15,10 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
     $role = $_POST['role'];
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-    // $cv_file_path = $_FILES['cv_file_path']['name'];
-    // $description = $_POST['description'];
-    // $image = $_FILES['image']['name'];
-    // $target = UPLOAD_PATH . basename($image);
 
     if (empty($username) || empty($email) || empty($password)) {
         $error = 'All fields are required.';
@@ -45,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 session_start();
                 $_SESSION['user_id'] = $userId;
                 $_SESSION['user_name'] = $username;
-                $_SESSION['user_role'] = $role;
+                $_SESSION['role'] = $role;
 
                 if ($role == 'employer') {
                     header('Location: ../employers/dashboard.php');

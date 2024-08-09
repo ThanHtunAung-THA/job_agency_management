@@ -1,3 +1,8 @@
+    // $cv_file_path = $_FILES['cv_file_path']['name'];
+    // $description = $_POST['description'];
+    // $image = $_FILES['image']['name'];
+    // $target = UPLOAD_PATH . basename($image);
+
 =======================
 
 <div class="form-group">
