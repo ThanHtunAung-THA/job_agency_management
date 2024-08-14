@@ -1,5 +1,4 @@
 <?php
-include '../includes/config.php';
 include '../includes/Database.php';
 
 $error = '';

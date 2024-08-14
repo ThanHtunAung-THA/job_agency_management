@@ -1,5 +1,4 @@
 <?php
-// Include the Database class
 include '../includes/Database.php';
 
 // Initialize variables
