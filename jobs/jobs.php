@@ -84,7 +84,7 @@ $totalPages = ceil($totalRows / $limit);
                   <h4 class="card-title">Job Sr.No - 233<?= $result['id']; ?></h4>
                   <h5 class="card-title"><?= $result['job_title']; ?></h5>
                   <p class="card-text"><?= substr($result['job_desc'], 0, 300); ?>...</p>
-                  <a href="#" class="btn btn-success float-right">Apply job</a>
+                  <a href="detail.php?id=<?= $result['id']; ?>" class="btn btn-primary btn-apply">Detail</a>
               </li>
             </a>
           <?php endwhile; ?>

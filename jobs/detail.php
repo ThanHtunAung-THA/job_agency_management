@@ -1,7 +1,10 @@
 <?php
 session_start();
 include '../includes/Database.php';
-// Create a new Database instance
+
+$error = '';
+$success = '';
+
 $db = new Database();
 $conn = $db->getConnection();
 
@@ -27,12 +30,29 @@ if (!$row) {
     exit;
 }
 
+// Check if the "Apply job" button has been clicked
+if (isset($_POST['apply_job'])) {
+    if (!isset($_SESSION['user_id'])) {
+        $error = "Please log in to apply for this job.";
+    } 
+}
 ?>
 
 <?php include '../includes/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
 <?php include '../includes/header.php'; ?>
 <!-- content here -->
+<?php if ($error): ?>
+    <div id="popup-message" class="popup-message-overlay">
+        <div class="popup-message-box">
+            <button id="close-popup" class="close-btn">&times;</button>
+            <div class="popup-message-content">
+                <div class="error"><?= htmlspecialchars($error); ?></div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>
+
 <div class="jumbotron" style="margin-left: 0px;">
     <h3>Detail of Job Sr.No - 233<?= $row['id']; ?></h3>
 
@@ -58,7 +78,20 @@ if (!$row) {
                     <b>Salary :</b><br>
                     <?= $row['salary']; ?><br><br>
                 </div>
-                <a href="apply.php?id=<?= $job_id ?>" class="btn btn-success">Apply</a>        
+
+
+                <?php if (isset($_SESSION['user_id'])): ?>
+                    <form action="apply-job.php" method="post">
+                        <input type="hidden" name="job_id" value="<?= $job_id ?>">
+                        <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
+                        <button class="btn btn-success btn-apply" type="submit">Apply job</button>
+                    </form>
+                <?php else: ?>
+                    <form method="post">
+                        <input type="hidden" name="apply_job" value="1">
+                        <button class="btn btn-success btn-apply" type="submit">Apply job</button>
+                    </form>                
+                <?php endif; ?>                 
                 <a href="jobs.php" class="btn btn-secondary">Views All Jobs</a>
             </div>
         </div>

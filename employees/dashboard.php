@@ -1,4 +1,12 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
+include '../includes/Database.php';
+// Create a new Database instance
+$db = new Database();
+$conn = $db->getConnection();
+
+?>
+
 <?php include '../includes/head.php'; ?>
 <body>
 <?php include '../includes/header.php'; ?>

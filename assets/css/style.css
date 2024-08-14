@@ -1192,3 +1192,7 @@ form button.btn.btn-box:hover {
   text-decoration: none;
   color: inherit;
 }
+.btn-apply {
+  width: 120px;
+  float: right;
+}

@@ -73,14 +73,14 @@ function sendEmail() {
       window.location.href = '/ojc.com/jobs/search.php?q=' + searchBar;
     }
   }
-  
-  // Run functions on page load
-  document.addEventListener('DOMContentLoaded', function () {
-    popupMessageBox();
-    initTooltips();
-    getYear();
-    niceSelect();
-  });
-  
-  // Add event listener to send button
-  document.getElementById('sendButton').addEventListener('click', sendEmail);
+
+// Run functions on page load
+document.addEventListener('DOMContentLoaded', function () {
+  popupMessageBox();
+  initTooltips();
+  getYear();
+  niceSelect();
+});
+
+// Add event listener to send button
+document.getElementById('sendButton').addEventListener('click', sendEmail);
