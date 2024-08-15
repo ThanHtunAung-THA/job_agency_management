@@ -17,9 +17,7 @@
           <li class="nav-item">
               <a class="nav-link" href="<?php echo PUBLIC_URL; ?>"> Home </a>
           </li>
-          <li class="nav-item">
-              <a class="nav-link" href="<?php echo PUBLIC_URL; ?>/about.php"> About</a>
-          </li>
+     
           <li class="nav-item">
               <a class="nav-link" href="<?php echo JOBS_URL; ?>/jobs.php"> Jobs </a>
           </li>
