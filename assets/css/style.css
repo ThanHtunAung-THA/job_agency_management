@@ -93,7 +93,6 @@ a:focus {
 /*header section*/
 .hero_area {
   position: relative;
-  height: 100vh;
   display: -webkit-box;
   display: -moz-box;
   display: -ms-flexbox;
