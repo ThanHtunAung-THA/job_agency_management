@@ -24,15 +24,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     } elseif (strlen($password) < 6) {
         $error = 'Password must be at least 6 characters long.';
     } else {
-        // Hash password
-        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
-        // Prepare SQL query
-        $query = "UPDATE users SET password = ? WHERE users.username = ? AND users.email = ?";
+        // Check if username and email exist in database
+        $query = "SELECT * FROM employees WHERE username = ? AND email = ?";
         $stmt = $conn->prepare($query);
-        if (!$stmt) {
-            $error = 'Error: ' . $conn->error;
+        $stmt->bind_param('ss', $username, $email);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        if ($result->num_rows == 0) {
+            $error = 'Invalid username or email.';
         } else {
+            // Hash password
+            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+
+            // Prepare SQL query
+            $query = "UPDATE employees SET password = ? WHERE username = ? AND email = ?";
+            $stmt = $conn->prepare($query);
             $stmt->bind_param('sss', $hashed_password, $username, $email);
 
             // Execute query
@@ -40,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $success = 'Password reset successful!';
             } else {
                 $error = 'Error: ' . $stmt->error;
-            }
+            }            
             // Close statement
             $stmt->close();
         }

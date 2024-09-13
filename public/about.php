@@ -7,11 +7,11 @@
     <div class="container ">
         <div class="row align-items-center">
             
-            <div class="col-md-12 card bg-transparent">
+            <div class="col-md-12  bg-transparent">
                 <div class="shadow-sm">
                     <div class="card-body">
                         <h2 class="card-title">About Us</h2>
-                        <p class="card-text" style="font-size: 18px; line-height: 1.5;">
+                        <p class="card-text" style  ="font-size: 18px; line-height: 1.5;">
                             At Overseas Job Central, we are a global team of innovators and experts dedicated to delivering exceptional solutions for businesses worldwide. With a presence in over 50 countries and a diverse team of over 500 employees, we bring together the best minds to tackle complex challenges and drive growth.
                         </p>
                         <p class="card-text" style="font-size: 18px; line-height: 1.5;">
