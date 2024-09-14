@@ -91,7 +91,7 @@ a:focus {
 }
 
 /*header section*/
-.hero_area {
+.hero_area, .hero_area_auth {
   position: relative;
   display: -webkit-box;
   display: -moz-box;
@@ -110,6 +110,10 @@ a:focus {
   background-image: -o-linear-gradient(left, rgba(8, 19, 92, 0.9), rgba(8, 19, 92, 0.9)), url(../images/slider-bg2.jpg);
   background-image: linear-gradient(to right, rgba(8, 19, 92, 0.9), rgba(8, 19, 92, 0.9)), url(../images/slider-bg2.jpg);
   background-size: cover;
+}
+
+.hero_area {
+  height: 100vh;
 }
 
 .sub_page .hero_area {

@@ -1,4 +1,4 @@
-<div class="hero_area">
+<div class="hero_area_auth">
 <header class="header_section">
   <div class="container-fluid">
 

@@ -60,7 +60,7 @@ $db->close();
 
 <body style="  background-image: linear-gradient(to right, #6fbae2, #7168c9);">
   
-<?php include '../includes/header.php'; ?>
+<?php include '../includes/header_auth.php'; ?>
 
 <?php if ($error || $success): ?>
     <div id="popup-message" class="popup-message-overlay">
