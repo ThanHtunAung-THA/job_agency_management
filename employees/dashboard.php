@@ -10,7 +10,6 @@ $conn = $db->getConnection();
 
 $employeeId = $_SESSION['user_id'];
 
-
 // Retrieve the list of applied jobs for the current employee
 $stmt = $conn->prepare("SELECT aj.application_date, aj.status, j.ID, j.job_title, j.responsibilities, j.salary FROM applied_jobs aj INNER JOIN jobs j ON aj.job_id = j.ID WHERE aj.employee_id = ?");
 $stmt->bind_param("i", $employeeId);
@@ -29,7 +28,6 @@ while ($row = $result->fetch_assoc()) {
 <?php include '../includes/header-employee.php'; ?>
 
 <!-- content here -->
-
 <?php if ($error || $success): ?>
   <div id="popup-message" class="popup-message-overlay">
     <div class="popup-message-box">

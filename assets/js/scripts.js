@@ -84,3 +84,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Add event listener to send button
 document.getElementById('sendButton').addEventListener('click', sendEmail);
+
