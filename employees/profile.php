@@ -41,32 +41,32 @@ $employeeData = $result->fetch_assoc();
 
 <!-- Profile Section -->
 <div class="container mt-5">
-        <div class="row">
-            <!-- Profile Info Section -->
-            <div class="col-md-4 ">
-                <div class="profile-card text-center">
-                    <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded-circle img-fluid" alt="Profile Picture" width="150">
-                    <h3>John Doe</h3>
-                    <p>Full Stack Developer</p>
-                    <p>Bay Area, San Francisco, CA</p>
-                    <button class="btn btn-outline-primary buttons">Edit Image</button>
-                </div>
-            </div>
-
-            <!-- Contact Info Section -->
-            <div class="col-md-8">
-                <div class="profile-card">
-                    <h5>Full Name: <span>Kenneth Valdez</span></h5>
-                    <h5>Email: <span>fip@jukmuh.al</span></h5>
-                    <h5>Phone: <span>(239) 816-9029</span></h5>
-                    <h5>Address: <span>Bay Area, San Francisco, CA</span></h5>
-                    <button class="btn btn-outline-primary buttons">Edit Profile</button>
-                </div>
-
-                 
-            </div>
-        </div>
+  <div class="row">
+    <!-- Profile Info Section -->
+    <div class="col-md-4 ">
+      <div class="profile-card text-center">
+          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded-circle img-fluid" alt="Profile Picture" width="150">
+          <h3><?= $employeeData['username'] ?></h3>
+          <p><?= $employeeData['occupation'] ?></p>
+          <p><?= $employeeData['address'] ?></p>
+          <button class="btn btn-outline-primary buttons">Edit Image</button>
+      </div>
     </div>
+
+    <!-- Contact Info Section -->
+    <div class="col-md-8">
+      <div class="profile-card">
+        <h5><span class="span1">Full Name</span> : <span class="span2"><?= $employeeData['username'] ?></span></h5>
+        <h5><span class="span1">Email</span> : <span class="span2"><?= $employeeData['email'] ?></span></h5>
+        <h5><span class="span1">Phone</span>  : <span class="span2"><?= $employeeData['phone'] ?></span></h5>
+        <h5><span class="span1">Address</span>  : <span class="span2"><?= $employeeData['address'] ?></span></h5>
+        <h5><span class="span1">Description</span>   : <span class="span2"><?= $employeeData['description'] ?></span></h5> 
+
+        <button class="btn btn-outline-primary buttons">Edit Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <?php include '../includes/foot.php'; ?>
 </body>
