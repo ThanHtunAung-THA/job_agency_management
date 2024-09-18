@@ -45,10 +45,28 @@ $employeeData = $result->fetch_assoc();
     <!-- Profile Info Section -->
     <div class="col-md-4 ">
       <div class="profile-card text-center">
-          <img src="https://bootdey.com/img/Content/avatar/avatar7.png" class="rounded-circle img-fluid" alt="Profile Picture" width="150">
+        <?php if (!empty($employeeData['image'])): ?>
+          <img src="<?php echo UPLOAD_PATH; ?>/<?= $employeeData['id'] ?>/<?= $employeeData['image'] ?>" class="rounded-circle img-fluid" alt="Profile Picture" width="150">
+        <?php else: ?>
+          <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" class="rounded-circle img-fluid" alt="Profile Picture" width="150">
+          <p><span>*</span></p>
+        <?php endif; ?>
+
           <h3><?= $employeeData['username'] ?></h3>
+
+        <?php if (!empty($employeeData['occupation'])): ?>
           <p><?= $employeeData['occupation'] ?></p>
+        <?php else: ?>
+          <p><span>*</span><span>Add Your Profession</span><span>*</span></p>
+        <?php endif; ?>
+
+        <?php if (!empty($employeeData['address'])): ?>
           <p><?= $employeeData['address'] ?></p>
+        <?php else: ?>
+          <p><span>*</span><span>Add Your Address</span><span>*</span></p>
+        <?php endif; ?>
+
+
           <button class="btn btn-outline-primary buttons">Edit Image</button>
       </div>
     </div>
@@ -58,10 +76,27 @@ $employeeData = $result->fetch_assoc();
       <div class="profile-card">
         <h5><span class="span1">Full Name</span> : <span class="span2"><?= $employeeData['username'] ?></span></h5>
         <h5><span class="span1">Email</span> : <span class="span2"><?= $employeeData['email'] ?></span></h5>
-        <h5><span class="span1">Phone</span>  : <span class="span2"><?= $employeeData['phone'] ?></span></h5>
-        <h5><span class="span1">Address</span>  : <span class="span2"><?= $employeeData['address'] ?></span></h5>
-        <h5><span class="span1">Description</span>   : <span class="span2"><?= $employeeData['description'] ?></span></h5> 
-
+        <h5><span class="span1">Phone</span>  : 
+      <?php if (!empty($employeeData['phone'])): ?>
+        <span class="span2"><?= $employeeData['phone'] ?></span>
+      <?php else: ?>
+        <span class="span2"><span>*</span><span>Add Your Phone Number</span><span>*</span></span>
+      <?php endif; ?>
+    </h5>
+    <h5><span class="span1">Address</span>  : 
+      <?php if (!empty($employeeData['address'])): ?>
+        <span class="span2"><?= $employeeData['address'] ?></span>
+      <?php else: ?>
+        <span class="span2"><span>*</span><span>Add Your Address</span><span>*</span></span>
+      <?php endif; ?>
+    </h5>
+    <h5><span class="span1">Description</span>   : 
+      <?php if (!empty($employeeData['description'])): ?>
+        <span class="span2"><?= $employeeData['description'] ?></span>
+      <?php else: ?>
+        <span class="span2"><span>*</span><span>Add Your Description</span><span>*</span></span>
+      <?php endif; ?>
+    </h5>
         <button class="btn btn-outline-primary buttons">Edit Profile</button>
       </div>
     </div>
