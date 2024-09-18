@@ -9,13 +9,46 @@ $db = new Database();
 $conn = $db->getConnection();
 
 $employeeId = $_SESSION['user_id'];
-
-$employeeId = $_SESSION['user_id'];
 $stmt = $conn->prepare("SELECT * FROM employees WHERE id = ?");
 $stmt->bind_param("i", $employeeId);
 $stmt->execute();
 $result = $stmt->get_result();
 $employeeData = $result->fetch_assoc();
+
+if (isset($_POST['upload_image'])) {
+  $employeeId = $_SESSION['user_id'];
+  $image = $_FILES['upload_image'];
+
+  // Check if the image is valid
+  if ($image['error'] == 0) {
+    $imagePath = UPLOAD_PATH . '/' . $employeeId . '/';
+    if (!file_exists($imagePath)) {
+      mkdir($imagePath, 0777, true);
+    }
+    $imageName = $image['name'];
+    $imageTmpName = $image['tmp_name'];
+    $imageSize = $image['size'];
+    $imageType = $image['type'];
+
+    // Check if the image is an allowed type
+    $allowedTypes = array('image/jpeg', 'image/png', 'image/gif');
+    if (in_array($imageType, $allowedTypes)) {
+      // Upload the image
+      move_uploaded_file($imageTmpName, $imagePath . $imageName);
+
+      // Update the employee's image in the database
+      $stmt = $conn->prepare("UPDATE employees SET image = ? WHERE id = ?");
+      $stmt->bind_param("si", $imageName, $employeeId);
+      $stmt->execute();
+
+      $success = 'Image uploaded successfully!';
+    } else {
+      $error = 'Invalid image type. Only JPEG, PNG, and GIF are allowed.';
+    }
+  } else {
+    $error = 'Error uploading image. Please try again.';
+  }
+}
 
 ?>
 
@@ -67,8 +100,30 @@ $employeeData = $result->fetch_assoc();
         <?php endif; ?>
 
 
-          <button class="btn btn-outline-primary buttons">Edit Image</button>
-      </div>
+        <!-- Add a form to upload an image -->
+        <button class="btn btn-outline-primary buttons" id="upload-image-btn">Edit Image</button>
+          <!-- Modal for image upload -->
+          <div id="image-upload-modal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Upload Image</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+                    <input type="file" name="upload_image" id="image" style="display: none;">
+                    <button class="btn btn-primary" id="upload-btn">Upload Image</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
     </div>
 
     <!-- Contact Info Section -->
@@ -107,3 +162,18 @@ $employeeData = $result->fetch_assoc();
 </body>
 </html>
 
+<script>
+  $(document).ready(function() {
+    $('#upload-image-btn').on('click', function() {
+      $('#image-upload-modal').modal('show');
+    });
+
+    $('#upload-btn').on('click', function() {
+      $('#image').trigger('click');
+    });
+
+    $('#image').on('change', function() {
+      $(this).closest('form').submit();
+    });
+  });
+</script>
