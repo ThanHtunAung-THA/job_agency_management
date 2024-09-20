@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../includes/Database.php';
+include '../includes/head.php';
 
 $error = '';
 $success = '';
@@ -15,44 +16,25 @@ $stmt->execute();
 $result = $stmt->get_result();
 $employeeData = $result->fetch_assoc();
 
-if (isset($_POST['upload_image'])) {
-  $employeeId = $_SESSION['user_id'];
-  $image = $_FILES['upload_image'];
+// ====================== img uploading ========================= //
+if(isset($_FILES['imgupload'])) {
+  $image = $_FILES['imgupload']['name'];
+  $target = UPLOAD_PATH . basename($image);
 
-  // Check if the image is valid
-  if ($image['error'] == 0) {
-    $imagePath = UPLOAD_PATH . '/' . $employeeId . '/';
-    if (!file_exists($imagePath)) {
-      mkdir($imagePath, 0777, true);
-    }
-    $imageName = $image['name'];
-    $imageTmpName = $image['tmp_name'];
-    $imageSize = $image['size'];
-    $imageType = $image['type'];
+  $q = "UPDATE employees SET image = '$image' WHERE id = '$employeeId'";
+  $conn->query($q);
 
-    // Check if the image is an allowed type
-    $allowedTypes = array('image/jpeg', 'image/png', 'image/gif');
-    if (in_array($imageType, $allowedTypes)) {
-      // Upload the image
-      move_uploaded_file($imageTmpName, $imagePath . $imageName);
+  move_uploaded_file($_FILES['imgupload']['tmp_name'], $target);
 
-      // Update the employee's image in the database
-      $stmt = $conn->prepare("UPDATE employees SET image = ? WHERE id = ?");
-      $stmt->bind_param("si", $imageName, $employeeId);
-      $stmt->execute();
-
-      $success = 'Image uploaded successfully!';
-    } else {
-      $error = 'Invalid image type. Only JPEG, PNG, and GIF are allowed.';
-    }
-  } else {
-    $error = 'Error uploading image. Please try again.';
-  }
+  // $success = 'Image uploaded successfully';
+  
+  
 }
 
+ $db->close();
 ?>
 
-<?php include '../includes/head.php'; ?>
+<?php  ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
 <?php include '../includes/header-employee.php'; ?>
 
@@ -79,13 +61,13 @@ if (isset($_POST['upload_image'])) {
     <div class="col-md-4 ">
       <div class="profile-card text-center">
         <?php if (!empty($employeeData['image'])): ?>
-          <img src="<?php echo UPLOAD_PATH; ?>/<?= $employeeData['id'] ?>/<?= $employeeData['image'] ?>" class="rounded-circle img-fluid" alt="Profile Picture" width="150">
+          <img src="<?php echo UPLOAD_PATH; ?>/example-image-path" class="rounded-circle img-fluid" alt="Profile Picture" width="150">
         <?php else: ?>
           <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" class="rounded-circle img-fluid" alt="Profile Picture" width="150">
           <p><span>*</span></p>
         <?php endif; ?>
 
-          <h3><?= $employeeData['username'] ?></h3>
+        <h3><?= $employeeData['username'] ?></h3>
 
         <?php if (!empty($employeeData['occupation'])): ?>
           <p><?= $employeeData['occupation'] ?></p>
@@ -99,31 +81,39 @@ if (isset($_POST['upload_image'])) {
           <p><span>*</span><span>Add Your Address</span><span>*</span></p>
         <?php endif; ?>
 
-
         <!-- Add a form to upload an image -->
-        <button class="btn btn-outline-primary buttons" id="upload-image-btn">Edit Image</button>
-          <!-- Modal for image upload -->
-          <div id="image-upload-modal" class="modal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Upload Image</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
-                    <input type="file" name="upload_image" id="image" style="display: none;">
-                    <button class="btn btn-primary" id="upload-btn">Upload Image</button>
-                  </form>
-                </div>
-              </div>
-            </div>
+        <!-- <button class="btn btn-outline-primary buttons" id="upload-btn">Edit Image</button> -->
+        
+        <!-- Modify the upload button to trigger the modal -->
+        <button class="btn btn-outline-primary buttons" id="upload-btn" data-toggle="modal" data-target="#image-upload-modal">Edit Image</button>
+
+      </div>
+    </div>
+    <!-- Add a modal for image uploading -->
+    <div class="modal fade" id="image-upload-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Upload Profile Image</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
-
-
+          <div class="modal-body">
+            <form id="image-upload-form" enctype="multipart/form-data">
+              <input type="file" id="imgupload" name="imgupload" accept="image/*">
+              <div class="thumbnail-preview">
+                <?php if (!empty($employeeData['image'])): ?>
+                  <img src="<?php echo UPLOAD_PATH; ?>/<?php echo $employeeData['image']; ?>" alt="Current Profile Picture" width="100">
+                <?php else: ?>
+                  <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" alt="Default Profile Picture" width="100">
+                <?php endif; ?>
+              </div>
+              <button type="submit" class="btn btn-primary">Upload Image</button>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Contact Info Section -->
@@ -132,26 +122,26 @@ if (isset($_POST['upload_image'])) {
         <h5><span class="span1">Full Name</span> : <span class="span2"><?= $employeeData['username'] ?></span></h5>
         <h5><span class="span1">Email</span> : <span class="span2"><?= $employeeData['email'] ?></span></h5>
         <h5><span class="span1">Phone</span>  : 
-      <?php if (!empty($employeeData['phone'])): ?>
-        <span class="span2"><?= $employeeData['phone'] ?></span>
-      <?php else: ?>
-        <span class="span2"><span>*</span><span>Add Your Phone Number</span><span>*</span></span>
-      <?php endif; ?>
-    </h5>
-    <h5><span class="span1">Address</span>  : 
-      <?php if (!empty($employeeData['address'])): ?>
-        <span class="span2"><?= $employeeData['address'] ?></span>
-      <?php else: ?>
-        <span class="span2"><span>*</span><span>Add Your Address</span><span>*</span></span>
-      <?php endif; ?>
-    </h5>
-    <h5><span class="span1">Description</span>   : 
-      <?php if (!empty($employeeData['description'])): ?>
-        <span class="span2"><?= $employeeData['description'] ?></span>
-      <?php else: ?>
-        <span class="span2"><span>*</span><span>Add Your Description</span><span>*</span></span>
-      <?php endif; ?>
-    </h5>
+        <?php if (!empty($employeeData['phone'])): ?>
+          <span class="span2"><?= $employeeData['phone'] ?></span>
+        <?php else: ?>
+          <span class="span2"><span>*</span><span>Add Your Phone Number</span><span>*</span></span>
+        <?php endif; ?>
+        </h5>
+        <h5><span class="span1">Address</span>  : 
+          <?php if (!empty($employeeData['address'])): ?>
+            <span class="span2"><?= $employeeData['address'] ?></span>
+          <?php else: ?>
+            <span class="span2"><span>*</span><span>Add Your Address</span><span>*</span></span>
+          <?php endif; ?>
+        </h5>
+        <h5><span class="span1">Description</span>   : 
+          <?php if (!empty($employeeData['description'])): ?>
+            <span class="span2"><?= $employeeData['description'] ?></span>
+          <?php else: ?>
+            <span class="span2"><span>*</span><span>Add Your Description</span><span>*</span></span>
+          <?php endif; ?>
+        </h5>
         <button class="btn btn-outline-primary buttons">Edit Profile</button>
       </div>
     </div>
@@ -162,18 +152,35 @@ if (isset($_POST['upload_image'])) {
 </body>
 </html>
 
+<!-- Add JavaScript to handle the image upload form submission -->
 <script>
   $(document).ready(function() {
-    $('#upload-image-btn').on('click', function() {
-      $('#image-upload-modal').modal('show');
-    });
-
-    $('#upload-btn').on('click', function() {
-      $('#image').trigger('click');
-    });
-
-    $('#image').on('change', function() {
-      $(this).closest('form').submit();
+    $('#image-upload-form').submit(function(event) {
+      event.preventDefault();
+      var formData = new FormData(this);
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo $_SERVER['PHP_SELF']; ?>',
+        data: formData,
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(data) {
+          // Update the thumbnail preview
+          var thumbnail = $('#image-upload-modal .thumbnail-preview img');
+          thumbnail.attr('src', '<?php echo UPLOAD_PATH; ?>/' + data);
+          // Close the modal
+          $('#image-upload-modal').modal('hide');
+          // Show a success message
+          $('#popup-message').fadeIn();
+          $('#popup-message .success').text('Image uploaded successfully');
+        },
+        error: function(xhr, status, error) {
+          // Show an error message
+          $('#popup-message').fadeIn();
+          $('#popup-message .error').text('Error uploading image: ' + error);
+        }
+      });
     });
   });
 </script>
