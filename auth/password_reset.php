@@ -1,6 +1,6 @@
 <?php
-// Include the Database class
 include '../includes/Database.php';
+include '../includes/config.php';
 
 // Initialize variables
 $error = '';

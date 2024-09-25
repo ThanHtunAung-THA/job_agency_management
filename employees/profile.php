@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../includes/Database.php';
-include '../includes/head.php';
+include '../includes/config.php';
 
 $error = '';
 $success = '';
@@ -20,21 +20,18 @@ $employeeData = $result->fetch_assoc();
 if(isset($_FILES['imgupload'])) {
   $image = $_FILES['imgupload']['name'];
   $target = UPLOAD_PATH . basename($image);
-
   $q = "UPDATE employees SET image = '$image' WHERE id = '$employeeId'";
   $conn->query($q);
-
   move_uploaded_file($_FILES['imgupload']['tmp_name'], $target);
 
-  // $success = 'Image uploaded successfully';
-  
-  
+  header("location: profile.php"); // Redirect to profile page
+  exit;
 }
 
  $db->close();
 ?>
 
-<?php  ?>
+<?php include '../includes/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
 <?php include '../includes/header-employee.php'; ?>
 
@@ -61,9 +58,9 @@ if(isset($_FILES['imgupload'])) {
     <div class="col-md-4 ">
       <div class="profile-card text-center">
         <?php if (!empty($employeeData['image'])): ?>
-          <img src="<?php echo UPLOAD_PATH; ?>/example-image-path" class="rounded-circle img-fluid" alt="Profile Picture" width="150">
+          <img src="<?php echo UPLOAD_PATH; ?>/<?= $employeeData['image'] ?>" class="img-fluid" alt="Profile Picture" width="150" height="150">
         <?php else: ?>
-          <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" class="rounded-circle img-fluid" alt="Profile Picture" width="150">
+          <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" class="img-fluid" alt="Profile Picture" width="150" height="150">
           <p><span>*</span></p>
         <?php endif; ?>
 
@@ -80,9 +77,6 @@ if(isset($_FILES['imgupload'])) {
         <?php else: ?>
           <p><span>*</span><span>Add Your Address</span><span>*</span></p>
         <?php endif; ?>
-
-        <!-- Add a form to upload an image -->
-        <!-- <button class="btn btn-outline-primary buttons" id="upload-btn">Edit Image</button> -->
         
         <!-- Modify the upload button to trigger the modal -->
         <button class="btn btn-outline-primary buttons" id="upload-btn" data-toggle="modal" data-target="#image-upload-modal">Edit Image</button>
@@ -101,7 +95,6 @@ if(isset($_FILES['imgupload'])) {
           </div>
           <div class="modal-body">
             <form id="image-upload-form" enctype="multipart/form-data">
-              <input type="file" id="imgupload" name="imgupload" accept="image/*">
               <div class="thumbnail-preview">
                 <?php if (!empty($employeeData['image'])): ?>
                   <img src="<?php echo UPLOAD_PATH; ?>/<?php echo $employeeData['image']; ?>" alt="Current Profile Picture" width="100">
@@ -109,6 +102,7 @@ if(isset($_FILES['imgupload'])) {
                   <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" alt="Default Profile Picture" width="100">
                 <?php endif; ?>
               </div>
+              <input type="file" id="imgupload" name="imgupload" accept="image/*">
               <button type="submit" class="btn btn-primary">Upload Image</button>
             </form>
           </div>

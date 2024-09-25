@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php
+session_start();
+include '../includes/config.php';
+?>
+
 <?php include '../includes/head.php'; ?>
 <body style="  background-image: linear-gradient(to right, #1f2766, #1f2766);">
 <?php include '../includes/header.php'; ?>

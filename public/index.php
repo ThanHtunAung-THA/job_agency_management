@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php
+session_start();
+include '../includes/config.php';
+?>
+
 <?php include '../includes/head.php'; ?>
 <body>
 

@@ -1,6 +1,8 @@
-<?php 
-session_start(); 
+<?php
+session_start();
 include '../includes/Database.php';
+include '../includes/config.php';
+
 // Create a new Database instance
 $db = new Database();
 $conn = $db->getConnection();

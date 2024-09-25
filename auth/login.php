@@ -1,5 +1,6 @@
 <?php
 include '../includes/Database.php';
+include '../includes/config.php';
 
 // Initialize variables
 $error = '';

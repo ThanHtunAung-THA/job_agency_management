@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php
+session_start();
+include '../includes/config.php';
+?>
+
 <?php include '../includes/head.php'; ?>
 <body style="  background-image: linear-gradient(to right, #1f2766, #1f2766);">
 <?php include '../includes/header.php'; ?>
@@ -11,7 +15,7 @@
             Contact Us
           </h4>
           <ul>
-            <li class="active">
+            <li >
               <a href="<?php echo PUBLIC_URL; ?>">
                 Home
               </a>
@@ -21,7 +25,7 @@
                 About
               </a>
             </li>
-            <li>
+            <li class="active">
               <a class="" href="<?php echo PUBLIC_URL; ?>/contact.php">
                 Contact
               </a>

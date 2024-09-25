@@ -201,3 +201,340 @@
 ========================================================================================================================
 ========================================================================================================================
 
+ <div id="image-upload-modal" class="modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Upload Image</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body">
+                  <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
+                    <input type="file" name="upload_image" id="image" style="display: none;">
+                    <button class="btn btn-primary" id="upload-btn">Upload Image</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          if (isset($_POST['upload_image'])) {
+  $employeeId = $_SESSION['user_id'];
+  $image = $_FILES['upload_image'];
+
+  // Check if the image is valid
+  if ($image['error'] == 0) {
+    // Create directory with employee ID if it doesn't exist
+    $uploadDir = UPLOAD_PATH . '/' . $employeeId;
+    if (!is_dir($uploadDir)) {
+      mkdir($uploadDir, 0777, true);
+    }
+
+    $imageName = $image['name'];
+    $imageTempName = $image['tmp_name'];
+    $imageSize = $image['size'];
+    $imageType = $image['type'];
+
+    // Check if the image is an allowed type
+    $allowedTypes = array('image/jpeg', 'image/png', 'image/gif');
+    if (in_array($imageType, $allowedTypes)) {
+      // Store image in the directory
+      $target = $uploadDir . '/' . $imageName;
+      move_uploaded_file($imageTempName, $target);
+
+      // Update the employee's image in the database
+      $stmt = $conn->prepare("UPDATE employees SET image = ? WHERE id = ?");
+      $stmt->bind_param("si", $imageName, $employeeId);
+      $stmt->execute();
+
+      $success = 'Image uploaded successfully!';
+    } else {
+      $error = 'Invalid image type. Only JPEG, PNG, and GIF are allowed.';
+    }
+  } else {
+    $error = 'Error uploading image. Please try again.';
+  }
+}
+
+
+---------------------------------
+
+<?php
+session_start();
+include '../includes/Database.php';
+
+$error = '';
+$success = '';
+$employeeId = $_SESSION['user_id'];
+
+// Create a new Database object
+$db = new Database();
+
+// Check if the form has been submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Check if the file has been uploaded
+  if (isset($_FILES["upload_image"])) {
+    $upload_image = $_FILES["upload_image"];
+    $image_name = $upload_image["name"];
+    $image_tmp_name = $upload_image["tmp_name"];
+    $image_size = $upload_image["size"];
+    $image_type = $upload_image["type"];
+
+    // Check if the file is an image
+    $allowed_types = array("image/jpeg", "image/png", "image/gif");
+    if (in_array($image_type, $allowed_types)) {
+      // Check if the file size is within the allowed limit
+      $max_size = 1024 * 1024; // 1MB
+      if ($image_size <= $max_size) {
+        // Upload the file to a directory
+        $upload_dir = "../uploads/";
+        $image_path = $upload_dir . $image_name;
+        move_uploaded_file($image_tmp_name, $image_path);
+
+        // Update the image in the database
+        $conn = $db->getConnection();
+        $sql = "UPDATE employees SET image = '$image_path' WHERE id = '$employeeId'";
+        $result = $conn->query($sql);
+
+        if ($result) {
+          echo "Image updated successfully!";
+        } else {
+          echo "Error updating image: " . $conn->error;
+        }
+      } else {
+        echo "File size exceeds the allowed limit.";
+      }
+    } else {
+      echo "Invalid file type. Only JPEG, PNG, and GIF files are allowed.";
+    }
+  } else {
+    echo "No file uploaded.";
+  }
+}
+
+// Your original select query
+$conn = $db->getConnection();
+$sql = "SELECT * FROM your_table";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  // Display the data
+  while($row = $result->fetch_assoc()) {
+    // Your code to display the data
+  }
+} else {
+  echo "No data found.";
+}
+
+$db->close();
+?>
+<?php include '../includes/head.php'; ?>
+<body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
+<?php include '../includes/header-employee.php'; ?>
+
+<!-- content here -->
+<?php if ($error || $success): ?>
+  <div id="popup-message" class="popup-message-overlay">
+    <div class="popup-message-box">
+      <button id="close-popup" class="close-btn">&times;</button>
+      <div class="popup-message-content">
+        <?php if ($error): ?>
+          <div class="error"><?= htmlspecialchars($error); ?></div>
+        <?php elseif ($success): ?>
+          <div class="success"><?= htmlspecialchars($success); ?></div>
+        <?php endif; ?>
+      </div>
+    </div>
+  </div>
+<?php endif; ?>
+
+<!-- Profile Section -->
+<div class="container mt-5">
+  <div class="row">
+    <!-- Profile Info Section -->
+    <div class="col-md-4 ">
+      <div class="profile-card text-center">
+        <?php if (!empty($employeeData['image'])): ?>
+          <img src="<?php echo UPLOAD_PATH; ?>/<?= $employeeData['id'] ?>/<?= $employeeData['image'] ?>" class="rounded-circle img-fluid" alt="Profile Picture" width="150">
+        <?php else: ?>
+          <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" class="rounded-circle img-fluid" alt="Profile Picture" width="150">
+          <p><span>*</span></p>
+        <?php endif; ?>
+
+        <h3><?= $employeeData['username'] ?></h3>
+
+        <?php if (!empty($employeeData['occupation'])): ?>
+          <p><?= $employeeData['occupation'] ?></p>
+        <?php else: ?>
+          <p><span>*</span><span>Add Your Profession</span><span>*</span></p>
+        <?php endif; ?>
+
+        <?php if (!empty($employeeData['address'])): ?>
+          <p><?= $employeeData['address'] ?></p>
+        <?php else: ?>
+          <p><span>*</span><span>Add Your Address</span><span>*</span></p>
+        <?php endif; ?>
+
+        <!-- Add a form to upload an image -->
+        <form action="" method="post" enctype="multipart/form-data">
+          <input type="file" name="upload_image" id="image" style="display: none;">
+          <button class="btn btn-outline-primary buttons" id="upload-btn">Edit Image</button>
+        </form>
+
+        </div>
+    </div>
+
+    <!-- Contact Info Section -->
+    <div class="col-md-8">
+      <div class="profile-card">
+        <h5><span class="span1">Full Name</span> : <span class="span2"><?= $employeeData['username'] ?></span></h5>
+        <h5><span class="span1">Email</span> : <span class="span2"><?= $employeeData['email'] ?></span></h5>
+        <h5><span class="span1">Phone</span>  : 
+      <?php if (!empty($employeeData['phone'])): ?>
+        <span class="span2"><?= $employeeData['phone'] ?></span>
+      <?php else: ?>
+        <span class="span2"><span>*</span><span>Add Your Phone Number</span><span>*</span></span>
+      <?php endif; ?>
+    </h5>
+    <h5><span class="span1">Address</span>  : 
+      <?php if (!empty($employeeData['address'])): ?>
+        <span class="span2"><?= $employeeData['address'] ?></span>
+      <?php else: ?>
+        <span class="span2"><span>*</span><span>Add Your Address</span><span>*</span></span>
+      <?php endif; ?>
+    </h5>
+    <h5><span class="span1">Description</span>   : 
+      <?php if (!empty($employeeData['description'])): ?>
+        <span class="span2"><?= $employeeData['description'] ?></span>
+      <?php else: ?>
+        <span class="span2"><span>*</span><span>Add Your Description</span><span>*</span></span>
+      <?php endif; ?>
+    </h5>
+        <button class="btn btn-outline-primary buttons">Edit Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<?php include '../includes/foot.php'; ?>
+</body>
+</html>
+
+<script>
+  $(document).ready(function() {
+
+    $('#upload-btn').on('click', function() {
+      $('#image').trigger('click');
+    });
+
+  });
+</script>
+
+
+
+=======================================================
+
+
+
+<?php
+session_start();
+include '../includes/Database.php';
+
+$error = '';
+$success = '';
+
+$db = new Database();
+$conn = $db->getConnection();
+
+$employeeId = $_SESSION['user_id'];
+$stmt = $conn->prepare("SELECT * FROM employees WHERE id = ?");
+$stmt->bind_param("i", $employeeId);
+$stmt->execute();
+$result = $stmt->get_result();
+$employeeData = $result->fetch_assoc();
+
+// ============================================================== //
+
+// Check if the form has been submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  // Check if the file has been uploaded
+  if (isset($_FILES["upload_image"])) {
+    $upload_image = $_FILES["upload_image"];
+    $image_name = $upload_image["name"];
+    $image_tmp_name = $upload_image["tmp_name"];
+    $image_size = $upload_image["size"];
+    $image_type = $upload_image["type"];
+
+    // Check if the file is an image
+    $allowed_types = array("image/jpeg", "image/png", "image/gif");
+    if (in_array($image_type, $allowed_types)) {
+      // Check if the file size is within the allowed limit
+      $max_size = 1024 * 1024; // 1MB
+      if ($image_size <= $max_size) {
+        // Upload the file to a directory
+        $upload_dir = "../uploads/";
+        $image_path = $upload_dir . $image_name;
+        move_uploaded_file($image_tmp_name, $image_path);
+
+        // Update the image in the database
+        $conn = $db->getConnection();
+        $sql = "UPDATE employees SET image = '$image_path' WHERE id = '$employeeId'";
+        $result = $conn->query($sql);
+
+        if ($result) {
+          echo "Image updated successfully!";
+        } else {
+          echo "Error updating image: " . $conn->error;
+        }
+      } else {
+        echo "File size exceeds the allowed limit.";
+      }
+    } else {
+      echo "Invalid file type. Only JPEG, PNG, and GIF files are allowed.";
+    }
+  } else {
+    echo "No file uploaded.";
+  }
+
+}
+
+$db->close();
+?>
+
+
+
+
+
+
+
+=======================================
+
+<?php
+// Assume $userid is the unique ID of the user
+$userid = 123; // Replace with the actual user ID
+
+// Get the uploaded file information
+$tmp_name = $_FILES['imgupload']['tmp_name'];
+$file_name = $_FILES['imgupload']['name'];
+$file_type = $_FILES['imgupload']['type'];
+$file_size = $_FILES['imgupload']['size'];
+
+// Create the directory for the user if it doesn't exist
+$user_dir = "uploads/$userid";
+if (!is_dir($user_dir)) {
+    mkdir($user_dir, 0777, true); // Create the directory with recursive permissions
+}
+
+// Move the uploaded file to the user's directory
+$upload_dir = "$user_dir/$file_name";
+move_uploaded_file($tmp_name, $upload_dir);
+
+// You can also use a more unique filename if you want
+$unique_filename = uniqid() . "-" . $file_name;
+$upload_dir = "$user_dir/$unique_filename";
+move_uploaded_file($tmp_name, $upload_dir);
+?>

@@ -1,6 +1,8 @@
 <?php
 session_start();
 include '../includes/Database.php';
+include '../includes/config.php';
+
 
 $error = '';
 $success = '';
