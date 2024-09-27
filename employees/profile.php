@@ -82,7 +82,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
           <img src="<?php echo UPLOAD_PATH; ?>/<?= $employeeData['image'] ?>" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
         <?php else: ?>
           <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
-          <p><span>*Add image</span></p>
+          <p><span>*add image*</span></p>
         <?php endif; ?>
         
         <!-- Username -->
@@ -93,7 +93,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
           <?php if (!empty($employeeData['role'])): ?>
             <?= $employeeData['role'] ?>
           <?php else: ?>
-            <i>* what is your Role? *</i>
+            <i>* describe your position *</i>
           <?php endif; ?>
         </p>
 
@@ -102,7 +102,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
           <?php if (!empty($employeeData['address'])): ?>
             <?= $employeeData['address'] ?>
           <?php else: ?>
-            <i>* where're you living? *</i>
+            <i>* describe your address *</i>
           <?php endif; ?>
         </p>
 
@@ -134,7 +134,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
               <?php if (!empty($employeeData['role'])): ?>
                 <span class="text-dark"><?= htmlspecialchars($employeeData['role']) ?></span>
               <?php else: ?>
-                <span class="text-muted"><i>* Add your position *</i></span>
+                <span class="text-muted"><i>* describe your position *</i></span>
               <?php endif; ?>
             </li>
             <li class="mb-3">
@@ -142,7 +142,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
               <?php if (!empty($employeeData['phone'])): ?>
                 <span class="text-dark"><?= htmlspecialchars($employeeData['phone']) ?></span>
               <?php else: ?>
-                <span class="text-muted"><i>* Add Phone Number *</i></span>
+                <span class="text-muted"><i>* describe your phone number *</i></span>
               <?php endif; ?>
             </li>
             <li class="mb-3">
@@ -150,7 +150,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
               <?php if (!empty($employeeData['address'])): ?>
                 <span class="text-dark"><?= htmlspecialchars($employeeData['address']) ?></span>
               <?php else: ?>
-                <span class="text-muted"><i>* Add Address *</i></span>
+                <span class="text-muted"><i>* describe your address *</i></span>
               <?php endif; ?>
             </li>
             <li class="mb-3">
@@ -158,11 +158,11 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
               <?php if (!empty($employeeData['description'])): ?>
                 <span class="text-dark"><?= htmlspecialchars($employeeData['description']) ?></span>
               <?php else: ?>
-                <span class="text-muted"><i>* describe a little about you *</i></span>
+                <span class="text-muted"><i>* describe about you *</i></span>
               <?php endif; ?>
             </li>
           </ul>
-          
+
           <!-- Edit Profile Button -->
           <div class="text-center mt-4">
             <button class="btn btn-outline-primary btn-tr" id="edit-profile-btn" data-toggle="modal" data-target="#edit-profile-modal">
