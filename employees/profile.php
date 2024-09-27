@@ -69,8 +69,8 @@ if (isset($_POST['username']) || isset($_POST['phone']) || isset($_POST['address
 <?php endif; ?>
 
 <!-- Profile Section -->
-<div class="container mt-5">
-  <div class="row card-body rounded">
+<div class="container ">
+  <div class="row">
     <!-- Profile Info Section -->
     <div class="col-md-5">
       <div class="card shadow-sm p-4 text-center">
@@ -105,7 +105,7 @@ if (isset($_POST['username']) || isset($_POST['phone']) || isset($_POST['address
         </p>
 
         <!-- Edit Image Button -->
-        <button class="btn btn-outline-primary" id="upload-btn" data-toggle="modal" data-target="#image-upload-modal">
+        <button class="btn btn-outline-primary btn-tr" id="upload-btn" data-toggle="modal" data-target="#image-upload-modal">
           Edit Image
         </button>
       </div>
@@ -155,7 +155,7 @@ if (isset($_POST['username']) || isset($_POST['phone']) || isset($_POST['address
           
           <!-- Edit Profile Button -->
           <div class="text-center mt-4">
-            <button class="btn btn-outline-primary" id="edit-profile-btn" data-toggle="modal" data-target="#edit-profile-modal">
+            <button class="btn btn-outline-primary btn-tr" id="edit-profile-btn" data-toggle="modal" data-target="#edit-profile-modal">
               Edit Profile
             </button>
           </div>

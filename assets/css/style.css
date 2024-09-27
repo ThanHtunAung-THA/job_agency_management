@@ -1250,7 +1250,7 @@ form button.btn.btn-box:hover {
     position: relative;
 }
 
-.buttons{
+.btn-tr{
   position: absolute;
   top: 0;
   right: 0;
