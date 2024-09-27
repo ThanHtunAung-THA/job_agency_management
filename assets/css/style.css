@@ -6,8 +6,8 @@ body {
 }
 
 .layout_margin {
-  margin-left: 20em; 
-  margin-right: 20em; 
+  margin-left: 10em; 
+  margin-right: 10em; 
   margin-bottom: 5em;
 }
 
@@ -623,6 +623,13 @@ form button.btn.btn-box:hover {
   color: #08135c;
 }
 
+.card-title-about {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: #dcdce4;
+}
+
 .job_section {
   background-color: #08135c;
   color: #ffffff;
@@ -970,9 +977,9 @@ form button.btn.btn-box:hover {
 
 /* blog section end */
 .info_section {
-  background-color: #030d47;
+  background-color: #030d47 !important;
   color: #ffffff;
-  padding: 65px 0 45px 0;
+  padding: 1.25rem;
 }
 
 .info_section h4 {
@@ -1293,7 +1300,7 @@ p span + span, .span2 span + span {
 }
 
 /* Make the columns equal height */
-.col-md-5 {
+.col-md-5, .col-md-7 {
   display: flex;
   flex-direction: column;
 }
