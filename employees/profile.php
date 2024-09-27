@@ -29,17 +29,19 @@ if(isset($_FILES['imgupload'])) {
 }
 
 // to handle the edit profile form submission
-if (isset($_POST['username']) || isset($_POST['phone']) || isset($_POST['address']) || isset($_POST['description'])) {
+if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone']) || isset($_POST['address']) || isset($_POST['description'])) {
   $username = $_POST['username'];
+  $role = $_POST['role'];
   $phone = $_POST['phone'];
   $address = $_POST['address'];
   $description = $_POST['description'];
 
-  $q = "UPDATE employees SET username = '$username', phone = '$phone', address = '$address', description = '$description' WHERE id = '$employeeId'";
+  $q = "UPDATE employees SET username = '$username', role = '$role', phone = '$phone', address = '$address', description = '$description' WHERE id = '$employeeId'";
   $conn->query($q);
 
   // Update the session variables
   $_SESSION['username'] = $username;
+  $_SESSION['role'] = $role;
   $_SESSION['phone'] = $phone;
   $_SESSION['address'] = $address;
   $_SESSION['description'] = $description;
@@ -86,12 +88,12 @@ if (isset($_POST['username']) || isset($_POST['phone']) || isset($_POST['address
         <!-- Username -->
         <h3 class="text-dark"><?= $employeeData['username'] ?></h3>
         
-        <!-- Occupation -->
+        <!-- Role -->
         <p class="text-muted">
-          <?php if (!empty($employeeData['occupation'])): ?>
-            <?= $employeeData['occupation'] ?>
+          <?php if (!empty($employeeData['role'])): ?>
+            <?= $employeeData['role'] ?>
           <?php else: ?>
-            <i>* Add Profession *</i>
+            <i>* what is your Role? *</i>
           <?php endif; ?>
         </p>
 
@@ -100,7 +102,7 @@ if (isset($_POST['username']) || isset($_POST['phone']) || isset($_POST['address
           <?php if (!empty($employeeData['address'])): ?>
             <?= $employeeData['address'] ?>
           <?php else: ?>
-            <i>* Add Address *</i>
+            <i>* where're you living? *</i>
           <?php endif; ?>
         </p>
 
@@ -120,15 +122,23 @@ if (isset($_POST['username']) || isset($_POST['phone']) || isset($_POST['address
           <hr>
           <ul class="list-unstyled">
             <li class="mb-3">
-              <strong class="text-primary">Full Name: </strong>
+              <strong class="text-primary">Full Name : </strong>
               <span class="text-dark"><?= htmlspecialchars($employeeData['username']) ?></span>
             </li>
             <li class="mb-3">
-              <strong class="text-primary">Email: </strong>
+              <strong class="text-primary">Email : </strong>
               <span class="text-dark"><?= htmlspecialchars($employeeData['email']) ?></span>
             </li>
             <li class="mb-3">
-              <strong class="text-primary">Phone: </strong>
+              <strong class="text-primary">Role : </strong>
+              <?php if (!empty($employeeData['role'])): ?>
+                <span class="text-dark"><?= htmlspecialchars($employeeData['role']) ?></span>
+              <?php else: ?>
+                <span class="text-muted"><i>* Add your position *</i></span>
+              <?php endif; ?>
+            </li>
+            <li class="mb-3">
+              <strong class="text-primary">Phone : </strong>
               <?php if (!empty($employeeData['phone'])): ?>
                 <span class="text-dark"><?= htmlspecialchars($employeeData['phone']) ?></span>
               <?php else: ?>
@@ -136,7 +146,7 @@ if (isset($_POST['username']) || isset($_POST['phone']) || isset($_POST['address
               <?php endif; ?>
             </li>
             <li class="mb-3">
-              <strong class="text-primary">Address: </strong>
+              <strong class="text-primary">Address : </strong>
               <?php if (!empty($employeeData['address'])): ?>
                 <span class="text-dark"><?= htmlspecialchars($employeeData['address']) ?></span>
               <?php else: ?>
@@ -144,11 +154,11 @@ if (isset($_POST['username']) || isset($_POST['phone']) || isset($_POST['address
               <?php endif; ?>
             </li>
             <li class="mb-3">
-              <strong class="text-primary">Description: </strong>
+              <strong class="text-primary">Description : </strong>
               <?php if (!empty($employeeData['description'])): ?>
                 <span class="text-dark"><?= htmlspecialchars($employeeData['description']) ?></span>
               <?php else: ?>
-                <span class="text-muted"><i>* Add Description *</i></span>
+                <span class="text-muted"><i>* describe a little about you *</i></span>
               <?php endif; ?>
             </li>
           </ul>
@@ -205,12 +215,16 @@ if (isset($_POST['username']) || isset($_POST['phone']) || isset($_POST['address
       <div class="modal-body">
         <form id="edit-profile-form">
           <div class="form-group">
-            <label for="username">Full Name:</label>
+            <label for="username">Full Name :</label>
             <input type="text" class="form-control" id="username" name="username" value="<?= htmlspecialchars($employeeData['username']) ?>">
           </div>
           <div class="form-group">
-            <label for="email">Email:</label>
+            <label for="email">Email :</label>
             <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($employeeData['email']) ?>" disabled>
+          </div>
+          <div class="form-group">
+            <label for="role">Role :</label>
+            <input type="text" class="form-control" id="role" name="role" value="<?= htmlspecialchars($employeeData['role']) ?>">
           </div>
           <div class="form-group">
             <label for="phone">Phone:</label>
@@ -285,6 +299,7 @@ if (isset($_POST['username']) || isset($_POST['phone']) || isset($_POST['address
           // Update the profile information on the page
           $('#username-display').text($('#username').val());
           $('#email-display').text($('#email').val());
+          $('#role-display').text($('#role').val());
           $('#phone-display').text($('#phone').val());
           $('#address-display').text($('#address').val());
           $('#description-display').text($('#description').val());
