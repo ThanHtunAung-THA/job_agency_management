@@ -68,7 +68,7 @@ $db->close();
 <?php include '../includes/head.php'; ?>
 
 <body style="background-image: linear-gradient(to right, #6fbae2, #7168c9);">
-  <?php include '../includes/nav__auth.php'; ?>
+  <?php include '../includes/nav.php'; ?>
 
   <?php if ($error || $success): ?>
     <div id="popup-message" class="popup-message-overlay">
@@ -85,43 +85,20 @@ $db->close();
     </div>
   <?php endif; ?>
 
-  <section class="container">
-    <div class="row">
+  <section class="container ml-auto mr-auto">
+    <div class="row mt-0">
         <div class="col-12 col-md-6 bsb-tpl-bg-left card">
-            <div class="d-flex flex-column justify-content-between p-md-4 p-xl-5">
+            <div class="d-flex flex-column justify-content-between p-md-2 p-xl-3">
                 <h3 class="m-0 ">Welcome!</h3>
                 <img src="../assets/images/ojc-round.png" alt="Login Image" class="img-fluid mx-auto my-4">
             </div>
-            <center>
-            <p class="mb-5">
-                <div class="alert-link">
-                    Already had an account ? ...
-                    <a href="login.php" class="alert"> 
-                    Login here 
-                    </a>
-                </div><br>
-                <div class="alert-link">
-                    If you forgot your password ? ... 
-                    <a href="password_reset.php" class="alert">
-                    Reset here
-                    </a>
-                </div>
-            </p>
-            </center>
         </div>
 
         <div class="col-12 col-md-6 bsb-tpl-bg-left card">
-
-            <div class="p-3 p-md-4 p-xl-5">
-                <div class="row">
-                <div class="col-12">
-                    <div class="mb-5">
-                        <h3>Register</h3>
-                    </div>
-                </div>
-            </div>       
-
+            <div class="p-1 p-md-2 p-xl-3">      
             <form method="POST" class="card card-body" enctype="multipart/form-data">
+                <h3 class="text-center">Register</h3>
+
                 <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
                 <div class="form-group">
                     <label class="form-label" for="username">Name <span class="text-danger">*</span></label>
@@ -144,6 +121,14 @@ $db->close();
                 </div>
                 <button type="submit" class="btn btn-primary btn-box mb-1">Register</button>
                 <hr class="mb-0 border-secondary-subtle">
+                <div class="mt-1">
+                    <a href="login.php" class="alert alert-link m-0 p-0"> 
+                        Existing account ?
+                    </a>
+                    <a href="password_reset.php" class="alert alert-link m-0 p-0" style="float: right;">
+                        Forgot password ?
+                    </a>
+                </div>
             </form>
             </div>
         </div>

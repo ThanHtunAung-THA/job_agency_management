@@ -1126,7 +1126,7 @@ form button.btn.btn-box:hover {
 .bsb-tpl-bg-right {
   background: #fafafa !important;
 }
-.alert-link a.alert:hover {
+.alert-link:hover {
   color: #e41a2b;
 }
 

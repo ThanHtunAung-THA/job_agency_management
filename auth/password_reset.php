@@ -76,7 +76,7 @@ $db->close();
 
 <body style="  background-image: linear-gradient(to right, #6fbae2, #7168c9);">
   
-<?php include '../includes/nav__auth.php'; ?>
+<?php include '../includes/nav.php'; ?>
 
 <?php if ($error || $success): ?>
     <div id="popup-message" class="popup-message-overlay">
@@ -93,63 +93,46 @@ $db->close();
     </div>
 <?php endif; ?>
 
-<section class="container ">
-    <div class="row">
-
-        <div class="col-12 col-md-6 bsb-tpl-bg-left card">
-            <div class="d-flex flex-column justify-content-between p-md-4 p-xl-5">
-                <h3 class="m-0 ">Welcome!</h3>
-                <img src="../assets/images/ojc-round.png" alt="Login Image" class="img-fluid mx-auto my-4">
-            </div>
-            <center>
-            <p class="mb-5">
-                <div class="alert-link">
-                    Already had an account ? ...
-                    <a href="login.php" class="alert"> 
-                    Login here 
-                    </a>
-                </div><br>
-                <div class="alert-link">
-                    If you did'nt have an account yet ? ... 
-                    <a href="register.php" class="alert">
-                    Register here
-                    </a>
-                </div>
-            </p>
-            </center>
-        </div>
-
-        <div class="col-12 col-md-6 bsb-tpl-bg-left card ">
-
-            <div class="p-3 p-md-4 p-xl-5">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="mb-5">
-                            <h3>Password Reset</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <form method="POST" class="card card-body" enctype="multipart/form-data">
-                    <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
-                    <div class="form-group">
-                        <label class="form-label" for="username">Name <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter last acc name" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="Enter last acc email" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label" for="password">New Password <span class="text-danger">*</span></label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-box mb-1">Reset password</button>
-                    <hr class="mb-0 border-secondary-subtle">
-                </form>
-            </div>
-        </div>
+<section class="container ml-auto mr-auto">
+<div class="row mt-0">
+  <div class="col-12 col-md-6 bsb-tpl-bg-left card">
+    <div class="d-flex flex-column justify-content-between p-md-2 p-xl-3">
+      <h3 class="m-0 ">Welcome!</h3>
+      <img src="../assets/images/ojc-round.png" alt="Login Image" class="img-fluid mx-auto my-4">
     </div>
+  </div>
+    
+    <div class="col-12 col-md-6 bsb-tpl-bg-left card">
+        <div class="p-1 p-md-2 p-xl-3">      
+            <form method="POST" class="card card-body" enctype="multipart/form-data">
+                <h3 class="text-center">Password Reset</h3>
+                <input type="hidden" name="csrf_token" value="<?php echo $csrf_token; ?>">
+                <div class="form-group">
+                    <label class="form-label" for="username">Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Enter last acc name" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">Email <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter last acc email" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">New Password <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password" required>
+                </div>
+                <button type="submit" class="btn btn-primary btn-box mb-1">Reset password</button>
+                <hr class="mb-0 border-secondary-subtle">
+                <div class="mt-1">
+                <a href="login.php" class="alert alert-link m-0 p-0"> 
+                    Login ?
+                </a>
+                <a href="register.php" class="alert alert-link m-0 p-0" style="float: right;">
+                    Register ?
+                </a>
+                </div>
+            </form>
+        </div>                              
+    </div>
+</div>
 </section>
 
 <?php include '../includes/foot.php'; ?>
