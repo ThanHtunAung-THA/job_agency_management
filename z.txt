@@ -538,3 +538,31 @@ $unique_filename = uniqid() . "-" . $file_name;
 $upload_dir = "$user_dir/$unique_filename";
 move_uploaded_file($tmp_name, $upload_dir);
 ?>
+
+
+
+
+
+
+
+---------------------------------------------
+
+      <!-- Sidebar for employer -->
+      <nav class="col-md-3 d-none d-md-block bg-light sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="dashboard.php">Dashboard Overview</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="manage_jobs.php">Manage Jobs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="manage_applications.php">Manage Applications</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="post_job.php">Post New Job</a>
+            </li>
+          </ul>
+        </div>
+      </nav>

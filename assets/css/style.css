@@ -121,7 +121,7 @@ a:focus {
 }
 
 .header_section {
-  padding: 15px 0;
+  padding: 3px 0;
 }
 
 .navbar-brand {
@@ -1272,15 +1272,6 @@ form button.btn.btn-box:hover {
   margin-left: 20px; /* add space between label and value */
 }
 
-p span, p span + span + span, .span2 span, .span2 span + span + span {
-  color: red; /* make the star sign red */
-}
-
-p span + span, .span2 span + span {
-  color: #666; /* make the text gray */
-  font-size: smaller;
-}
-
 .card-title {
   font-size: 1.25rem;
   /* font-weight: bold; */
@@ -1292,6 +1283,10 @@ p span + span, .span2 span + span {
 
 .text-muted {
   color: #6c757d;
+}
+
+bold {
+  color: red;
 }
 
 .description {

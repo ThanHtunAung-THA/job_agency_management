@@ -4,7 +4,7 @@
 
     <nav class="navbar navbar-expand-lg custom_nav-container ">
       <a class="navbar-brand" href="<?php echo PUBLIC_URL; ?>">
-          <img src="../assets/images/ojc-round.png" alt="ojc-round" width="60px" height="60px">
+          <img src="../assets/images/ojc-round.png" alt="ojc-round" width="50px" height="50px">
           <span>Overseas Job Central</span>
       </a>
 
