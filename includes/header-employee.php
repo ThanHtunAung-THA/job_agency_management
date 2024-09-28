@@ -47,11 +47,11 @@
                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <li>
                         <?php if ($_SESSION['role'] == 'employer'): ?>
-                            <a class="dropdown-item" href="<?php echo EMPLOYER_URL; ?>/profile.php"> Profile <span class="text-danger">*</span></a>
-                            <a class="dropdown-item" href="<?php echo EMPLOYER_URL; ?>/dashboard.php"> Dashboard <span class="text-danger">*</span></a>
+                            <a class="dropdown-item" href="<?php echo EMPLOYER_URL; ?>/profile.php"> Profile</a>
+                            <a class="dropdown-item" href="<?php echo EMPLOYER_URL; ?>/dashboard.php"> Dashboard</a>
                         <?php elseif ($_SESSION['role'] == 'employee'): ?>
-                            <a class="dropdown-item" href="<?php echo EMPLOYEE_URL; ?>/profile.php"> Profile <span class="text-danger">*</span></a>
-                            <a class="dropdown-item" href="<?php echo EMPLOYEE_URL; ?>/dashboard.php"> Dashboard <span class="text-danger">*</span></a>
+                            <a class="dropdown-item" href="<?php echo EMPLOYEE_URL; ?>/profile.php"> Profile</a>
+                            <a class="dropdown-item" href="<?php echo EMPLOYEE_URL; ?>/dashboard.php"> Dashboard</a>
                         <?php endif; ?>                    </li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="<?php echo AUTH_URL; ?>/logout.php">Logout</a></li>
