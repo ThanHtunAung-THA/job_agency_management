@@ -82,7 +82,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
           <img src="<?php echo UPLOAD_PATH; ?>/<?= $employeeData['image'] ?>" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
         <?php else: ?>
           <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
-          <p class="text-muted"><i><bold>*</bold> add image</i></p>
+          <p class="text-muted"><i><span class="text-danger">*</span> add image</i></p>
         <?php endif; ?>
         
         <!-- Username -->
@@ -93,7 +93,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
           <?php if (!empty($employeeData['role'])): ?>
             <?= $employeeData['role'] ?>
           <?php else: ?>
-            <i><bold>*</bold> describe your position</i>
+            <i><span class="text-danger">*</span> describe your position</i>
           <?php endif; ?>
         </p>
 
@@ -102,7 +102,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
           <?php if (!empty($employeeData['address'])): ?>
             <?= $employeeData['address'] ?>
           <?php else: ?>
-            <i><bold>*</bold> describe your address</i>
+            <i><span class="text-danger">*</span> describe your address</i>
           <?php endif; ?>
         </p>
 
@@ -134,7 +134,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
               <?php if (!empty($employeeData['role'])): ?>
                 <span class="text-dark"><?= htmlspecialchars($employeeData['role']) ?></span>
               <?php else: ?>
-                <span class="text-muted"><i><bold>*</bold> describe your position</i></span>
+                <span class="text-muted"><i><span class="text-danger">*</span> describe your position</i></span>
               <?php endif; ?>
             </li>
             <li class="mb-3">
@@ -142,7 +142,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
               <?php if (!empty($employeeData['phone'])): ?>
                 <span class="text-dark"><?= htmlspecialchars($employeeData['phone']) ?></span>
               <?php else: ?>
-                <span class="text-muted"><i><bold>*</bold> describe your phone number</i></span>
+                <span class="text-muted"><i><span class="text-danger">*</span> describe your phone number</i></span>
               <?php endif; ?>
             </li>
             <li class="mb-3">
@@ -150,7 +150,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
               <?php if (!empty($employeeData['address'])): ?>
                 <span class="text-dark"><?= htmlspecialchars($employeeData['address']) ?></span>
               <?php else: ?>
-                <span class="text-muted"><i><bold>*</bold> describe your address</i></span>
+                <span class="text-muted"><i><span class="text-danger">*</span> describe your address</i></span>
               <?php endif; ?>
             </li>
             <li class="mb-3">
@@ -158,7 +158,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
               <?php if (!empty($employeeData['description'])): ?>
                 <span class="text-dark"><?= htmlspecialchars($employeeData['description']) ?></span>
               <?php else: ?>
-                <span class="text-muted"><i><bold>*</bold> describe about you</i></span>
+                <span class="text-muted"><i><span class="text-danger">*</span> describe about you</i></span>
               <?php endif; ?>
             </li>
           </ul>
