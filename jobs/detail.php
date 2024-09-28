@@ -42,7 +42,7 @@ if (isset($_POST['apply_job'])) {
 
 <?php include '../includes/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/header.php'; ?>
+<?php include '../includes/nav.php'; ?>
 <!-- content here -->
 <?php if ($error): ?>
     <div id="popup-message" class="popup-message-overlay">

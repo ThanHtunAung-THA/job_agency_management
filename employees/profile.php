@@ -52,7 +52,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
 
 <?php include '../includes/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/header-employee.php'; ?>
+<?php include '../includes/nav__employee.php'; ?>
 
 <!-- content here -->
 <?php if ($error || $success): ?>

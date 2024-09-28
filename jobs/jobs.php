@@ -24,7 +24,7 @@ $totalPages = ceil($totalRows / $limit);
 
 <?php include '../includes/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/header.php'; ?>
+<?php include '../includes/nav.php'; ?>
 <!-- content here -->
 <div class="jumbotron" style="margin-left: 0px;">
 

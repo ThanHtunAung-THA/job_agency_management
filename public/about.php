@@ -5,7 +5,7 @@ include '../includes/config.php';
 
 <?php include '../includes/head.php'; ?>
 <body style="  background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/header.php'; ?>
+<?php include '../includes/nav.php'; ?>
 
 <section class="info_section layout_margin">
     <div class="container ">
