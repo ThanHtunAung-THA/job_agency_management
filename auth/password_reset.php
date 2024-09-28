@@ -25,21 +25,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $error = 'Password must be at least 6 characters long.';
     } else {
         // Check if username and email exist in database
-        $query = "SELECT * FROM employees WHERE username = ? AND email = ?";
-        $stmt = $conn->prepare($query);
+        $query_employee = "SELECT * FROM employees WHERE username = ? AND email = ?";
+        $stmt = $conn->prepare($query_employee);
         $stmt->bind_param('ss', $username, $email);
         $stmt->execute();
         $result = $stmt->get_result();
-        if ($result->num_rows == 0) {
+
+        $query_employer = "SELECT * FROM employers WHERE username = ? AND email = ?";
+        $stmt = $conn->prepare($query_employer);
+        $stmt->bind_param('ss', $username, $email);
+        $stmt->execute();
+        $result2 = $stmt->get_result();
+
+
+        if ($result->num_rows == 0 && $result2->num_rows == 0) {
             $error = 'Invalid username or email.';
         } else {
             // Hash password
             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
             // Prepare SQL query
-            $query = "UPDATE employees SET password = ? WHERE username = ? AND email = ?";
-            $stmt = $conn->prepare($query);
-            $stmt->bind_param('sss', $hashed_password, $username, $email);
+
+            if ($result->num_rows == true) {
+                $query = "UPDATE employees SET password = ? WHERE username = ? AND email = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param('sss', $hashed_password, $username, $email);
+            } 
+            elseif ($result2->num_rows == true) {
+                $query = "UPDATE employers SET password = ? WHERE username = ? AND email = ?";
+                $stmt = $conn->prepare($query);
+                $stmt->bind_param('sss', $hashed_password, $username, $email);
+            }
 
             // Execute query
             if ($stmt->execute()) {
