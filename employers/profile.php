@@ -29,14 +29,15 @@ if(isset($_FILES['imgupload'])) {
 }
 
 // to handle the edit profile form submission
-if (isset($_POST['username']) || isset($_POST['company_name']) || isset($_POST['company_address']) || isset($_POST['company_phone']) || isset($_POST['company_detail'])) {
+if (isset($_POST['username']) || isset($_POST['email']) || isset($_POST['cName']) || isset($_POST['cAddress']) || isset($_POST['cPhone']) || isset($_POST['cDetail'])) {
   $username = $_POST['username'];
-  $company_name = $_POST['company_name'];
-  $company_address = $_POST['company_address'];
-  $company_phone = $_POST['company_phone'];
-  $company_detail = $_POST['company_detail'];
+  $email = $_POST['email'];
+  $company_name = $_POST['cName'];
+  $company_address = $_POST['cAddress'];
+  $company_phone = $_POST['cPhone'];
+  $company_detail = $_POST['cDetail'];
 
-  $q = "UPDATE employers SET username = '$username', company_name = '$company_name', company_address = '$company_address', company_phone = '$company_phone', company_detail = '$company_detail' WHERE id = '$employeeId'";
+  $q = "UPDATE employers SET username = '$username', company_name = '$company_name', company_address = '$company_address', company_phone = '$company_phone', company_detail = '$company_detail' WHERE id = '$employerId'";
   $conn->query($q);
 
   // Update the session variables
@@ -78,8 +79,8 @@ if (isset($_POST['username']) || isset($_POST['company_name']) || isset($_POST['
       <div class="card shadow-sm p-4 text-center">
       <div class="card-body">
         <!-- Profile Image -->
-        <?php if (!empty($employerData['image'])): ?>
-          <img src="<?php echo UPLOAD_PATH; ?>/<?= $employerData['image'] ?>" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
+        <?php if (!empty($employerData['company_logo'])): ?>
+          <img src="<?php echo UPLOAD_PATH; ?>/<?= $employerData['company_logo'] ?>" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
         <?php else: ?>
           <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
           <p class="text-muted"><i><span class="text-danger">*</span> add image</i></p>
@@ -122,11 +123,11 @@ if (isset($_POST['username']) || isset($_POST['company_name']) || isset($_POST['
           <hr>
           <ul class="list-unstyled">
             <li class="mb-3">
-              <strong class="text-primary" >HR <span style="margin-left: 130px;">:</span></strong>
+              <strong class="text-primary" >Person In Charge <span style="margin-left: 23px;">:</span></strong>
               <span class="text-dark"><?= htmlspecialchars($employerData['username']) ?></span>
             </li>
             <li class="mb-3">
-              <strong class="text-primary">HR Email <span style="margin-left: 85px;">:</span></strong>
+              <strong class="text-primary">In Charge Email <span style="margin-left: 35px;">:</span></strong>
               <span class="text-dark"><?= htmlspecialchars($employerData['email']) ?></span>
             </li>
             <li class="mb-3">
@@ -188,8 +189,8 @@ if (isset($_POST['username']) || isset($_POST['company_name']) || isset($_POST['
       <div class="modal-body">
         <form id="image-upload-form" enctype="multipart/form-data">
           <div class="thumbnail-preview mb-3">
-            <?php if (!empty($employerData['image'])): ?>
-              <img src="<?php echo UPLOAD_PATH; ?>/<?= $employerData['image']; ?>" alt="Current Profile Picture" class="img-thumbnail" width="100">
+            <?php if (!empty($employerData['company_logo'])): ?>
+              <img src="<?php echo UPLOAD_PATH; ?>/<?= $employerData['company_logo']; ?>" alt="Current Profile Picture" class="img-thumbnail" width="100">
             <?php else: ?>
               <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" alt="Default Profile Picture" class="img-thumbnail" width="100">
             <?php endif; ?>
@@ -215,28 +216,28 @@ if (isset($_POST['username']) || isset($_POST['company_name']) || isset($_POST['
       <div class="modal-body">
         <form id="edit-profile-form">
           <div class="form-group">
-            <label for="username">Full Name :</label>
+            <label for="username">In Charge Name :</label>
             <input type="text" class="form-control" id="username" name="username" value="<?= htmlspecialchars($employerData['username']) ?>">
           </div>
           <div class="form-group">
-            <label for="email">Email :</label>
-            <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($employerData['email']) ?>" disabled>
+            <label for="email">In Charge Email :</label>
+            <input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($employerData['email']) ?>">
           </div>
           <div class="form-group">
-            <label for="role">Role :</label>
-            <input type="text" class="form-control" id="role" name="role" value="<?= htmlspecialchars($employerData['role']) ?>">
+            <label for="cName">Company Name :</label>
+            <input type="text" class="form-control" id="cName" name="cName" value="<?= htmlspecialchars($employerData['company_name']) ?>">
           </div>
           <div class="form-group">
-            <label for="phone">Phone:</label>
-            <input type="text" class="form-control" id="phone" name="phone" value="<?= htmlspecialchars($employerData['phone']) ?>">
+            <label for="cPhone">Company Phone :</label>
+            <input type="text" class="form-control" id="cPhone" name="cPhone" value="<?= htmlspecialchars($employerData['company_phone']) ?>">
           </div>
           <div class="form-group">
-            <label for="address">Address:</label>
-            <textarea class="form-control" id="address" name="address"><?= htmlspecialchars($employerData['address']) ?></textarea>
+            <label for="cAddress">Company Address :</label>
+            <textarea class="form-control" id="address" name="cAddress"><?= htmlspecialchars($employerData['company_address']) ?></textarea>
           </div>
           <div class="form-group">
-            <label for="description">Description:</label>
-            <textarea class="form-control" id="description" name="description"><?= htmlspecialchars($employerData['description']) ?></textarea>
+            <label for="cDetail">Company Info :</label>
+            <textarea class="form-control" id="cDetail" name="cDetail"><?= htmlspecialchars($employerData['company_detail']) ?></textarea>
           </div>
           <button type="submit" class="btn btn-primary">Update Profile</button>
         </form>
@@ -299,10 +300,10 @@ if (isset($_POST['username']) || isset($_POST['company_name']) || isset($_POST['
           // Update the profile information on the page
           $('#username-display').text($('#username').val());
           $('#email-display').text($('#email').val());
-          $('#role-display').text($('#role').val());
-          $('#phone-display').text($('#phone').val());
-          $('#address-display').text($('#address').val());
-          $('#description-display').text($('#description').val());
+          $('#cName-display').text($('#cName').val());
+          $('#cPhone-display').text($('#cPhone').val());
+          $('#cAddress-display').text($('#cAddress').val());
+          $('#cDetail-display').text($('#cDetail').val());
         },
         error: function(xhr, status, error) {
           // Show an error message
