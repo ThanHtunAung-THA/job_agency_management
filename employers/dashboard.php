@@ -9,9 +9,34 @@ $success = '';
 $db = new Database();
 $conn = $db->getConnection();
 
-$employerId = $_SESSION['user_id'];
+$employer_id = $_SESSION['user_id'];
 
 
+// Fetch employer profile information
+$employer_query = "SELECT * FROM employers WHERE id = '$employer_id'";
+$employer_result = mysqli_query($conn, $employer_query);
+$employer_data = mysqli_fetch_assoc($employer_result);
+
+// Fetch job postings
+$job_query = "SELECT * FROM jobs WHERE employer_id = '$employer_id'";
+$job_result = mysqli_query($conn, $job_query);
+$job_data = array();
+while ($row = mysqli_fetch_assoc($job_result)) {
+    $job_data[] = $row;
+}
+
+//when employer posted job, it goes to the jobs.tb with status 1
+
+// Fetch applications
+$app_query = "SELECT * FROM applications WHERE employer_id = '$employer_id'";
+$app_result = mysqli_query($conn, $app_query);
+$app_data = array();
+while ($row = mysqli_fetch_assoc($app_result)) {
+    $app_data[] = $row;
+}
+
+// Close the database connection
+mysqli_close($conn);
 
 ?>
 
@@ -35,47 +60,44 @@ $employerId = $_SESSION['user_id'];
   </div>
 <?php endif; ?>
 
-<!-- dasboard -->
-<div class="jumbotron" style="margin-left: 0px;">
-  <center><h2 class="text-primary"> -- Dashboard --</h2></center>
+<nav>
 
-  <div class="container-fluid">
-    <div class="row">
-
-      <!-- Main Content -->
-      <main role="main" class="col-md-9 col-lg-10" style="margin-left: 7em;">
-        <div class="row my-4">
-          <div class="col-md-4">
-            <div class="card bg-info">
-              <div class="card-body">
-                <h5 class="card-title">Total Jobs Posted</h5>
-                <p class="card-text">5</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card bg-success">
-              <div class="card-body">
-                <h5 class="card-title">New Applications</h5>
-                <p class="card-text">12</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="card bg-warning">
-              <div class="card-body">
-                <h5 class="card-title">Interviews Scheduled</h5>
-                <p class="card-text">3</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- Additional Overview Content -->
-      </main>
-    </div>
-  </div>
-
-</div>
+</nav>
+<main>
+  <section class="dashboard-overview">
+      <h2>Dashboard Overview</h2>
+      <ul>
+          <li>Number of job postings: <?php echo count($job_data); ?></li>
+          <li>Number of applications received: <?php echo count($app_data); ?></li>
+          <!-- Other overview metrics -->
+      </ul>
+  </section>
+  <section class="job-postings">
+      <h2>Job Postings</h2>
+      <ul>
+          <?php foreach ($job_data as $job) { ?>
+              <li>
+                  <h3><?php echo $job['job_title']; ?></h3>
+                  <p><?php echo $job['job_description']; ?></p>
+                  <p>Applications: <?php echo $job['num_applications']; ?></p>
+              </li>
+          <?php } ?>
+      </ul>
+  </section>
+  <section class="applications">
+      <h2>Applications</h2>
+      <ul>
+          <?php foreach ($app_data as $app) { ?>
+              <li>
+                  <h3><?php echo $app['applicant_name']; ?></h3>
+                  <p>Job Title: <?php echo $app['job_title']; ?></p>
+                  <p>Status: <?php echo $app['status']; ?></p>
+              </li>
+          <?php } ?>
+      </ul>
+  </section>
+  <!-- Other dashboard components -->
+</main>
 
 <?php include '../includes/foot.php'; ?>
 </body>

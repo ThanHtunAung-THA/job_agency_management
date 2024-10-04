@@ -3,7 +3,7 @@
   <div class="container-fluid">
 
     <nav class="navbar navbar-expand-lg custom_nav-container ">
-      <a class="navbar-brand" href="<?php echo PUBLIC_URL; ?>">
+      <a class="navbar-brand" href="#">
           <img src="../assets/images/ojc-round.png" alt="ojc-round" width="50px" height="50px">
           <span>Overseas Job Central</span>
       </a>
@@ -15,11 +15,11 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav  ml-auto">
           <li class="nav-item">
-              <a class="nav-link" href="<?php echo PUBLIC_URL; ?>"> Home </a>
+              <a class="nav-link" href="<?php echo EMPLOYER_URL; ?>/post_job.php"> <i class="fa fa-plus-circle" aria-hidden="true"></i> New Job</a>
           </li>
      
           <li class="nav-item">
-              <a class="nav-link" href="<?php echo JOBS_URL; ?>/jobs.php"> Jobs </a>
+              <a class="nav-link" href="<?php echo EMPLOYER_URL; ?>/manage_jobs.php"> Jobs</a>
           </li>
           <?php if (!isset($_SESSION['user_id'])): ?>
 
