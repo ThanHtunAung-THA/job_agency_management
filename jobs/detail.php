@@ -86,12 +86,12 @@ if (isset($_POST['apply_job'])) {
                     <form action="apply-job.php" method="post">
                         <input type="hidden" name="job_id" value="<?= $job_id ?>">
                         <input type="hidden" name="user_id" value="<?= $_SESSION['user_id'] ?>">
-                        <button class="btn btn-success btn-apply" type="submit">Apply job</button>
+                        <button class="btn btn-success btn-jobs" type="submit">Apply job</button>
                     </form>
                 <?php else: ?>
                     <form method="post">
                         <input type="hidden" name="apply_job" value="1">
-                        <button class="btn btn-success btn-apply" type="submit">Apply job</button>
+                        <button class="btn btn-success btn-jobs" type="submit">Apply job</button>
                     </form>                
                 <?php endif; ?>                 
                 <a href="jobs.php" class="btn btn-secondary">Views All Jobs</a>

@@ -62,8 +62,8 @@ $totalPages = ceil($totalRows / 5);
             <li class="list-group-item">
                 <h3><?= $result['job_title']; ?></h3>
                 <p><?= substr($result['job_desc'], 0, 150); ?>...</p>
-                <a href="#" class="btn btn-success float-right">Apply job</a>
-            </li>
+                <a href="detail.php?id=<?= $result['id']; ?>" class="btn btn-primary btn-jobs">Detail</a>
+                </li>
             </a>
           <?php endwhile; ?>
         <?php else: ?>

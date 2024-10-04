@@ -68,8 +68,6 @@ if ($result !== false) {
 <!-- Applied Job List -->
 <div class="jumbotron" style="margin-left: 0px;">
 
-  <center><h2 class="text-primary"> -- Dashboard --</h2></center>
-  <h4 class="text-primary">Applied Jobs</h4>
   <table class="table">
     <thead>
       <tr>
