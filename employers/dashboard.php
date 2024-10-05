@@ -11,12 +11,6 @@ $conn = $db->getConnection();
 
 $employer_id = $_SESSION['user_id'];
 
-
-// Fetch employer profile information
-$employer_query = "SELECT * FROM employers WHERE id = '$employer_id'";
-$employer_result = mysqli_query($conn, $employer_query);
-$employer_data = mysqli_fetch_assoc($employer_result);
-
 // Fetch job postings
 $job_query = "SELECT * FROM jobs WHERE employer_id = '$employer_id'";
 $job_result = mysqli_query($conn, $job_query);
@@ -28,15 +22,20 @@ while ($row = mysqli_fetch_assoc($job_result)) {
 //when employer posted job, it goes to the jobs.tb with status 1
 
 // Fetch applications
-$app_query = "SELECT * FROM applications WHERE employer_id = '$employer_id'";
-$app_result = mysqli_query($conn, $app_query);
-$app_data = array();
-while ($row = mysqli_fetch_assoc($app_result)) {
-    $app_data[] = $row;
+$applied_query = "SELECT aj.*, j.job_title, ee.username as employee_name
+FROM applied_jobs aj 
+JOIN jobs j ON aj.job_id = j.id 
+JOIN employees ee ON ee.id = aj.employee_id
+JOIN employers e ON j.employer_id = e.id 
+WHERE e.id = '$employer_id'";
+
+$applied_result = mysqli_query($conn, $applied_query);
+$applied_data = array();
+while ($row = mysqli_fetch_assoc($applied_result)) {
+    $applied_data[] = $row;
 }
 
-// Close the database connection
-mysqli_close($conn);
+
 
 ?>
 
@@ -68,7 +67,7 @@ mysqli_close($conn);
       <h2>Dashboard Overview</h2>
       <ul>
           <li>Number of job postings: <?php echo count($job_data); ?></li>
-          <li>Number of applications received: <?php echo count($app_data); ?></li>
+          <li>Number of applications received: <?php echo count($applied_data); ?></li>
           <!-- Other overview metrics -->
       </ul>
   </section>
@@ -78,8 +77,14 @@ mysqli_close($conn);
           <?php foreach ($job_data as $job) { ?>
               <li>
                   <h3><?php echo $job['job_title']; ?></h3>
-                  <p><?php echo $job['job_description']; ?></p>
-                  <p>Applications: <?php echo $job['num_applications']; ?></p>
+                  <p><?php echo $job['job_desc']; ?></p>
+                    <?php
+                    // Count the number of applications for this job
+                    $applicants_query = "SELECT COUNT(*) as applicant_count FROM applied_jobs WHERE job_id = '$job[id]'";
+                    $applicants_result = mysqli_query($conn, $applicants_query);
+                    $applicants_data = mysqli_fetch_assoc($applicants_result);
+                    ?>
+                  <p>Applications: <?php echo $applicants_data['applicant_count']; ?></p>
               </li>
           <?php } ?>
       </ul>
@@ -87,9 +92,9 @@ mysqli_close($conn);
   <section class="applications">
       <h2>Applications</h2>
       <ul>
-          <?php foreach ($app_data as $app) { ?>
+          <?php foreach ($applied_data as $app) { ?>
               <li>
-                  <h3><?php echo $app['applicant_name']; ?></h3>
+                  <h3><?php echo $app['employee_name']; ?></h3>
                   <p>Job Title: <?php echo $app['job_title']; ?></p>
                   <p>Status: <?php echo $app['status']; ?></p>
               </li>
@@ -102,3 +107,8 @@ mysqli_close($conn);
 <?php include '../includes/foot.php'; ?>
 </body>
 </html>
+
+<?php 
+// Close the database connection
+$db->close();
+?>

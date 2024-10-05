@@ -10,6 +10,7 @@ $db = new Database();
 $conn = $db->getConnection();
 
 $employerId = $_SESSION['user_id'];
+
 $stmt = $conn->prepare("SELECT * FROM employers WHERE id = ?");
 $stmt->bind_param("i", $employerId);
 $stmt->execute();
