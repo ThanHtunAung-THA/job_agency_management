@@ -54,7 +54,7 @@ while ($row = mysqli_fetch_assoc($applied_result)) {
                 <?php endif; ?>
 
                 <div class="d-flex justify-content-between align-items-center mb-3 card-header bg-dark">
-                    <h4 class="text-light">Dashboard Overview</h2>
+                    <h4 class="text-light">Dashboard Overview</h4>
                     <ul class="list-inline text-light">
                         <li class="list-inline-item">
                             <span>Job Postings: <strong><?php echo count($job_data); ?></strong></span>
@@ -82,6 +82,21 @@ while ($row = mysqli_fetch_assoc($applied_result)) {
                                             $applicants_result = mysqli_query($conn, $applicants_query);
                                             $applicants_data = mysqli_fetch_assoc($applicants_result);
                                             ?>
+                                            <p class="card-text">
+                                                <small class="text-muted">Post-status: 
+                                                    <?php 
+                                                        if ($job['status'] == 0) {
+                                                            echo "Closed"; 
+                                                        }
+                                                        if ($job['status'] == 1) {
+                                                            echo "Pending"; 
+                                                        }
+                                                        if ($job['status'] == 2) {
+                                                            echo "Opening"; 
+                                                        }
+                                                    ?>
+                                                </small>
+                                                </p>
                                             <p class="card-text"><small class="text-muted">Applications: <?php echo $applicants_data['applicant_count']; ?></small></p>
                                         </div>
                                     </div>
