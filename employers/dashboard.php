@@ -53,8 +53,8 @@ while ($row = mysqli_fetch_assoc($applied_result)) {
                     </div>
                 <?php endif; ?>
 
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h2 class="text-light">Dashboard Overview</h2>
+                <div class="d-flex justify-content-between align-items-center mb-3 card-header bg-dark">
+                    <h4 class="text-light">Dashboard Overview</h2>
                     <ul class="list-inline text-light">
                         <li class="list-inline-item">
                             <span>Job Postings: <strong><?php echo count($job_data); ?></strong></span>
@@ -94,7 +94,7 @@ while ($row = mysqli_fetch_assoc($applied_result)) {
                     <div class="col-md-6">
                         <section class="card bg-dark applications">
                             <h3 class="card-header text-light">Applications</h3>
-                            <div class="card-body">
+                            <div class="card-head">
                                 <?php foreach ($applied_data as $app) { ?>
                                     <div class="card bg-light mb-3">
                                         <div class="card-header font-weight-bold"><?php echo $app['employee_name']; ?></div>
