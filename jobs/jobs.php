@@ -12,7 +12,7 @@ $limit = 5;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-$sql = "SELECT * FROM jobs LIMIT $offset, $limit";
+$sql = "SELECT * FROM jobs WHERE status = 2 LIMIT $offset, $limit ";
 $results = $conn->query($sql);
 
 // Get total number of rows

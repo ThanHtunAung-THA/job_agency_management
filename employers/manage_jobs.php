@@ -16,6 +16,36 @@ while ($row = mysqli_fetch_assoc($job_result)) {
     $job_data[] = $row;
 }
 
+if (isset($_POST['job_title']) || isset($_POST['job_desc']) || isset($_POST['responsibilities']) || isset($_POST['experience']) || isset($_POST['skills']) || isset($_POST['requirements']) || isset($_POST['salary'])) {
+  
+  $job_id = $_POST['job_id'];
+  $job_title = $_POST['job_title'];
+  $job_desc = $_POST['job_desc'];
+  $responsibilities = $_POST['responsibilities'];
+  $experience = $_POST['experience'];
+  $skills = $_POST['skills'];
+  $requirements = $_POST['requirements'];
+  $salary = $_POST['salary'];
+
+  $update_query = "UPDATE jobs SET 
+    job_desc = ?, 
+    responsibilities = ?, 
+    experience = ?, 
+    skills = ?, 
+    requirements = ?, 
+    salary = ?
+  WHERE id = ? AND employer_id = '$employer_id'";
+
+  $stmt = $conn->prepare($update_query);
+  $stmt->bind_param("ssssssi", $job_desc, $responsibilities, $experience, $skills, $requirements, $salary, $job_id);
+
+  if ($stmt->execute()) {
+    $success = 'Job updated successfully!';
+  } else {
+    $error = 'Error updating job: ' . $stmt->error;
+  }
+}
+
 $db->close();
 ?>
 
@@ -80,11 +110,33 @@ $db->close();
                 <?php } ?>
               </div>
               <div class="col-md-4">
-                <center><a href="edit_job.php?id=<?= $job['id'] ?>" class="btn btn-primary" style="width: 100px;">Edit</a></center>
+                <center>
+                <?php if ($status == 0) { ?>
+                <div class="col-md-4">
+                  <button class="btn btn-primary" style="width: 100px;" id="edit-profile-btn" data-toggle="modal" data-target="#edit-job-modal">
+                    Edit
+                  </button>
+                </div>
+                <?php } else { ?>
+                <div class="col-md-4" data-bs-toggle="tooltip" title="Cannot edit a pending job or open job">
+                  <button class="btn btn-outline-primary disabled" aria-disabled="true" style="width: 100px;">
+                    Edit
+                  </button>
+                </div>
+                <?php } ?>
+                </center>
               </div>
+              <?php if ($status == 0) { ?>
               <div class="col-md-4">
                 <a href="delete_job.php?id=<?= $job['id'] ?>" class="btn btn-danger" style="width: 100px; float:right;">Delete</a>
               </div>
+              <?php } else { ?>
+              <div class="col-md-4" data-bs-toggle="tooltip" title="Cannot delete a pending job or open job">
+                <button class="btn btn-outline-danger disabled" aria-disabled="true" style="width: 100px; float:right;">
+                  Delete
+                </button>
+              </div>
+              <?php } ?>
             </div>
           </td>
         </tr>
@@ -93,6 +145,91 @@ $db->close();
     </table>
   </div>
 
+<!-- Edit Modal -->
+<div class="modal fade" id="edit-job-modal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editProfileModalLabel">Edit Job Listing</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="edit-job-form">
+        <input type="hidden" name="job_id" value="<?= $job['id'] ?>">
+          <div class="form-group">
+            <label for="job_title">Job Title :</label>
+            <input type="text" class="form-control" id="job_title" name="job_title" value="<?= htmlspecialchars($job['job_title']) ?>" disabled>
+          </div>
+          <div class="form-group">
+            <label for="job_desc">Job Description :</label>
+            <textarea class="form-control" id="job_desc" name="job_desc" rows="6" cols="50"><?= htmlspecialchars($job['job_desc']) ?></textarea>
+          </div>
+          <div class="form-group">
+            <label for="responsibilities">Responsibilities :</label>
+            <textarea class="form-control" id="responsibilities" name="responsibilities" rows="6" cols="50"><?= htmlspecialchars($job['responsibilities']) ?></textarea>
+          </div>
+          <div class="form-group">
+            <label for="experience">Experience :</label>
+            <textarea class="form-control" id="experience" name="experience" rows="3" cols="50"><?= htmlspecialchars($job['experience']) ?></textarea>
+          </div>
+          <div class="form-group">
+            <label for="skills">Skills :</label>
+            <textarea class="form-control" id="skills" name="skills" rows="3" cols="50"><?= htmlspecialchars($job['skills']) ?></textarea>
+          </div>
+          <div class="form-group">
+            <label for="requirements">Requirements :</label>
+            <textarea class="form-control" id="requirements" name="requirements" rows="6" cols="50"><?= htmlspecialchars($job['requirements']) ?></textarea>
+          </div>
+          <div class="form-group">
+            <label for="salary">Salary :</label>
+            <textarea class="form-control" id="salary" name="salary"><?= htmlspecialchars($job['salary']) ?></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Update Job</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <?php include '../includes/foot.php'; ?>
 </body>
 </html>
+
+<script>
+
+  // Add JavaScript to handle the edit profile form submission
+  $(document).ready(function() {
+    $('#edit-job-form').submit(function(event) {
+      event.preventDefault();
+      var formData = $(this).serialize();
+      $.ajax({
+        type: 'POST',
+        url: '<?php echo $_SERVER['PHP_SELF']; ?>',
+        data: formData,
+        success: function(data) {
+          // Update the profile information
+          $('#popup-message').fadeIn();
+          $('#popup-message .success').text('Job data updated successfully');
+          // Close the modal
+          $('#edit-job-modal').modal('hide');
+          // Update the profile information on the page
+          $('#job_title-display').text($('#job_title').val());
+          $('#job_desc-display').text($('#job_desc').val());
+          $('#responsibilities-display').text($('#responsibilities').val());
+          $('#experience-display').text($('#experience').val());
+          $('#skills-display').text($('#skills').val());
+          $('#requirements-display').text($('#requirements').val());
+          $('#salary-display').text($('#salary').val());
+        },
+        error: function(xhr, status, error) {
+          // Show an error message
+          $('#popup-message').fadeIn();
+          $('#popup-message .error').text('Error updating job data: ' + error);
+        }
+      });
+    });
+  });
+
+</script>

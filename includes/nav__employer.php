@@ -19,7 +19,7 @@
           </li>
      
           <li class="nav-item">
-              <a class="nav-link" href="<?php echo EMPLOYER_URL; ?>/manage_jobs.php"> Jobs</a>
+              <a class="nav-link" href="<?php echo EMPLOYER_URL; ?>/manage_jobs.php">Job List</a>
           </li>
           <?php if (!isset($_SESSION['user_id'])): ?>
 
