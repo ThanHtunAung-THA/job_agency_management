@@ -104,26 +104,28 @@ $db->close();
                 <?php if ($status == 0) { ?>
                   <a href="activate_job.php?id=<?= $job['id'] ?>" class="btn btn-success" style="width: 100px;">Activate</a>
                 <?php } elseif ($status == 1) { ?>
-                  <a href="#" class="btn btn-primary disabled" aria-disabled="true" style="width: 100px;">Activate (Pending)</a>
+                  <span data-bs-toggle="tooltip" title="Job is pending">
+                    <a href="#" class="btn btn-outline-success disabled" aria-disabled="true" style="width: 100px;">Activate</a>
+                  </span>
                 <?php } elseif ($status == 2) { ?>
                   <a href="deactivate_job.php?id=<?= $job['id'] ?>" class="btn btn-warning" style="width: 100px;">Deactivate</a>
                 <?php } ?>
               </div>
               <div class="col-md-4">
                 <center>
-                <?php if ($status == 0) { ?>
-                <div class="col-md-4">
-                  <button class="btn btn-primary" style="width: 100px;" id="edit-profile-btn" data-toggle="modal" data-target="#edit-job-modal">
-                    Edit
-                  </button>
+                  <div class="col-md-4">
+                  <?php if ($status == 0) { ?>
+                    <button class="btn btn-primary" style="width: 100px;" id="edit-profile-btn" data-toggle="modal" data-target="#edit-job-modal">
+                      Edit
+                    </button>
+                  <?php } else { ?>
+                  <span data-bs-toggle="tooltip" title="Cannot edit a pending job or open job">
+                    <button class="btn btn-outline-primary disabled" aria-disabled="true" style="width: 100px;">
+                      Edit
+                    </button>
+                  </span>
+                  <?php } ?>
                 </div>
-                <?php } else { ?>
-                <div class="col-md-4" data-bs-toggle="tooltip" title="Cannot edit a pending job or open job">
-                  <button class="btn btn-outline-primary disabled" aria-disabled="true" style="width: 100px;">
-                    Edit
-                  </button>
-                </div>
-                <?php } ?>
                 </center>
               </div>
               <?php if ($status == 0) { ?>
