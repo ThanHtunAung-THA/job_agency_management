@@ -15,14 +15,15 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav  ml-auto">
           <li class="nav-item">
+              <a class="nav-link" href="<?php echo EMPLOYER_URL; ?>/dashboard.php"> Dashboard</a>
+          </li>
+          <li class="nav-item">
               <a class="nav-link" href="<?php echo EMPLOYER_URL; ?>/post_job.php"> <i class="fa fa-plus-circle" aria-hidden="true"></i> New Job</a>
           </li>
-     
           <li class="nav-item">
               <a class="nav-link" href="<?php echo EMPLOYER_URL; ?>/manage_jobs.php">Job List</a>
           </li>
           <?php if (!isset($_SESSION['user_id'])): ?>
-
           <li class="nav-item">
               <a class="nav-link" href="<?php echo AUTH_URL; ?>/login.php">
               <i class="fa fa-user" aria-hidden="true"></i>
@@ -48,7 +49,6 @@
                     <li>
                         <?php if ($_SESSION['role'] == 'employer'): ?>
                             <a class="dropdown-item" href="<?php echo EMPLOYER_URL; ?>/profile.php"> Profile</a>
-                            <a class="dropdown-item" href="<?php echo EMPLOYER_URL; ?>/dashboard.php"> Dashboard</a>
                         <?php elseif ($_SESSION['role'] == 'employee'): ?>
                             <a class="dropdown-item" href="<?php echo EMPLOYEE_URL; ?>/profile.php"> Profile</a>
                             <a class="dropdown-item" href="<?php echo EMPLOYEE_URL; ?>/dashboard.php"> Dashboard</a>

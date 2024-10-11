@@ -1308,3 +1308,20 @@ form button.btn.btn-box:hover {
   flex: 1;
   overflow-y: auto;
 }
+
+/* ======== dataTable ========== */
+
+.dataTables_filter, button.dt-button, .dataTables_info, 
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  color: antiquewhite !important;
+}
+
+button.dt-button, 
+.dataTables_wrapper .dataTables_paginate .paginate_button,
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover,
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  
+  border: 1px solid !important;
+}

@@ -6,10 +6,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <title>Overseas Job Central</title>
   <link rel="icon" href="<?php echo ASSETS_URL; ?>/images/ojc-round.png" type="image/png" />
-  <link rel="stylesheet" type="text/css" href="<?php echo ASSETS_URL; ?>/css/bootstrap.css" />
-  <link href="<?php echo ASSETS_URL; ?>/css/font-awesome.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/font-awesome.min.css"/>
   <link href="<?php echo ASSETS_URL; ?>/css/fonts-googleapis.css">
-  <link href="<?php echo ASSETS_URL; ?>/css/style.css" rel="stylesheet" />
-  <link href="<?php echo ASSETS_URL; ?>/css/responsive.css" rel="stylesheet" />
+  <!-- DataTables CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+  <!-- DataTables Buttons CSS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/bootstrap.css" />
+  <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/responsive.css"/>
+  <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4="/>
+  <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/style.css"/>
+
 </head>

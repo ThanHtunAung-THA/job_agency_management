@@ -55,42 +55,44 @@ $db->close();
   </div>
 <?php endif; ?>
 
-<div class="container">
-    <h3 class="card-header bg-dark text-white">Post a New Job</h3>
-    <form action="" method="post">
-      <div class="form-group card-header bg-dark text-white">
+<div class="container card bg-dark">
+    <h3 class="card-header  text-white">Post a New Job</h3>
+    <form action="" method="post" class="mb-5">
+      <div class="form-group card-header  text-white">
         <label for="jobTitle">Job Title</label>
         <input type="text" class="form-control" id="jobTitle" name="jobTitle" required>
       </div>
-      <div class="form-group card-header bg-dark text-white">
+      <div class="form-group card-header  text-white">
         <label for="job_Desc">Job Description</label>
         <textarea class="form-control" id="job_Desc" name="job_Desc" rows="5"></textarea>
       </div>
-      <div class="form-group card-header bg-dark text-white">
+      <div class="form-group card-header  text-white">
         <label for="responsibilities">Job responsibilities</label>
         <textarea class="form-control" id="responsibilities" name="responsibilities" rows="5"></textarea>
       </div>
-      <div class="form-group card-header bg-dark text-white">
+      <div class="form-group card-header  text-white">
         <label for="experience">Experience</label>
         <textarea class="form-control" id="experience" name="experience" rows="5"></textarea>
       </div>
-      <div class="form-group card-header bg-dark text-white">
+      <div class="form-group card-header  text-white">
         <label for="skills">Your prefered skills</label>
         <textarea class="form-control" id="skills" name="skills" rows="5"></textarea>
       </div>
-      <div class="form-group card-header bg-dark text-white">
+      <div class="form-group card-header  text-white">
         <label for="requirements">Your prefered requirements</label>
         <textarea class="form-control" id="requirements" name="requirements" rows="5"></textarea>
       </div>
-      <div class="form-group card-header bg-dark text-white">
+      <div class="form-group card-header  text-white">
         <label for="salary">Range of salary</label>
         <input type="text" class="form-control" id="salary" name="salary" required>
       </div>
-      <div class="form-group card-header bg-dark text-white">
+      <div class="form-group card-header  text-white">
         <label for="job_location">Job location</label>
         <textarea class="form-control" id="job_location" name="job_location" rows="5"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary btn-jobs mt-2">Create Job</button>
+      <div class="form-group card-header text-white">
+        <button type="submit" class="btn btn-primary btn-jobs mt-2">Create Job</button>
+      </div>
     </form>
   </div>
 

@@ -19,8 +19,6 @@ while ($row = mysqli_fetch_assoc($job_result)) {
     $job_data[] = $row;
 }
 
-//when employer posted job, it goes to the jobs.tb with status 1
-
 // Fetch applications
 $applied_query = "SELECT aj.status, j.job_title, ee.id as employee_id, ee.username as employee_name
 FROM applied_jobs aj
@@ -53,7 +51,7 @@ while ($row = mysqli_fetch_assoc($applied_result)) {
                     </div>
                 <?php endif; ?>
 
-                <div class="d-flex justify-content-between align-items-center mb-3 card-header bg-dark">
+                <div class="d-flex justify-content-between align-items-center card-header bg-dark">
                     <h4 class="text-light">Dashboard Overview</h4>
                     <ul class="list-inline text-light">
                         <li class="list-inline-item">
@@ -65,68 +63,55 @@ while ($row = mysqli_fetch_assoc($applied_result)) {
                     </ul>
                 </div>
 
-                <div class="row">
-                    <!-- Job Postings Section -->
-                    <div class="col-md-6">
-                        <section class="card bg-dark job-postings">
-                            <h3 class="card-header text-light">Job Postings</h3>
-                            <div class="card-head">
-                                <?php foreach ($job_data as $job) { ?>
-                                    <div class="card bg-light mb-3">
-                                        <div class="card-header font-weight-bold"><?php echo $job['job_title']; ?></div>
-                                        <div class="card-body">
-                                            <p class="card-text"><?php echo $job['job_desc']; ?></p>
-                                            <?php
-                                            // Count applications for this job
-                                            $applicants_query = "SELECT COUNT(*) as applicant_count FROM applied_jobs WHERE job_id = '$job[id]'";
-                                            $applicants_result = mysqli_query($conn, $applicants_query);
-                                            $applicants_data = mysqli_fetch_assoc($applicants_result);
-                                            ?>
-                                            <p class="card-text">
-                                                <small class="text-muted">Post-status: 
-                                                    <?php 
-                                                        if ($job['status'] == 0) {
-                                                            echo "Closed"; 
-                                                        }
-                                                        if ($job['status'] == 1) {
-                                                            echo "Pending"; 
-                                                        }
-                                                        if ($job['status'] == 2) {
-                                                            echo "Opening"; 
-                                                        }
-                                                    ?>
-                                                </small>
-                                                </p>
-                                            <p class="card-text"><small class="text-muted">Applications: <?php echo $applicants_data['applicant_count']; ?></small></p>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                            </div>
-                        </section>
-                    </div>
+                <!-- dataTable for posted job list -->
+                <div class="d-flex justify-content-between align-items-center card-header bg-dark mt-2">
+                    <section class="card bg-dark">
+                    <h4 class="card-header text-light">Posted Job List</h4>
+                    <table id="jobTable" class="table table-bordered" style="width:100%">
+                    <thead>
+                        <tr>
+                        <th>Job ID</th>
+                        <th>Job Title</th>
+                        <th>Job Status</th>
+                        <th>Applicants</th>
+                        <th>Posted Date</th>
+                        </tr>
+                    </thead>
 
-                    <!-- Applications Section -->
-                    <div class="col-md-6">
-                        <section class="card bg-dark applications">
-                            <h3 class="card-header text-light">Applications</h3>
-                            <div class="card-head">
-                                <?php foreach ($applied_data as $app) { ?>
-                                    <div class="card bg-light mb-3">
-                                        <div class="card-header font-weight-bold"><?php echo $app['employee_name']; ?></div>
-                                        <div class="card-body">
-                                            <p class="card-text">Job Title: <?php echo $app['job_title']; ?></p>
-                                            <p class="card-text"><small class="text-muted">Status: <?php echo $app['status']; ?></small></p>
-                                            <a href="#" class="btn btn-primary btn-jobs" data-employee-id="<?php echo $app['employee_id']; ?>">View Profile</a>
-                                        </div>
-                                    </div>
-                                <?php } ?>
-                            </div>
-                        </section>
-                    </div>
+                    <tbody>
+                    <?php foreach ($job_data as $job) { 
+                        // Count applications for this job
+                        $applicants_query = "SELECT COUNT(*) as applicant_count FROM applied_jobs WHERE job_id = '$job[id]'";
+                        $applicants_result = mysqli_query($conn, $applicants_query);
+                        $applicants_data = mysqli_fetch_assoc($applicants_result);
+                    ?>
+                        <tr>
+                        <td><?php echo $job['id']; ?></td>
+                        <td><?php echo $job['job_title']; ?></td>
+                        <td>
+                            <?php 
+                            if ($job['status'] == 0) {
+                                echo "Job is closed";
+                            } elseif ($job['status'] == 1) {
+                                echo "Job is pending for approval";
+                            } elseif ($job['status'] == 2) {
+                                echo "Job is opening";
+                            }
+                            ?>
+                        </td>
+                        <td><?php echo $applicants_data['applicant_count']; ?> Applied</td>
+                        <td><?php echo $job['created_at']; ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                    </table>
+                    </section>
                 </div>
             </div>
         </div>
     </div>
+
+
 
 <!-- Employee Profile Modal -->
 <div class="modal fade" id="employeeProfileModal" tabindex="-1" role="dialog" aria-labelledby="employeeProfileModalLabel" aria-hidden="true">
@@ -170,4 +155,15 @@ $(document).ready(function() {
         });
     });
 });
+
+$(document).ready(function() {
+$('#jobTable').DataTable({
+    dom: 'Bfrtip',
+    buttons: [
+    'copy', 'csv', 'excel', 'pdf', 'print'
+    ]
+});
+});
+
 </script>
+
