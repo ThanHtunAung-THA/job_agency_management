@@ -87,7 +87,11 @@ while ($row = mysqli_fetch_assoc($applied_result)) {
                     ?>
                         <tr>
                         <td><?php echo $job['id']; ?></td>
-                        <td><?php echo $job['job_title']; ?></td>
+                        <td>
+                            <a href="detail_job.php?id=<?= $job['id']; ?>" class="job-listing-link">
+                                <?php echo $job['job_title']; ?>
+                            </a>
+                        </td>
                         <td>
                             <?php 
                             if ($job['status'] == 0) {

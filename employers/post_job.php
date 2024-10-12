@@ -55,46 +55,66 @@ $db->close();
   </div>
 <?php endif; ?>
 
-<div class="container card bg-dark">
-    <h3 class="card-header  text-white">Post a New Job</h3>
-    <form action="" method="post" class="mb-5">
-      <div class="form-group card-header  text-white">
-        <label for="jobTitle">Job Title</label>
-        <input type="text" class="form-control" id="jobTitle" name="jobTitle" required>
+<div class="container card bg-dark mt-5">
+  <h3 class="card-header text-white">Post a New Job</h3>
+  <form action="" method="post" class="mb-5">
+    <!-- Job Details Section -->
+    <div class="card-body bg-dark border border-light">
+      <h5 class="text-white">Job Details</h5>
+      <div class="form-group">
+        <label for="jobTitle" class="text-white">Job Title</label>
+        <input type="text" class="form-control" id="jobTitle" name="jobTitle" placeholder="e.g., Senior Developer" required>
       </div>
-      <div class="form-group card-header  text-white">
-        <label for="job_Desc">Job Description</label>
-        <textarea class="form-control" id="job_Desc" name="job_Desc" rows="5"></textarea>
+      <div class="form-group">
+        <label for="job_Desc" class="text-white">Job Description</label>
+        <textarea class="form-control" id="job_Desc" name="job_Desc" rows="4" placeholder="Brief overview of the job"></textarea>
       </div>
-      <div class="form-group card-header  text-white">
-        <label for="responsibilities">Job responsibilities</label>
-        <textarea class="form-control" id="responsibilities" name="responsibilities" rows="5"></textarea>
+      <div class="form-group">
+        <label for="responsibilities" class="text-white">Responsibilities</label>
+        <textarea class="form-control" id="responsibilities" name="responsibilities" rows="4" placeholder="List of job responsibilities"></textarea>
       </div>
-      <div class="form-group card-header  text-white">
-        <label for="experience">Experience</label>
-        <textarea class="form-control" id="experience" name="experience" rows="5"></textarea>
+    </div>
+    
+    <!-- Requirements Section -->
+    <div class="card-body bg-dark border border-light mt-2">
+      <h5 class="text-white">Requirements</h5>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="skills" class="text-white">Preferred Skills</label>
+          <textarea class="form-control" id="skills" name="skills" rows="3" placeholder="Required skills"></textarea>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="experience" class="text-white">Experience</label>
+          <textarea class="form-control" id="experience" name="experience" rows="3" placeholder="e.g., 3 years of experience"></textarea>
+        </div>
       </div>
-      <div class="form-group card-header  text-white">
-        <label for="skills">Your prefered skills</label>
-        <textarea class="form-control" id="skills" name="skills" rows="5"></textarea>
+      <div class="form-group">
+        <label for="requirements" class="text-white">Additional Requirements</label>
+        <textarea class="form-control" id="requirements" name="requirements" rows="4" placeholder="Any extra qualifications"></textarea>
       </div>
-      <div class="form-group card-header  text-white">
-        <label for="requirements">Your prefered requirements</label>
-        <textarea class="form-control" id="requirements" name="requirements" rows="5"></textarea>
+    </div>
+
+    <!-- Job Location and Salary -->
+    <div class="card-body bg-dark border border-light mt-2">
+      <h5 class="text-white">Other Details</h5>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="salary" class="text-white">Salary Range</label>
+          <input type="text" class="form-control" id="salary" name="salary" placeholder="e.g., $50,000 - $70,000" required>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="job_location" class="text-white">Job Location</label>
+          <input type="text" class="form-control" id="job_location" name="job_location" placeholder="e.g., New York City, Remote">
+        </div>
       </div>
-      <div class="form-group card-header  text-white">
-        <label for="salary">Range of salary</label>
-        <input type="text" class="form-control" id="salary" name="salary" required>
-      </div>
-      <div class="form-group card-header  text-white">
-        <label for="job_location">Job location</label>
-        <textarea class="form-control" id="job_location" name="job_location" rows="5"></textarea>
-      </div>
-      <div class="form-group card-header text-white">
-        <button type="submit" class="btn btn-primary btn-jobs mt-2">Create Job</button>
-      </div>
-    </form>
-  </div>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="card-footer text-center">
+      <button type="submit" class="btn btn-light mt-3" style="width: 10em; height: 3em !important;">Create Job</button>
+    </div>
+  </form>
+</div>
 
 
 <?php include '../includes/foot.php'; ?>

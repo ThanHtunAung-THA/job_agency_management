@@ -109,8 +109,8 @@ $db->close();
 <?php endif; ?>
 
 
-<section class="container ml-auto mr-auto">
-<div class="row mt-0">
+<section class="container ml-auto mr-auto" >
+<div class="row mt-0" style="height: 550px;">
   <div class="col-12 col-md-6 bsb-tpl-bg-left card">
     <div class="d-flex flex-column justify-content-between p-md-2 p-xl-3">
       <h3 class="m-0 ">Welcome!</h3>
