@@ -36,7 +36,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt_employee->execute();
         $result_employee = $stmt_employee->get_result();
 
-
+        // Prepare SQL query for employee table
+        $query_admin = "SELECT * FROM admins WHERE email = ?";
+        $stmt_admin = $conn->prepare($query_admin);
+        $stmt_admin->bind_param('s', $email);
+        $stmt_admin->execute();
+        $result_admin = $stmt_admin->get_result();
+        
         // Check if email exists in either table
         if ($result_employer->num_rows == 1) {
             // Fetch employer data
@@ -73,6 +79,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           } else {
               $error = 'Invalid email or password.';
           }
+        } elseif ($result_admin->num_rows == 1) {
+          // Fetch employee data
+          $admin = $result_admin->fetch_assoc(); 
+        
+          // Verify password
+          if (password_verify($password, $admin['password'])) {
+              // Start session and set session variables
+              session_start();
+              $_SESSION['user_id'] = $admin['id'];
+              $_SESSION['user_name'] = $admin['username'];
+              $_SESSION['role'] = 'admin';
+
+              header('Location: ../admins/dashboard.php');
+              exit();
+          } else {
+              $error = 'Invalid email or password.';
+          }
         } else {
             $error = 'Invalid email or password.';
         }
@@ -80,6 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Close statements
         $stmt_employer->close();
         $stmt_employee->close();
+        $stmt_admin->close();
     }
 }
 
