@@ -20,6 +20,7 @@ echo '<p> Role <span style="margin-left: 32px;">:</span> ' . $profile_data['role
 echo '<p> Email <span style="margin-left: 24px;">:</span> ' . $profile_data['email'] . '</p>';
 echo '<p> Phone <span style="margin-left: 18px;">:</span> ' . $profile_data['phone'] . '</p>';
 echo '<p> Address <span style="margin-left: 5px;">:</span> ' . $profile_data['address'] . '</p>';
+echo '<p> Description <span style="margin-left: 5px;">:</span> ' . $profile_data['description'] . '</p>';
 // Add more profile information as needed
 
 // Close the database connection
