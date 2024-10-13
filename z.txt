@@ -566,3 +566,119 @@ move_uploaded_file($tmp_name, $upload_dir);
           </ul>
         </div>
       </nav>
+
+
+===============================================
+
+<!-- dasboard -->
+<div class="jumbotron" style="margin-left: 0px;">
+  <center><h2 class="text-primary"> -- Dashboard --</h2></center>
+
+  <div class="container-fluid">
+    <div class="row">
+
+      <!-- Main Content -->
+      <main role="main" class="col-md-9 col-lg-10" style="margin-left: 7em;">
+        <div class="row my-4">
+          <div class="col-md-4">
+            <div class="card bg-info">
+              <div class="card-body">
+                <h5 class="card-title">Total Jobs Posted</h5>
+                <p class="card-text">5</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card bg-success">
+              <div class="card-body">
+                <h5 class="card-title">New Applications</h5>
+                <p class="card-text">12</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card bg-warning">
+              <div class="card-body">
+                <h5 class="card-title">Interviews Scheduled</h5>
+                <p class="card-text">3</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Additional Overview Content -->
+      </main>
+    </div>
+  </div>
+
+</div>
+
+
+
+Job Title
+React developer
+Job Description
+We are seeking a talented React Developer to join our team. You will be responsible for developing and maintaining dynamic web applications using React.js, building reusable components, and optimizing performance. Collaborate with UI/UX designers and back-end developers to create seamless user experiences. Strong proficiency in JavaScript, React, and front-end technologies is required.
+Job responsibilities
+Develop new user-facing features using React.js and other modern web technologies.
+Build reusable components and front-end libraries for future use.
+Optimize components for maximum performance across a vast array of web-capable devices and browsers.
+Translate designs and wireframes into high-quality code.
+Collaborate with back-end developers and UI/UX designers to improve usability and deliver seamless experiences.
+Participate in code reviews to ensure adherence to best practices and maintain high-quality standards.
+Debug and troubleshoot issues, ensuring the performance and stability of the applications.
+Stay up-to-date with the latest industry trends and technologies to bring new ideas to the team.
+Experience
+Experience Requirements:
+
+2+ years of professional experience working with React.js.
+Strong proficiency in JavaScript (ES6+), including DOM manipulation and the JavaScript object model.
+Hands-on experience with state management libraries like Redux or Context API.
+Experience in building and consuming RESTful APIs.
+Familiarity with modern front-end build pipelines and tools (Webpack, Babel, NPM).
+Proven experience in optimizing components for performance and cross-browser compatibility.
+Working knowledge of Git and version control systems.
+Experience with responsive design and ensuring cross-device compatibility.
+
+Your prefered skills
+Experience with TypeScript.
+Familiarity with Next.js, Gatsby, or similar React-based frameworks.
+Understanding of GraphQL.
+Knowledge of Agile/Scrum methodologies.
+Experience with CICD processes and tools like Docker, Jenkins.
+UI/UX design experience or familiarity with tools like Figma or Sketch.
+Experience with cloud platforms like AWS, Azure, or Google Cloud.
+Your prefered requirements
+Experience: [X]+ years of experience in front-end development with a focus on React.js.
+Proficient in JavaScript (ES6+), HTML5, and CSS3.
+Strong understanding of React.js, its core principles, and workflows (such as Redux or Context API).
+Familiarity with RESTful APIs and asynchronous programming.
+Experience with popular React.js state management libraries (Redux, MobX, etc.).
+Knowledge of version control systems like Git.
+Experience with testing frameworks (Jest, React Testing Library, or similar).
+Understanding of web performance optimization techniques.
+Good problem-solving skills and the ability to think critically.
+Familiarity with front-end build pipelines and tools such as Webpack, Babel, NPM.
+
+Range of salary
+€30,000 - €45,000 per year
+Job location
+Germany (Berlin, Munich, Frankfurt)
+
+====================================================================================
+<a href="#" onclick="editJob(<?php echo $job['id']; ?>)" class="btn btn-primary" >
+  Edit
+</a>
+====================================================================================
+???????????????? to fix ??????????????
+#main bug
+to save in "uploads/user.id/images.jpg
+
+#to reload for parent page
+    // Close the popup window and refresh the parent page
+    echo "<script>window.opener.location.reload(); window.close();</script>";
+
+
+need to do moving back to main page if !isset ($_SESSION['user_id'])
+Warning: Undefined array key "user_id" in C:\xampp\htdocs\ojc.com\employees\dashboard.php on line 13
+
+-add employee 's cv upload sys
