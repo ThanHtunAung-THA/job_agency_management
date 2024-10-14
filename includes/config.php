@@ -22,6 +22,9 @@ if (!defined('PUBLIC_URL')) {
 if (!defined('AUTH_URL')) {
     define('AUTH_URL', '/ojc.com/auth');
 }
+if (!defined('ADMIN_URL')) {
+    define('ADMIN_URL', '/ojc.com/admins');
+}
 if (!defined('EMPLOYER_URL')) {
     define('EMPLOYER_URL', '/ojc.com/employers');
 }

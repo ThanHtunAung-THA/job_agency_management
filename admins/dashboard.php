@@ -13,13 +13,16 @@ $employer_id = $_SESSION['user_id'];
 
 $db->close();
 ?>
-<?php include '../includes/head.php'; ?>
-<body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/nav__admins.php'; ?>
+<?php include 'head.php'; ?>
+<body style="">
+<?php include 'nav__admins.php'; ?>
 
-fasdfsf
+<div class="content">
+    <h1>Main Content Area</h1>
+    <p>This is the main content area. Your page content goes here.</p>
+</div>
 
 
-<?php include '../includes/foot.php'; ?>
+<?php include 'foot.php'; ?>
 </body>
 </html>
