@@ -9,12 +9,12 @@
   <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/font-awesome.min.css"/>
   <link href="<?php echo ASSETS_URL; ?>/css/fonts-googleapis.css">
   <!-- DataTables CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/dataTables/jquery.dataTables.min.css">
   <!-- DataTables Buttons CSS -->
-  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.7.0/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/dataTables/buttons.dataTables.min.css">
   <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/bootstrap.css" />
   <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/responsive.css"/>
-  <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/nice-select.min.css" integrity="sha256-mLBIhmBvigTFWPSCtvdu6a76T+3Xyt+K571hupeFLg4="/>
+  <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/nice-select.min.css" />
   <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/style.css"/>
 
 </head>
