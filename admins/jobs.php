@@ -3,7 +3,7 @@ session_start();
 include '../includes/Database.php';
 include '../includes/config.php';
 
-$error = 'hello';
+$error = '';
 $success = '';
 $db = new Database();
 $conn = $db->getConnection();
@@ -26,17 +26,8 @@ $db->close();
 <?php include '../components/$error_$success.php'; ?>
 
 <div class="content" id="content">
-    <div class="">
-        <div class="">
-            <div class="card-header bg-dark">
-                <h4 class="text-light">Dashboard Overview</h4>
-
-            </div>
-
-
-
-        </div>
-    </div>
+    <h1>Jobs Content Area</h1>
+    <p>This is the main content area. Your page content goes here.</p>
 </div>
 
 

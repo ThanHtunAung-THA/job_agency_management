@@ -2,12 +2,10 @@
 session_start();
 include '../includes/config.php';
 ?>
-
-<?php include '../includes/head.php'; ?>
+<?php include '../components/head.php'; ?>
 <body style="  background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/nav.php'; ?>
-
-<section class="info_section">
+<?php include '../navbars/nav.php'; ?>
+<section class="info_section mt-5">
     <div class="container">
       <div class="row">
         <div class="col-md-2 info_links">
@@ -73,6 +71,7 @@ include '../includes/config.php';
     </div>
   </section>
 
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/footer.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>

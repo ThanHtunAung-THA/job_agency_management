@@ -22,7 +22,7 @@ body {
 }
 
 .sidebar.collapsed {
-  width: 80px;
+  width: 65px;
 }
 
 .logo {
@@ -113,32 +113,45 @@ body {
 }
 
 .content {
-  margin-left: 250px;
-  padding: 20px;
+  margin-left: 255px;
+  padding-top: 10px;
+  padding-right: 5px;
   width: 100%;
   transition: margin-left 0.3s ease;
 }
 
 .sidebar.collapsed ~ .content {
-  margin-left: 80px;
+  margin-left: 65px;
+}
+
+#content {
+  transition: margin-left 0.5s; /* add a smooth transition effect */
+}
+
+.sidebar.collapsed + #content {
+  margin-left: 65px;
+}
+
+.sidebar:not(.collapsed) + #content {
+  margin-left: 235px; /* adjust this value to match your sidebar width */
 }
 
 /* Responsive Sidebar */
 @media (max-width: 768px) {
   .sidebar {
-    width: 80px;
+    width: 165px;
   }
 
   .content {
-    margin-left: 80px;
+    margin-left: 155px;
   }
 
   .sidebar.collapsed {
-    width: 250px;
+    width: 65px; /* or a very small width, like 20px */
   }
 
   .sidebar.collapsed ~ .content {
-    margin-left: 250px;
+    margin-left: 0; /* or a small margin, like 20px */
   }
 }
 
@@ -146,4 +159,44 @@ body {
   border: 1px solid #007bff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 50%;
+}
+
+/* ===== POPUP msg box ====== */
+.popup-message-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+.popup-message-box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: relative;
+  width: 80%;
+  max-width: 400px;
+}
+.popup-message-content .error {
+  color: red;
+  font-weight: bold;
+}
+.popup-message-content .success {
+  color: green;
+  font-weight: bold;
+}
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
 }

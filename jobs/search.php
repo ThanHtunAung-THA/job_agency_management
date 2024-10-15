@@ -23,23 +23,20 @@ $sqlTotal = "SELECT COUNT(*) as total FROM jobs WHERE job_title LIKE '%$searchQu
 $resultTotal = $conn->query($sqlTotal);
 $totalRows = $resultTotal->fetch_assoc()['total'];
 $totalPages = ceil($totalRows / 5);
-
-// Display search results
+$db->close();
 ?>
-
-<?php include '../includes/head.php'; ?>
-<body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/nav.php'; ?>
-<!-- content here -->
+<?php include '../components/head.php'; ?>
+<body style="  background-image: linear-gradient(to right, #1f2766, #1f2766);">
+<?php include '../navbars/nav.php'; ?>
 <div class="jumbotron" style="margin-left: 0px;">
-
 <!-- Search Bar Section -->
 <section class="mt-5 mb-5">
   <div class="container">
     <div class="row">
       <div class="col-md-12">
         <div class="input-group input-group-lg">
-          <input type="text" id="searchBar" class="form-control" placeholder="Search job">
+          <input type="text" id="searchBar" class="form-control" placeholder="Search job"  value="<?php echo $searchQuery; ?>"> 
+
           <span class="input-group-btn">
             <button id="searchBtn" type="button" class="btn btn-info" onclick="searchBar()">Go!</button>
           </span>
@@ -48,8 +45,6 @@ $totalPages = ceil($totalRows / 5);
     </div>
   </div>
 </section>
-
-
 <!-- Search Results Section -->
 <section class="container">
   <div class="card">
@@ -73,7 +68,6 @@ $totalPages = ceil($totalRows / 5);
     </div>
   </div>
 </section>
-
 <!-- Pagination Section -->
 <section class="container mt-5">
   <nav aria-label="Page navigation">
@@ -102,9 +96,7 @@ $totalPages = ceil($totalRows / 5);
     </ul>
   </nav>
 </section>
-
 </div>
-
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>

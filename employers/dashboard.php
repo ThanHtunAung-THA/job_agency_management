@@ -5,12 +5,9 @@ include '../includes/config.php';
 
 $error = '';
 $success = '';
-
 $db = new Database();
 $conn = $db->getConnection();
-
 $employer_id = $_SESSION['user_id'];
-
 // Fetch job postings
 $job_query = "SELECT * FROM jobs WHERE employer_id = '$employer_id'";
 $job_result = mysqli_query($conn, $job_query);
@@ -18,7 +15,6 @@ $job_data = array();
 while ($row = mysqli_fetch_assoc($job_result)) {
     $job_data[] = $row;
 }
-
 // Fetch applications
 $applied_query = "SELECT aj.status, j.job_title, ee.id as employee_id, ee.username as employee_name
     FROM applied_jobs aj
@@ -26,31 +22,21 @@ $applied_query = "SELECT aj.status, j.job_title, ee.id as employee_id, ee.userna
     JOIN employees ee ON ee.id = aj.employee_id
     JOIN employers e ON j.employer_id = e.id
     WHERE e.id = '$employer_id'";
-
 $applied_result = mysqli_query($conn, $applied_query);
 $applied_data = array();
 while ($row = mysqli_fetch_assoc($applied_result)) {
     $applied_data[] = $row;
 }
-
 ?>
 
-<?php include '../includes/head.php'; ?>
+<?php include '../components/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/nav__employer.php'; ?>
+<?php include '../navbars/nav__employer.php'; ?>
+<?php include '../components/$error_$success.php'; ?>
 
     <div class="container-fluid mt-4">
         <div class="row">
             <div class="col-md-12">
-                <?php if ($error || $success): ?>
-                    <div class="alert alert-<?php echo ($error) ? 'danger' : 'success'; ?> alert-dismissible fade show" role="alert">
-                        <?php echo htmlspecialchars($error ? $error : $success); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                <?php endif; ?>
-
                 <div class="d-flex justify-content-between align-items-center card-header bg-dark">
                     <h4 class="text-light">Dashboard Overview</h4>
                     <ul class="list-inline text-light">
@@ -62,7 +48,6 @@ while ($row = mysqli_fetch_assoc($applied_result)) {
                         </li>
                     </ul>
                 </div>
-
                 <!-- dataTable for posted job list -->
                 <div class="d-flex justify-content-between align-items-center card-header bg-dark mt-2">
                     <section class="card bg-dark">
@@ -77,7 +62,6 @@ while ($row = mysqli_fetch_assoc($applied_result)) {
                         <th>Posted Date</th>
                         </tr>
                     </thead>
-
                     <tbody>
                     <?php foreach ($job_data as $job) { 
                         // Count applications for this job
@@ -119,7 +103,7 @@ while ($row = mysqli_fetch_assoc($applied_result)) {
         </div>
     </div>
 
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>
 
@@ -137,6 +121,4 @@ $('#jobTable').DataTable({
     ]
 });
 });
-
 </script>
-

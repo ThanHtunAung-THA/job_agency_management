@@ -5,12 +5,10 @@ include '../includes/config.php';
 
 $error = '';
 $success = '';
-
 $db = new Database();
 $conn = $db->getConnection();
 $employer_Id = $_SESSION['user_id'];
 $employer_Name = $_SESSION['user_name'];
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $jobTitle = $_POST['jobTitle'];
   $jobDesc = $_POST['job_Desc'];
@@ -21,39 +19,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $salary = $_POST['salary'];
   $job_location = $_POST['job_location'];
   $status = 1; //pending state
-
   $query = "INSERT INTO jobs (job_title, job_desc, responsibilities, experience, skills, requirements, salary, job_location, employer, employer_id, status)
          VALUES ('$jobTitle', '$jobDesc', '$responsibilities', '$experience', '$skills', '$requirements', '$salary', '$job_location', '$employer_Name', '$employer_Id', $status)";
-
   if ($conn->query($query) === TRUE) {
     $success = "Job posted successfully!";
   } else {
     $error = "Error posting job: " . $conn->error;
   }
 }
-
 $db->close();
 ?>
 
-<?php include '../includes/head.php'; ?>
+<?php include '../components/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/nav__employer.php'; ?>
-
-<!-- content here -->
-<?php if ($error || $success): ?>
-  <div id="popup-message" class="popup-message-overlay">
-    <div class="popup-message-box">
-      <button id="close-popup" class="close-btn">&times;</button>
-      <div class="popup-message-content">
-        <?php if ($error): ?>
-          <div class="error"><?= htmlspecialchars($error); ?></div>
-        <?php elseif ($success): ?>
-          <div class="success"><?= htmlspecialchars($success); ?></div>
-        <?php endif; ?>
-      </div>
-    </div>
-  </div>
-<?php endif; ?>
+<?php include '../navbars/nav__employer.php'; ?>
+<?php include '../components/$error_$success.php'; ?>
 
 <div class="container card bg-dark mt-5">
   <h3 class="card-header text-white">Post a New Job</h3>
@@ -117,6 +97,6 @@ $db->close();
 </div>
 
 
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>

@@ -2,20 +2,16 @@
 include '../includes/Database.php';
 include '../includes/config.php';
 
-// Initialize variables
 $error = '';
 $success = '';
-
 // Create a new Database instance
 $db = new Database();
 $conn = $db->getConnection();
-
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Retrieve form data
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-
     // Validate form data
     if (empty($username) || empty($email) || empty($password)) {
         $error = 'All fields are required.';
@@ -30,22 +26,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param('ss', $username, $email);
         $stmt->execute();
         $result = $stmt->get_result();
-
         $query_employer = "SELECT * FROM employers WHERE username = ? AND email = ?";
         $stmt = $conn->prepare($query_employer);
         $stmt->bind_param('ss', $username, $email);
         $stmt->execute();
         $result2 = $stmt->get_result();
-
-
         if ($result->num_rows == 0 && $result2->num_rows == 0) {
             $error = 'Invalid username or email.';
         } else {
             // Hash password
             $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-
             // Prepare SQL query
-
             if ($result->num_rows == true) {
                 $query = "UPDATE employees SET password = ? WHERE username = ? AND email = ?";
                 $stmt = $conn->prepare($query);
@@ -56,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $stmt = $conn->prepare($query);
                 $stmt->bind_param('sss', $hashed_password, $username, $email);
             }
-
             // Execute query
             if ($stmt->execute()) {
                 $success = 'Password reset successful!';
@@ -68,31 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 }
-// Close database connection
 $db->close();
 ?>
-
-<?php include '../includes/head.php'; ?>
-
-<body style="  background-image: linear-gradient(to right, #6fbae2, #7168c9);">
-  
-<?php include '../includes/nav.php'; ?>
-
-<?php if ($error || $success): ?>
-    <div id="popup-message" class="popup-message-overlay">
-        <div class="popup-message-box">
-            <button id="close-popup" class="close-btn">&times;</button>
-            <div class="popup-message-content">
-                <?php if ($error): ?>
-                    <div class="error"><?= htmlspecialchars($error); ?></div>
-                <?php elseif ($success): ?>
-                    <div class="success"><?= htmlspecialchars($success); ?></div>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
-<?php endif; ?>
-
+<?php include '../components/head.php'; ?>
+<body style="">
+<?php include '../navbars/nav__auth.php'; ?>
+<?php include '../components/$error_$success.php'; ?>
 <section class="container ml-auto mr-auto">
 <div class="row mt-0" style="height: 550px;">
   <div class="col-12 col-md-6 bsb-tpl-bg-left card">
@@ -101,7 +72,6 @@ $db->close();
       <img src="../assets/images/ojc-round.png" alt="Login Image" class="img-fluid mx-auto my-4">
     </div>
   </div>
-    
     <div class="col-12 col-md-6 bsb-tpl-bg-left card">
         <div class="p-1 p-md-2 p-xl-3">      
             <form method="POST" class="card card-body" enctype="multipart/form-data">
@@ -134,7 +104,6 @@ $db->close();
     </div>
 </div>
 </section>
-
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>

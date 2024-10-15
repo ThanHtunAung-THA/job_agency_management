@@ -14,6 +14,6 @@
   <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/dataTables/buttons.dataTables.min.css">
   <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/bootstrap.css" />
   <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/responsive.css"/>
-  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/style_admin.css"/>
 
 </head>

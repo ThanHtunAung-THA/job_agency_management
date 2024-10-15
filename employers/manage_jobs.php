@@ -8,16 +8,13 @@ $success = '';
 $db = new Database();
 $conn = $db->getConnection();
 $employer_id = $_SESSION['user_id'];
-
 $job_query = "SELECT * FROM jobs WHERE employer_id = '$employer_id'";
 $job_result = mysqli_query($conn, $job_query);
 $job_data = array();
 while ($row = mysqli_fetch_assoc($job_result)) {
     $job_data[] = $row;
 }
-
 if (isset($_POST['job_title']) || isset($_POST['job_desc']) || isset($_POST['responsibilities']) || isset($_POST['experience']) || isset($_POST['skills']) || isset($_POST['requirements']) || isset($_POST['salary'])) {
-  
   $job_id = $_POST['job_id'];
   $job_title = $_POST['job_title'];
   $job_desc = $_POST['job_desc'];
@@ -26,7 +23,6 @@ if (isset($_POST['job_title']) || isset($_POST['job_desc']) || isset($_POST['res
   $skills = $_POST['skills'];
   $requirements = $_POST['requirements'];
   $salary = $_POST['salary'];
-
   $update_query = "UPDATE jobs SET 
     job_desc = ?, 
     responsibilities = ?, 
@@ -35,10 +31,8 @@ if (isset($_POST['job_title']) || isset($_POST['job_desc']) || isset($_POST['res
     requirements = ?, 
     salary = ?
   WHERE id = ? AND employer_id = '$employer_id'";
-
   $stmt = $conn->prepare($update_query);
   $stmt->bind_param("ssssssi", $job_desc, $responsibilities, $experience, $skills, $requirements, $salary, $job_id);
-
   if ($stmt->execute()) {
     $success = 'Job updated successfully!';
   } else {
@@ -49,25 +43,10 @@ if (isset($_POST['job_title']) || isset($_POST['job_desc']) || isset($_POST['res
 $db->close();
 ?>
 
-<?php include '../includes/head.php'; ?>
+<?php include '../components/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/nav__employer.php'; ?>
-
-<!-- content here -->
-<?php if ($error || $success): ?>
-  <div id="popup-message" class="popup-message-overlay">
-    <div class="popup-message-box">
-      <button id="close-popup" class="close-btn">&times;</button>
-      <div class="popup-message-content">
-        <?php if ($error): ?>
-          <div class="error"><?= htmlspecialchars($error); ?></div>
-        <?php elseif ($success): ?>
-          <div class="success"><?= htmlspecialchars($success); ?></div>
-        <?php endif; ?>
-      </div>
-    </div>
-  </div>
-<?php endif; ?>
+<?php include '../navbars/nav__employer.php'; ?>
+<?php include '../components/$error_$success.php'; ?>
 
 <!-- manage job dashboard -->
 <div class="container-fluid">
@@ -146,7 +125,6 @@ $db->close();
       </tbody>
     </table>
   </div>
-
 <!-- Edit Modal -->
 <div class="modal fade" id="edit-job-modal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -195,12 +173,11 @@ $db->close();
   </div>
 </div>
 
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>
 
 <script>
-
   // Add JavaScript to handle the edit profile form submission
   $(document).ready(function() {
     $('#edit-job-form').submit(function(event) {
@@ -233,5 +210,4 @@ $db->close();
       });
     });
   });
-
 </script>

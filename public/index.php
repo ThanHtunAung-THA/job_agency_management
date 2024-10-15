@@ -2,10 +2,9 @@
 session_start();
 include '../includes/config.php';
 ?>
-<?php include '../includes/head.php'; ?>
-<body>
-<?php include '../includes/nav.php'; ?>
-
+<?php include '../components/head.php'; ?>
+<body style="">
+<?php include '../navbars/nav.php'; ?>
 <!-- slider section -->
 <section class="slider_section ">
   <div class="container ">
@@ -34,16 +33,13 @@ include '../includes/config.php';
               </span>
             </div>
           </div>
-
         </div>
-        
       </div>
     </div>
   </div>
 </section>
 </div>
 <!-- end slider section -->
-
   <!-- category section -->
   <section class="category_section">
     <div class="container-fluid">
@@ -124,7 +120,6 @@ include '../includes/config.php';
     </div>
   </section>
   <!-- end category section -->
-
 <!-- about section -->
 <section class="about_section layout_padding">
     <div class="container">
@@ -156,7 +151,6 @@ include '../includes/config.php';
     </div>
   </section>
 <!-- end about section -->
-
 <!-- job section -->
 <section class="job_section layout_padding">
     <div class="container">
@@ -403,7 +397,6 @@ include '../includes/config.php';
     </div>
 </section>
 <!-- end job section -->
-
 <!-- info section -->
 <section class="info_section">
     <div class="container">
@@ -471,8 +464,7 @@ include '../includes/config.php';
     </div>
   </section>
 <!-- end info_section -->
-
-<?php include '../includes/footer.php'; ?>
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/footer.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>

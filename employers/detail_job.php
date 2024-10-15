@@ -3,16 +3,12 @@ session_start();
 include '../includes/Database.php';
 include '../includes/config.php';
 
-
 $error = '';
 $success = '';
-
 $db = new Database();
 $conn = $db->getConnection();
-
 // Get the job id from the URL
 $job_id = $_GET['id'];
-
 // Retrieve the job data from the database
 $query = "SELECT * FROM jobs WHERE id = ?";
 $stmt = $conn->prepare($query);
@@ -20,18 +16,15 @@ if (!$stmt) {
     echo "Error preparing query: " . $conn->error;
     exit;
 }
-
 $stmt->bind_param('i', $job_id);
 $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
-
 // Check if the job data is found
 if (!$row) {
     echo "Job not found!";
     exit;
 }
-
 // Check if the "Apply job" button has been clicked
 if (isset($_POST['apply_job'])) {
     if (!isset($_SESSION['user_id'])) {
@@ -40,24 +33,13 @@ if (isset($_POST['apply_job'])) {
 }
 ?>
 
-<?php include '../includes/head.php'; ?>
+<?php include '../components/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/nav__employer.php'; ?>
-<!-- content here -->
-<?php if ($error): ?>
-    <div id="popup-message" class="popup-message-overlay">
-        <div class="popup-message-box">
-            <button id="close-popup" class="close-btn">&times;</button>
-            <div class="popup-message-content">
-                <div class="error"><?= htmlspecialchars($error); ?></div>
-            </div>
-        </div>
-    </div>
-<?php endif; ?>
+<?php include '../navbars/nav__employer.php'; ?>
+<?php include '../components/$error_$success.php'; ?>
 
 <div class="jumbotron" style="margin-left: 0px;">
-    <h3>Detail of Job Sr.No - 233<?= $row['id']; ?></h3>
-
+<h3>Detail of Job Sr.No - 233<?= $row['id']; ?></h3>
 <section class="mt-5 mb-5">
     <div class="container">
         <div class="card">
@@ -68,7 +50,6 @@ if (isset($_POST['apply_job'])) {
                     <?= $row['job_desc']; ?><br><br>
                     <b>Location :</b><br>
                     <?= $row['job_location']; ?><br><br>
-
                     <b>Responsibilities :</b><br>
                     <?= $row['responsibilities']; ?><br><br>
                     <b>Requirements :</b><br>
@@ -83,12 +64,9 @@ if (isset($_POST['apply_job'])) {
             </div>
         </div>
     </div>
-
 </section>
-
 </div>
-<!-- content here -->
 
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>

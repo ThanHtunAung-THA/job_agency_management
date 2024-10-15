@@ -3,51 +3,29 @@ session_start();
 include '../includes/Database.php';
 include '../includes/config.php';
 
-
 $error = '';
 $success = '';
-
 $db = new Database();
 $conn = $db->getConnection();
-
 $employeeId = $_SESSION['user_id'];
-
 // Retrieve the list of applied jobs for the current employee
 $stmt = $conn->prepare("SELECT aj.application_date, aj.status, j.ID, j.job_title, j.responsibilities, j.salary FROM applied_jobs aj INNER JOIN jobs j ON aj.job_id = j.ID WHERE aj.employee_id = ?");
 $stmt->bind_param("i", $employeeId);
 $stmt->execute();
 $result = $stmt->get_result();
-
 $appliedJobs = array();
 while ($row = $result->fetch_assoc()) {
   $appliedJobs[] = $row;
 }
-
 ?>
 
-<?php include '../includes/head.php'; ?>
+<?php include '../components/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/nav__employee.php'; ?>
-
-<!-- content here -->
-<?php if ($error || $success): ?>
-  <div id="popup-message" class="popup-message-overlay">
-    <div class="popup-message-box">
-      <button id="close-popup" class="close-btn">&times;</button>
-      <div class="popup-message-content">
-        <?php if ($error): ?>
-          <div class="error"><?= htmlspecialchars($error); ?></div>
-        <?php elseif ($success): ?>
-          <div class="success"><?= htmlspecialchars($success); ?></div>
-        <?php endif; ?>
-      </div>
-    </div>
-  </div>
-<?php endif; ?>
+<?php include '../navbars/nav__employee.php'; ?>
+<?php include '../components/$error_$success.php'; ?>
 
 <!-- Applied Job List -->
 <div class="jumbotron" style="margin-left: 0px;">
-
   <center><h2 class="text-primary"> -- Dashboard --</h2></center>
   <h4 class="text-primary">Applied Jobs</h4>
   <table class="table">
@@ -76,6 +54,6 @@ while ($row = $result->fetch_assoc()) {
   </table>
 </div>
 
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>

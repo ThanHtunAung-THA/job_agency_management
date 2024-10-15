@@ -49,26 +49,11 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
 
  $db->close();
 ?>
+<?php include '../components/head_admin.php'; ?>
+<body style="">
+<?php include '../navbars/nav__admin.php'; ?>
+<?php include '../components/$error_$success.php'; ?>
 
-<?php include '../includes/head.php'; ?>
-<body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/nav__employee.php'; ?>
-
-<!-- content here -->
-<?php if ($error || $success): ?>
-  <div id="popup-message" class="popup-message-overlay">
-    <div class="popup-message-box">
-      <button id="close-popup" class="close-btn">&times;</button>
-      <div class="popup-message-content">
-        <?php if ($error): ?>
-          <div class="error"><?= htmlspecialchars($error); ?></div>
-        <?php elseif ($success): ?>
-          <div class="success"><?= htmlspecialchars($success); ?></div>
-        <?php endif; ?>
-      </div>
-    </div>
-  </div>
-<?php endif; ?>
 
 <!-- Profile Section -->
 <div class="container ">
@@ -245,7 +230,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
   </div>
 </div>
 
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>
 

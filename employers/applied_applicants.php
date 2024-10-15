@@ -5,10 +5,8 @@ include '../includes/config.php';
 
 $error = '';
 $success = '';
-
 $db = new Database();
 $conn = $db->getConnection();
-
 $employer_id = $_SESSION['user_id'];
 // Fetch applications
 $applied_query = "SELECT aj.application_date, j.id, j.job_title, ee.id as employee_id, ee.username as employee_name , ee.email as employee_email, ee.role as employee_role
@@ -17,7 +15,6 @@ $applied_query = "SELECT aj.application_date, j.id, j.job_title, ee.id as employ
     JOIN employees ee ON ee.id = aj.employee_id
     JOIN employers e ON j.employer_id = e.id
     WHERE e.id = '$employer_id'";
-
 $applied_result = mysqli_query($conn, $applied_query);
 $applied_data = array();
 while ($row = mysqli_fetch_assoc($applied_result)) {
@@ -29,22 +26,13 @@ foreach ($applied_data as $job) {
 }
 ?>
 
-<?php include '../includes/head.php'; ?>
+<?php include '../components/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/nav__employer.php'; ?>
-
+<?php include '../navbars/nav__employer.php'; ?>
+<?php include '../components/$error_$success.php'; ?>
     <div class="container-fluid mt-4">
         <div class="row">
             <div class="col-md-12">
-                <?php if ($error || $success): ?>
-                    <div class="alert alert-<?php echo ($error) ? 'danger' : 'success'; ?> alert-dismissible fade show" role="alert">
-                        <?php echo htmlspecialchars($error ? $error : $success); ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                <?php endif; ?>
-
                 <div class="d-flex justify-content-between align-items-center card-header bg-dark">
                     <h4 class="text-light">
                         <a href="detail_job.php?id=<?= $job_id ?>" class="job-listing-link">
@@ -52,7 +40,6 @@ foreach ($applied_data as $job) {
                         </a>    
                     </h4>
                 </div>
-
                 <!-- dataTable for applicant list -->
                 <div class="d-flex justify-content-between align-items-center card-header bg-dark mt-2">
                     <section class="card bg-dark">
@@ -68,7 +55,6 @@ foreach ($applied_data as $job) {
                             <th>Profile Detail</th>
                         </tr>
                     </thead>
-
                     <tbody class="card-body">
                     <?php foreach ($applied_data as $data) { ?>
                         <tr>
@@ -89,9 +75,6 @@ foreach ($applied_data as $job) {
             </div>
         </div>
     </div>
-
-
-
 <!-- Employee Profile Modal -->
 <div class="modal fade" id="employeeProfileModal" tabindex="-1" role="dialog" aria-labelledby="employeeProfileModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -110,7 +93,7 @@ foreach ($applied_data as $job) {
     </div>
 </div>
 
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>
 

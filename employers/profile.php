@@ -52,27 +52,12 @@ if (isset($_POST['username']) || isset($_POST['email']) || isset($_POST['cName']
  $db->close();
 ?>
 
-<?php include '../includes/head.php'; ?>
+<?php include '../components/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/nav__employer.php'; ?>
+<?php include '../navbars/nav__employer.php'; ?>
+<?php include '../components/$error_$success.php'; ?>
 
-<!-- content here -->
-<?php if ($error || $success): ?>
-  <div id="popup-message" class="popup-message-overlay">
-    <div class="popup-message-box">
-      <button id="close-popup" class="close-btn">&times;</button>
-      <div class="popup-message-content">
-        <?php if ($error): ?>
-          <div class="error"><?= htmlspecialchars($error); ?></div>
-        <?php elseif ($success): ?>
-          <div class="success"><?= htmlspecialchars($success); ?></div>
-        <?php endif; ?>
-      </div>
-    </div>
-  </div>
-<?php endif; ?>
-
-<!-- Profile Section -->
+<!-- Profile Section -->`
 <div class="container ">
   <div class="row">
     <!-- Profile Info Section -->
@@ -86,10 +71,8 @@ if (isset($_POST['username']) || isset($_POST['email']) || isset($_POST['cName']
           <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
           <p class="text-muted"><i><span class="text-danger">*</span> add image</i></p>
         <?php endif; ?>
-        
         <!-- Username -->
         <h3 class="text-dark"><?= $employerData['username'] ?></h3>
-        
         <!-- Role -->
         <p class="text-muted">
           <?php if (!empty($employerData['company_name'])): ?>
@@ -98,7 +81,6 @@ if (isset($_POST['username']) || isset($_POST['email']) || isset($_POST['cName']
             <i><span class="text-danger">*</span> describe your company name</i>
           <?php endif; ?>
         </p>
-
         <!-- Address -->
         <p class="text-muted">
           <?php if (!empty($employerData['company_address'])): ?>
@@ -107,7 +89,6 @@ if (isset($_POST['username']) || isset($_POST['email']) || isset($_POST['cName']
             <i><span class="text-danger">*</span> describe your company address</i>
           <?php endif; ?>
         </p>
-
         <!-- Edit Image Button -->
         <button class="btn btn-outline-primary btn-tr" id="upload-btn" data-toggle="modal" data-target="#image-upload-modal">
           Edit Image
@@ -115,7 +96,6 @@ if (isset($_POST['username']) || isset($_POST['email']) || isset($_POST['cName']
       </div>
       </div>
     </div>
-
     <!-- Contact Info Section -->
     <div class="col-md-7">
       <div class="card shadow-sm p-4">
@@ -164,7 +144,6 @@ if (isset($_POST['username']) || isset($_POST['email']) || isset($_POST['cName']
               <?php endif; ?>
             </li>
           </ul>
-
           <!-- Edit Profile Button -->
           <div class="text-center mt-4">
             <button class="btn btn-outline-primary btn-tr" id="edit-profile-btn" data-toggle="modal" data-target="#edit-profile-modal">
@@ -203,7 +182,6 @@ if (isset($_POST['username']) || isset($_POST['email']) || isset($_POST['cName']
     </div>
   </div>
 </div>
-
 <!-- Edit Profile Modal -->
 <div class="modal fade" id="edit-profile-modal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -247,7 +225,7 @@ if (isset($_POST['username']) || isset($_POST['email']) || isset($_POST['cName']
   </div>
 </div>
 
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>
 

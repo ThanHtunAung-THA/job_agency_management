@@ -2,12 +2,10 @@
 session_start();
 include '../includes/config.php';
 ?>
-
-<?php include '../includes/head.php'; ?>
+<?php include '../components/head.php'; ?>
 <body style="  background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../includes/nav.php'; ?>
-
-<section class="info_section layout_margin">
+<?php include '../navbars/nav.php'; ?>
+<section class="info_section about layout_margin">
     <div class="container ">
         <div class="row align-items-center">
             
@@ -42,8 +40,7 @@ include '../includes/config.php';
         </div>
     </div>
 </section>
-
-<?php include '../includes/footer.php'; ?>
-<?php include '../includes/foot.php'; ?>
+<?php include '../components/footer.php'; ?>
+<?php include '../components/foot.php'; ?>
 </body>
 </html>

@@ -982,6 +982,10 @@ form button.btn.btn-box:hover {
   padding: 1.25rem;
 }
 
+.info_section.about {
+  border-radius: 20px;
+}
+
 .info_section h4 {
   font-weight: bold;
   margin-bottom: 20px;
@@ -1149,8 +1153,8 @@ form button.btn.btn-box:hover {
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
-  width: 80%;
-  max-width: 400px;
+  width: 100%;
+  max-width: 420px;
 }
 .popup-message-content .error {
   color: red;
