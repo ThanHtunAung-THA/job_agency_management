@@ -24,7 +24,6 @@ while ($row_job = mysqli_fetch_assoc($results_job)) {
 
 <div class="content">
     <section class="card bg-dark">
-        <div class="">
         <h4 class="card-header text-light">Job List</h4>
         <table id="jobTable" class="table table-bordered" style="width:100%;">
             <thead>
@@ -73,7 +72,6 @@ while ($row_job = mysqli_fetch_assoc($results_job)) {
         </table>
         </div>
     </section>
-</div>
 
 <?php include '../components/foot.php'; ?>
 </body>

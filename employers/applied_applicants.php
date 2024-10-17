@@ -34,10 +34,15 @@ foreach ($applied_data as $job) {
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex justify-content-between align-items-center card-header bg-dark">
+                    <h4>
+                        <a href="dashboard.php" class="text-light">
+                        <i class="fa fa-arrow-circle-left fa-lg"></i>
+                        </a>
+                    </h4>
                     <h4 class="text-light">
                         <a href="detail_job.php?id=<?= $job_id ?>" class="job-listing-link">
                             <?= $job_title ?>
-                        </a>    
+                        </a>
                     </h4>
                 </div>
                 <!-- dataTable for applicant list -->

@@ -25,29 +25,43 @@ if (!$row) {
     echo "Job not found!";
     exit;
 }
-// Check if the "Apply job" button has been clicked
-if (isset($_POST['apply_job'])) {
-    if (!isset($_SESSION['user_id'])) {
-        $error = "Please log in to apply for this job.";
-    } 
-}
+$status = $row['status'];
+
 ?>
 
-<?php include '../components/head.php'; ?>
-<body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../navbars/nav__employer.php'; ?>
+<?php include '../components/head_admin.php'; ?>
+<body>
+<?php include '../navbars/nav__admin.php'; ?>
 <?php include '../components/$error_$success.php'; ?>
 
-<div class="jumbotron" style="margin-left: 0px;">
-<section class="card bg-dark mb-5">
-
-<h4 class="card-header text-light">
-    <a href="dashboard.php" class="text-light">
-        <i class="fa fa-arrow-circle-left fa-lg"></i>
-    </a>    
-    <span class="float-right">Detail of Job Sr.No - 233<?= $row['id']; ?></span>
-</h4>
-<section class="mt-5 mb-5">
+<div class="content ">
+    <section class="card bg-dark mb-5">
+        
+    <h4 class="card-header text-light">
+        <a href="jobs.php" class="text-light mr-2">
+            <i class="fa fa-arrow-circle-left fa-lg"></i>
+        </a>
+        Sr.No - 233<?= $row['id']; ?>
+        <span class="float-right">
+            <small>
+            status : 
+            <?php 
+                if ($status == 0) {
+                    echo "<span class='text-danger'>close</span>";
+                } elseif ($status == 1) {
+                    echo "<span class='text-warning'>pending</span>";
+                } elseif ($status == 2) {
+                    echo "<span class='text-success'>active</span>";
+                }
+            ?>
+            </small>
+            <?php if ($status == 0 || $status == 1) { ?>
+                <a href="activate_job.php?id=<?= $row['id'] ?>" class="btn btn-success btn-sm ml-2">Activate</a>
+            <?php } elseif ($status == 2) { ?>
+                <a href="deactivate_job.php?id=<?= $row['id'] ?>" class="btn btn-warning btn-sm ml-2">Deactivate</a>
+            <?php } ?>
+        </span>
+    </h4>    
     <div class="container">
         <div class="card">
             <div class="card-body">
