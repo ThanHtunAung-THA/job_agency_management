@@ -74,6 +74,11 @@ function searchBar() {
   }
 }
 
+function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  sidebar.classList.toggle('collapsed');
+}
+
 // Run functions on page load
 document.addEventListener('DOMContentLoaded', function () {
   popupMessageBox();

@@ -1,4 +1,3 @@
-<header class="">
 <div class="sidebar" id="sidebar">
   <div class="logo">
     <i class="toggle-btn" onclick="toggleSidebar()">
@@ -72,6 +71,4 @@
   <?php endif; ?>
   </ul>
 </div>
-
-</header>
 

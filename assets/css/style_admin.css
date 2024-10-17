@@ -22,7 +22,7 @@ body {
 }
 
 .sidebar.collapsed {
-  width: 65px;
+  width: 80px;
 }
 
 .logo {
@@ -113,45 +113,32 @@ body {
 }
 
 .content {
-  margin-left: 255px;
-  padding-top: 10px;
-  padding-right: 5px;
+  margin-left: 250px;
+  padding: 20px;
   width: 100%;
   transition: margin-left 0.3s ease;
 }
 
 .sidebar.collapsed ~ .content {
-  margin-left: 65px;
-}
-
-#content {
-  transition: margin-left 0.5s; /* add a smooth transition effect */
-}
-
-.sidebar.collapsed + #content {
-  margin-left: 65px;
-}
-
-.sidebar:not(.collapsed) + #content {
-  margin-left: 235px; /* adjust this value to match your sidebar width */
+  margin-left: 80px;
 }
 
 /* Responsive Sidebar */
 @media (max-width: 768px) {
   .sidebar {
-    width: 165px;
+    width: 80px;
   }
 
   .content {
-    margin-left: 155px;
+    margin-left: 80px;
   }
 
   .sidebar.collapsed {
-    width: 65px; /* or a very small width, like 20px */
+    width: 250px;
   }
 
   .sidebar.collapsed ~ .content {
-    margin-left: 0; /* or a small margin, like 20px */
+    margin-left: 250px;
   }
 }
 
