@@ -12,7 +12,7 @@ body {
 }
 
 .sidebar {
-  width: 250px;
+  width: 220px;
   background-color: #f8f9fa;
   color: #333;
   transition: width 0.3s ease;
@@ -113,8 +113,8 @@ body {
 }
 
 .content {
-  margin-left: 250px;
-  padding: 20px;
+  margin-left: 225px;
+  padding: 0 2px 0 0;
   width: 100%;
   transition: margin-left 0.3s ease;
 }

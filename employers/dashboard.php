@@ -113,12 +113,4 @@ $db->close();
 ?>
 
 <script>
-$(document).ready(function() {
-$('#jobTable').DataTable({
-    dom: 'Bfrtip',
-    buttons: [
-    'copy', 'csv', 'excel', 'pdf', 'print'
-    ]
-});
-});
 </script>

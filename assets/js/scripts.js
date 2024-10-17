@@ -79,6 +79,16 @@ function toggleSidebar() {
   sidebar.classList.toggle('collapsed');
 }
 
+$(document).ready(function() {
+  $('#jobTable').DataTable({
+      dom: 'Bfrtip',
+      buttons: [
+      'copy', 'csv', 'excel', 'pdf', 'print'
+      ]
+  });
+  });
+  
+
 // Run functions on page load
 document.addEventListener('DOMContentLoaded', function () {
   popupMessageBox();
@@ -89,4 +99,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Add event listener to send button
 document.getElementById('sendButton').addEventListener('click', sendEmail);
+
 

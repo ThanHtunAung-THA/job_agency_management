@@ -3,7 +3,7 @@
     <i class="toggle-btn" onclick="toggleSidebar()">
       <img src="../assets/images/ojc-round.png" alt="ojc-round" width="40px" height="40px" class="mr-1">
     </i>  
-    <span class="logo-text link-text">Adminstration</span>
+    <span class="logo-text link-text">AdminPanel</span>
   </div>
 
   <ul>
