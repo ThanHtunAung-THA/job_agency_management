@@ -43,7 +43,7 @@ while ($row_employee = mysqli_fetch_assoc($results_employee)) {
                         <tr>
                             <td><?php echo $employee['id']; ?></td>
                             <td>
-                                <a href="detail_job.php?id=<?= $job['id']; ?>" class="job-listing-link">
+                                <a href="#" class="job-listing-link" data-employee-id="<?php echo $employee['id']; ?>">
                                     <?php echo $employee['username']; ?>
                                 </a>
                             </td>
@@ -62,7 +62,42 @@ while ($row_employee = mysqli_fetch_assoc($results_employee)) {
 
 </div>
 
+<!-- Employee Profile Modal -->
+<div class="modal fade" id="employeeProfileModal" tabindex="-1" role="dialog" aria-labelledby="employeeProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="employeeProfileModalLabel">Employee Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Employee profile information will be displayed here -->
+                <div id="employee-profile-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php include '../components/foot.php'; ?>
 </body>
 </html>
 <?php $db->close();?>
+
+<script>
+$(document).ready(function() {
+    $('.job-listing-link[data-employee-id]').on('click', function() {
+        var employeeId = $(this).data('employee-id');
+        $.ajax({
+            type: 'POST',
+            url: '../components/fetch_employee_profile.php', // create a new PHP file to handle this request
+            data: { employee_id: employeeId },
+            success: function(response) {
+                $('#employee-profile-content').html(response);
+                $('#employeeProfileModal').modal('show');
+            }
+        });
+    });
+});
+</script>

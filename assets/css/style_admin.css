@@ -187,3 +187,29 @@ body {
   right: 10px;
   cursor: pointer;
 }
+
+  /* employee profile */
+  .profile-card {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+    height: 396px;
+    position: relative;
+}
+
+.btn-tr{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.profile-card h5 .span1 {
+  margin-left: 10px;
+  display: inline-block;
+  width: 150px;
+}
+.profile-card h5 .span2 {
+  margin-left: 20px; /* add space between label and value */
+}

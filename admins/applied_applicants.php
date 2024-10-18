@@ -7,14 +7,15 @@ $error = '';
 $success = '';
 $db = new Database();
 $conn = $db->getConnection();
-$employer_id = $_SESSION['user_id'];
+$job_id = isset($_GET['id']);
+
 // Fetch applications
 $applied_query = "SELECT aj.application_date, j.id, j.job_title, ee.id as employee_id, ee.username as employee_name , ee.email as employee_email, ee.role as employee_role
     FROM applied_jobs aj
     JOIN jobs j ON aj.job_id = j.id
     JOIN employees ee ON ee.id = aj.employee_id
     JOIN employers e ON j.employer_id = e.id
-    WHERE e.id = '$employer_id'";
+    WHERE j.id = '$job_id'";
 $applied_result = mysqli_query($conn, $applied_query);
 $applied_data = array();
 while ($row = mysqli_fetch_assoc($applied_result)) {
@@ -25,17 +26,18 @@ foreach ($applied_data as $job) {
     $job_title = $job['job_title'];
 }
 ?>
-
-<?php include '../components/head.php'; ?>
-<body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
-<?php include '../navbars/nav__employer.php'; ?>
+<?php include '../components/head_admin.php'; ?>
+<body>
+<?php include '../navbars/nav__admin.php'; ?>
 <?php include '../components/$error_$success.php'; ?>
+
+<div class="content">
     <div class="container-fluid mt-4">
         <div class="row">
             <div class="col-md-12">
                 <div class="d-flex justify-content-between align-items-center card-header bg-dark">
                     <h4>
-                        <a href="dashboard.php" class="text-light">
+                        <a href="jobs.php" class="text-light">
                         <i class="fa fa-arrow-circle-left fa-lg"></i>
                         </a>
                     </h4>
@@ -80,6 +82,7 @@ foreach ($applied_data as $job) {
             </div>
         </div>
     </div>
+</div>
 <!-- Employee Profile Modal -->
 <div class="modal fade" id="employeeProfileModal" tabindex="-1" role="dialog" aria-labelledby="employeeProfileModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

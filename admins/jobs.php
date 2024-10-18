@@ -77,3 +77,20 @@ while ($row_job = mysqli_fetch_assoc($results_job)) {
 </body>
 </html>
 <?php $db->close();?>
+
+<script>
+$(document).ready(function() {
+    $('.btn-primary[data-employee-id]').on('click', function() {
+        var employeeId = $(this).data('employee-id');
+        $.ajax({
+            type: 'POST',
+            url: '../components/fetch_employee_profile.php', // create a new PHP file to handle this request
+            data: { employee_id: employeeId },
+            success: function(response) {
+                $('#employee-profile-content').html(response);
+                $('#employeeProfileModal').modal('show');
+            }
+        });
+    });
+});
+</script>

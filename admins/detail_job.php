@@ -65,7 +65,15 @@ $status = $row['status'];
     <div class="container">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title"><?= $row['job_title']; ?></h4>
+            <h4 class="card-title">
+                <?= $row['job_title']; ?>
+                <span class="float-right">
+                    <a href="#" class="btn btn-link" data-employer-id="<?php echo $row['employer_id']; ?>">
+                        <?= htmlspecialchars($row['employer']); ?>
+                    </a>
+                    <small>(RegNo: <?= $row['employer_id']; ?>)</small>
+                </span>
+            </h4>
                 <div class="card-text">
                     <b>Job Description : </b><br>
                     <?= $row['job_desc']; ?><br><br>
@@ -87,7 +95,41 @@ $status = $row['status'];
     </div>
 </section>
 </div>
+<!-- employer Profile Modal -->
+<div class="modal fade" id="employerProfileModal" tabindex="-1" role="dialog" aria-labelledby="employerProfileModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="employerProfileModalLabel">employer Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- employer profile information will be displayed here -->
+                <div id="employer-profile-content"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php include '../components/foot.php'; ?>
 </body>
 </html>
+
+<script>
+$(document).ready(function() {
+    $('.btn-link[data-employer-id]').on('click', function() {
+        var employerId = $(this).data('employer-id');
+        $.ajax({
+            type: 'POST',
+            url: '../components/fetch_employer_profile.php', // create a new PHP file to handle this request
+            data: { employer_id: employerId },
+            success: function(response) {
+                $('#employer-profile-content').html(response);
+                $('#employerProfileModal').modal('show');
+            }
+        });
+    });
+});
+</script>
