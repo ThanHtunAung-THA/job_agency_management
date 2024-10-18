@@ -53,7 +53,7 @@
       </li>
   <?php else: ?>
       <li class="">
-          <a href="<?php echo ADMIN_URL; ?>/profile.php">
+          <a href="#">
           <i class="fa fa-user" aria-hidden="true"></i>
               <span class="link-text">
                   <?php echo $_SESSION['user_name']; ?>

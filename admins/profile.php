@@ -1,3 +1,4 @@
+<!-- under development for further system process -->
 <?php
 session_start();
 include '../includes/Database.php';
@@ -54,6 +55,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
 <?php include '../navbars/nav__admin.php'; ?>
 <?php include '../components/$error_$success.php'; ?>
 
+<div class="content">
 
 <!-- Profile Section -->
 <div class="container ">
@@ -159,7 +161,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
     </div>
   </div>
 </div>
-
+</div>
 <!-- Image Upload Modal -->
 <div class="modal fade" id="image-upload-modal" tabindex="-1" role="dialog" aria-labelledby="imageUploadModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">

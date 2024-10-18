@@ -23,8 +23,7 @@ while ($row_employee = mysqli_fetch_assoc($results_employee)) {
 <?php include '../components/$error_$success.php'; ?>
 
 <div class="content">
-
-            <section class="container bg-dark">
+            <section class="card bg-dark">
                 <h4 class="card-header text-light">Employee List</h4>
                 <table id="jobTable" class="table table-bordered" style="width:100%">
                     <thead>

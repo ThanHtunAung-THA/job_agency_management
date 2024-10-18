@@ -69,7 +69,7 @@ $status = $row['status'];
                 <?= $row['job_title']; ?>
                 <span class="float-right">
                     <a href="#" class="btn btn-link" data-employer-id="<?php echo $row['employer_id']; ?>">
-                        <?= htmlspecialchars($row['employer']); ?>
+                    <i class="fa fa-user-circle-o fa-lg mr-2"></i><?= htmlspecialchars($row['employer']); ?>
                     </a>
                     <small>(RegNo: <?= $row['employer_id']; ?>)</small>
                 </span>

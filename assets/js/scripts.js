@@ -74,9 +74,18 @@ function searchBar() {
   }
 }
 
+// function toggleSidebar() {
+//   const sidebar = document.getElementById('sidebar');
+//   sidebar.classList.toggle('collapsed');
+// }
 function toggleSidebar() {
   const sidebar = document.getElementById('sidebar');
-  sidebar.classList.toggle('collapsed');
+  sidebar.classList.toggle('collapsed'); // Toggle the sidebar's collapsed class
+
+  // Update the chart when sidebar is toggled
+  if (dashboardChart) {
+      dashboardChart.update(); // Update the existing chart
+  }
 }
 
 $(document).ready(function() {
