@@ -3,21 +3,15 @@ session_start();
 include '../includes/Database.php';
 include '../includes/config.php';
 
-// Create a new Database instance
 $db = new Database();
 $conn = $db->getConnection();
-
-// Get search query
 $searchQuery = $_GET['q'];
-
 // Retrieve job data
 $limit = 5;
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
-
 $sql = "SELECT * FROM jobs WHERE id = '$searchQuery' OR job_title LIKE '%$searchQuery%' LIMIT $offset, $limit";
 $results = $conn->query($sql);
-
 // Get total number of rows
 $sqlTotal = "SELECT COUNT(*) as total FROM jobs WHERE job_title LIKE '%$searchQuery%' ";
 $resultTotal = $conn->query($sqlTotal);

@@ -5,7 +5,6 @@
     </i>  
     <span class="logo-text link-text">AdminPanel</span>
   </div>
-
   <ul>
     <li>
       <a href="dashboard.php">
@@ -32,7 +31,6 @@
       </a>
     </li>
   </ul>
-  
   <ul>
   <?php if (!isset($_SESSION['user_id'])): ?>
       <li class="">
@@ -51,7 +49,7 @@
               </span>
           </a>
       </li>
-  <?php else: ?>
+      <?php else: ?>
       <li class="">
           <a href="#">
           <i class="fa fa-user" aria-hidden="true"></i>
@@ -68,7 +66,6 @@
               </span>
           </a>
       </li>
-  <?php endif; ?>
+      <?php endif; ?>
   </ul>
 </div>
-

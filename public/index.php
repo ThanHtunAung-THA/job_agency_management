@@ -3,7 +3,7 @@ session_start();
 include '../includes/config.php';
 ?>
 <?php include '../components/head.php'; ?>
-<body style="">
+<body>
 <?php include '../navbars/nav.php'; ?>
 <!-- slider section -->
 <section class="slider_section ">

@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 session_start();
                 $_SESSION['user_id'] = $employer['id'];
                 $_SESSION['user_name'] = $employer['username'];
-                $_SESSION['role'] = 'employer';
+                $_SESSION['user_type'] = 'employer';
                 header('Location: ../employers/dashboard.php');
                 exit();
             } else {
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               session_start();
               $_SESSION['user_id'] = $employee['id'];
               $_SESSION['user_name'] = $employee['username'];
-              $_SESSION['role'] = 'employee';
+              $_SESSION['user_type'] = 'employee';
               header('Location: ../employees/dashboard.php');
               exit();
           } else {
@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               session_start();
               $_SESSION['user_id'] = $admin['id'];
               $_SESSION['user_name'] = $admin['username'];
-              $_SESSION['role'] = 'admin';
+              $_SESSION['user_type'] = 'admin';
               header('Location: ../admins/dashboard.php');
               exit();
           } else {

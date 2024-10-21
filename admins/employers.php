@@ -15,51 +15,46 @@ $results_employer = $conn->query($sql_employer);
 while ($row_employer = mysqli_fetch_assoc($results_employer)) {
     $employer_data[] = $row_employer;
 }
-
 ?>
 <?php include '../components/head_admin.php'; ?>
 <body>
 <?php include '../navbars/nav__admin.php'; ?>
 <?php include '../components/$error_$success.php'; ?>
-
 <div class="content">
-            <section class="card bg-dark">
-                <h4 class="card-header text-light">Employer List</h4>
-                <table id="jobTable" class="table table-bordered" style="width:100%">
-                    <thead>
-                        <tr>
-                            <th>Employer ID</th>
-                            <th>Employer Name</th>
-                            <th>Employer Email</th>
-                            <th>Employer Phone</th>
-                            <th>Employer Company</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    <?php foreach ($employer_data as $employer) { 
-                        
-                    ?>
-                        <tr>
-                            <td><?php echo $employer['id']; ?></td>
-                            <td>
-                                <a href="#" class="job-listing-link" data-employer-id="<?php echo $employer['id']; ?>">
-                                    <?php echo $employer['username']; ?>
-                                </a>
-                            </td>
-                            <td>
-                                <?php echo $employer['email']; ?>
-                            </td>
-                            <td>
-                                <?php echo $employer['company_phone']; ?>
-                            </td>
-                            <td><?php echo $employer['company_name']; ?></td>
-                        </tr>
-                    <?php } ?>
-                    </tbody>
-                </table>
-            </section>
+    <section class="card bg-dark">
+        <h4 class="card-header text-light">Employer List</h4>
+        <table id="jobTable" class="table table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Employer ID</th>
+                    <th>Employer Name</th>
+                    <th>Employer Email</th>
+                    <th>Employer Phone</th>
+                    <th>Employer Company</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($employer_data as $employer) { ?>
+                <tr>
+                    <td><?php echo $employer['id']; ?></td>
+                    <td>
+                        <a href="#" class="job-listing-link" data-employer-id="<?php echo $employer['id']; ?>">
+                            <?php echo $employer['username']; ?>
+                        </a>
+                    </td>
+                    <td>
+                        <?php echo $employer['email']; ?>
+                    </td>
+                    <td>
+                        <?php echo $employer['company_phone']; ?>
+                    </td>
+                    <td><?php echo $employer['company_name']; ?></td>
+                </tr>
+            <?php } ?>
+            </tbody>
+        </table>
+    </section>
 </div>
-
 <!-- employer Profile Modal -->
 <div class="modal fade" id="employerProfileModal" tabindex="-1" role="dialog" aria-labelledby="employerProfileModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -77,12 +72,10 @@ while ($row_employer = mysqli_fetch_assoc($results_employer)) {
         </div>
     </div>
 </div>
-
 <?php include '../components/foot.php'; ?>
 </body>
 </html>
 <?php $db->close();?>
-
 <script>
 $(document).ready(function() {
     $('.job-listing-link[data-employer-id]').on('click', function() {

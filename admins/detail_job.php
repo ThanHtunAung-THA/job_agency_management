@@ -7,6 +7,7 @@ $error = '';
 $success = '';
 $db = new Database();
 $conn = $db->getConnection();
+
 // Get the job id from the URL
 $job_id = $_GET['id'];
 // Retrieve the job data from the database
@@ -26,17 +27,13 @@ if (!$row) {
     exit;
 }
 $status = $row['status'];
-
 ?>
-
 <?php include '../components/head_admin.php'; ?>
 <body>
 <?php include '../navbars/nav__admin.php'; ?>
 <?php include '../components/$error_$success.php'; ?>
-
 <div class="content ">
-    <section class="card bg-dark mb-5">
-        
+    <section class="card bg-dark mb-5">  
     <h4 class="card-header text-light">
         <a href="jobs.php" class="text-light mr-2">
             <i class="fa fa-arrow-circle-left fa-lg"></i>
@@ -112,11 +109,9 @@ $status = $row['status'];
         </div>
     </div>
 </div>
-
 <?php include '../components/foot.php'; ?>
 </body>
 </html>
-
 <script>
 $(document).ready(function() {
     $('.btn-link[data-employer-id]').on('click', function() {

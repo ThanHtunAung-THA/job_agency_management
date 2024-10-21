@@ -15,13 +15,11 @@ $results_job = $conn->query($sql_job);
 while ($row_job = mysqli_fetch_assoc($results_job)) {
     $job_data[] = $row_job;
 }
-
 ?>
 <?php include '../components/head_admin.php'; ?>
 <body>
 <?php include '../navbars/nav__admin.php'; ?>
 <?php include '../components/$error_$success.php'; ?>
-
 <div class="content">
     <section class="card bg-dark">
         <h4 class="card-header text-light">Job List</h4>
@@ -70,14 +68,12 @@ while ($row_job = mysqli_fetch_assoc($results_job)) {
             <?php } ?>
             </tbody>
         </table>
-        </div>
     </section>
-
+</div>
 <?php include '../components/foot.php'; ?>
 </body>
 </html>
 <?php $db->close();?>
-
 <script>
 $(document).ready(function() {
     $('.btn-primary[data-employee-id]').on('click', function() {

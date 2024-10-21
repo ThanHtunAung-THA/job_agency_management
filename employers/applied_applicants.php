@@ -25,7 +25,6 @@ foreach ($applied_data as $job) {
     $job_title = $job['job_title'];
 }
 ?>
-
 <?php include '../components/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
 <?php include '../navbars/nav__employer.php'; ?>
@@ -91,17 +90,14 @@ foreach ($applied_data as $job) {
                 </button>
             </div>
             <div class="modal-body">
-                <!-- Employee profile information will be displayed here -->
                 <div id="employee-profile-content"></div>
             </div>
         </div>
     </div>
 </div>
-
 <?php include '../components/foot.php'; ?>
 </body>
 </html>
-
 <?php 
 // Close the database connection
 $db->close();
@@ -113,7 +109,7 @@ $(document).ready(function() {
         var employeeId = $(this).data('employee-id');
         $.ajax({
             type: 'POST',
-            url: '../components/fetch_employee_profile.php', // create a new PHP file to handle this request
+            url: '../components/fetch_employee_profile.php',
             data: { employee_id: employeeId },
             success: function(response) {
                 $('#employee-profile-content').html(response);

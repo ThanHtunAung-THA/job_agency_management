@@ -29,12 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 $db->close();
 ?>
-
 <?php include '../components/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
 <?php include '../navbars/nav__employer.php'; ?>
 <?php include '../components/$error_$success.php'; ?>
-
 <div class="container card bg-dark mt-5">
   <h3 class="card-header text-white">Post a New Job</h3>
   <form action="" method="post" class="mb-5">
@@ -54,7 +52,6 @@ $db->close();
         <textarea class="form-control" id="responsibilities" name="responsibilities" rows="4" placeholder="List of job responsibilities"></textarea>
       </div>
     </div>
-    
     <!-- Requirements Section -->
     <div class="card-body bg-dark border border-light mt-2">
       <h5 class="text-white">Requirements</h5>
@@ -73,7 +70,6 @@ $db->close();
         <textarea class="form-control" id="requirements" name="requirements" rows="4" placeholder="Any extra qualifications"></textarea>
       </div>
     </div>
-
     <!-- Job Location and Salary -->
     <div class="card-body bg-dark border border-light mt-2">
       <h5 class="text-white">Other Details</h5>
@@ -88,15 +84,12 @@ $db->close();
         </div>
       </div>
     </div>
-
     <!-- Submit Button -->
     <div class="card-footer text-center">
       <button type="submit" class="btn btn-light mt-3" style="width: 10em; height: 3em !important;">Create Job</button>
     </div>
   </form>
 </div>
-
-
 <?php include '../components/foot.php'; ?>
 </body>
 </html>

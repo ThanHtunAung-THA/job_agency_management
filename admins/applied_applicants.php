@@ -30,7 +30,6 @@ foreach ($applied_data as $job) {
 <body>
 <?php include '../navbars/nav__admin.php'; ?>
 <?php include '../components/$error_$success.php'; ?>
-
 <div class="content">
     <div class="container-fluid mt-4">
         <div class="row">
@@ -100,16 +99,13 @@ foreach ($applied_data as $job) {
         </div>
     </div>
 </div>
-
 <?php include '../components/foot.php'; ?>
 </body>
 </html>
-
 <?php 
 // Close the database connection
 $db->close();
 ?>
-
 <script>
 $(document).ready(function() {
     $('.btn-primary[data-employee-id]').on('click', function() {

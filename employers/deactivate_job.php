@@ -13,7 +13,6 @@ if (isset($_GET['id'])) {
 
   // Update the session variables
   $_SESSION['status'] = 0;
-
   // Redirect back to the manage job listings page
   header('Location: manage_jobs.php');
   exit;

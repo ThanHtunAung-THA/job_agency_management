@@ -16,5 +16,4 @@
   <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/responsive.css"/>
   <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/nice-select.min.css" />
   <link rel="stylesheet" href="<?php echo ASSETS_URL; ?>/css/style.css"/>
-
 </head>

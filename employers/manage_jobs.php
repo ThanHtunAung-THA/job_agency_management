@@ -39,16 +39,12 @@ if (isset($_POST['job_title']) || isset($_POST['job_desc']) || isset($_POST['res
     $error = 'Error updating job: ' . $stmt->error;
   }
 }
-
 $db->close();
 ?>
-
 <?php include '../components/head.php'; ?>
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
 <?php include '../navbars/nav__employer.php'; ?>
 <?php include '../components/$error_$success.php'; ?>
-
-<!-- manage job dashboard -->
 <div class="container-fluid">
     <h3 class="card-header bg-dark text-white">Manage Job Listings</h3>
     <table class="table jumbotron">
@@ -172,7 +168,6 @@ $db->close();
     </div>
   </div>
 </div>
-
 <?php include '../components/foot.php'; ?>
 </body>
 </html>

@@ -34,19 +34,12 @@ if (!defined('EMPLOYEE_URL')) {
 if (!defined('JOBS_URL')) {
     define('JOBS_URL', '/ojc.com/jobs');
 }
-
-
 // File upload path
 if (!defined('UPLOAD_PATH')) {
     define('UPLOAD_PATH', '../uploads/');
 }
-
 // Application name
 if (!defined('APP_NAME')) {
     define('APP_NAME', 'Overseas Jobs Central');
 }
-
-// Other configurations can go here
-
-
 

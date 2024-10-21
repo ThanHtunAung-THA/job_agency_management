@@ -5,47 +5,17 @@ include '../includes/config.php';
 
 $error = '';
 $success = '';
-
 $db = new Database();
 $conn = $db->getConnection();
-
 $employeeId = $_SESSION['user_id'];
+
+
+
 $stmt = $conn->prepare("SELECT * FROM employees WHERE id = ?");
 $stmt->bind_param("i", $employeeId);
 $stmt->execute();
 $result = $stmt->get_result();
 $employeeData = $result->fetch_assoc();
-
-// to handle the edit profile image submission ========================= //
-if(isset($_FILES['imgupload'])) {
-  $image = $_FILES['imgupload']['name'];
-  $target = UPLOAD_PATH . basename($image);
-  $q = "UPDATE employees SET image = '$image' WHERE id = '$employeeId'";
-  $conn->query($q);
-  move_uploaded_file($_FILES['imgupload']['tmp_name'], $target);
-
-  header("location: profile.php"); // Redirect to profile page
-  exit;
-}
-
-// to handle the edit profile form submission
-if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone']) || isset($_POST['address']) || isset($_POST['description'])) {
-  $username = $_POST['username'];
-  $role = $_POST['role'];
-  $phone = $_POST['phone'];
-  $address = $_POST['address'];
-  $description = $_POST['description'];
-
-  $q = "UPDATE employees SET username = '$username', role = '$role', phone = '$phone', address = '$address', description = '$description' WHERE id = '$employeeId'";
-  $conn->query($q);
-
-  // Update the session variables
-  $_SESSION['username'] = $username;
-  $_SESSION['role'] = $role;
-  $_SESSION['phone'] = $phone;
-  $_SESSION['address'] = $address;
-  $_SESSION['description'] = $description;
-}
 
  $db->close();
 ?>
@@ -53,10 +23,8 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
 <body style="background-image: linear-gradient(to right, #1f2766, #1f2766);">
 <?php include '../navbars/nav__employee.php'; ?>
 <?php include '../components/$error_$success.php'; ?>
-<!-- Profile Section -->
 <div class="container ">
   <div class="row">
-    <!-- Profile Info Section -->
     <div class="col-md-5">
       <div class="card shadow-sm p-4 text-center">
       <div class="card-body">
@@ -67,11 +35,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
           <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
           <p class="text-muted"><i><span class="text-danger">*</span> add image</i></p>
         <?php endif; ?>
-        
-        <!-- Username -->
         <h3 class="text-dark"><?= $employeeData['username'] ?></h3>
-        
-        <!-- Role -->
         <p class="text-muted">
           <?php if (!empty($employeeData['role'])): ?>
             <?= $employeeData['role'] ?>
@@ -79,8 +43,6 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
             <i><span class="text-danger">*</span> describe your position</i>
           <?php endif; ?>
         </p>
-
-        <!-- Address -->
         <p class="text-muted">
           <?php if (!empty($employeeData['address'])): ?>
             <?= $employeeData['address'] ?>
@@ -88,7 +50,6 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
             <i><span class="text-danger">*</span> describe your address</i>
           <?php endif; ?>
         </p>
-
         <!-- Edit Image Button -->
         <button class="btn btn-outline-primary btn-tr" id="upload-btn" data-toggle="modal" data-target="#image-upload-modal">
           Edit Image
@@ -96,7 +57,6 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
       </div>
       </div>
     </div>
-
     <!-- Contact Info Section -->
     <div class="col-md-7">
       <div class="card shadow-sm p-4">
@@ -145,7 +105,6 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
               <?php endif; ?>
             </li>
           </ul>
-
           <!-- Edit Profile Button -->
           <div class="text-center mt-4">
             <button class="btn btn-outline-primary btn-tr" id="edit-profile-btn" data-toggle="modal" data-target="#edit-profile-modal">
@@ -157,7 +116,6 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
     </div>
   </div>
 </div>
-
 <!-- Image Upload Modal -->
 <div class="modal fade" id="image-upload-modal" tabindex="-1" role="dialog" aria-labelledby="imageUploadModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -169,7 +127,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
         </button>
       </div>
       <div class="modal-body">
-        <form id="image-upload-form" enctype="multipart/form-data">
+        <form id="image-upload-form" action="profile_update.php" method="POST" enctype="multipart/form-data">
           <div class="thumbnail-preview mb-3">
             <?php if (!empty($employeeData['image'])): ?>
               <img src="<?php echo UPLOAD_PATH; ?>/<?= $employeeData['image']; ?>" alt="Current Profile Picture" class="img-thumbnail" width="100">
@@ -177,14 +135,15 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
               <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" alt="Default Profile Picture" class="img-thumbnail" width="100">
             <?php endif; ?>
           </div>
+
           <input type="file" id="imgupload" name="imgupload" class="form-control-file" accept="image/*">
           <button type="submit" class="btn btn-primary mt-3">Upload Image</button>
+          
         </form>
       </div>
     </div>
   </div>
 </div>
-
 <!-- Edit Profile Modal -->
 <div class="modal fade" id="edit-profile-modal" tabindex="-1" role="dialog" aria-labelledby="editProfileModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -196,7 +155,7 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
         </button>
       </div>
       <div class="modal-body">
-        <form id="edit-profile-form">
+        <form id="edit-profile-form" action="profile_update.php" method="POST">
           <div class="form-group">
             <label for="username">Full Name :</label>
             <input type="text" class="form-control" id="username" name="username" value="<?= htmlspecialchars($employeeData['username']) ?>">
@@ -227,72 +186,6 @@ if (isset($_POST['username']) || isset($_POST['role']) || isset($_POST['phone'])
     </div>
   </div>
 </div>
-
 <?php include '../components/foot.php'; ?>
 </body>
 </html>
-
-<script>
-  // Add JavaScript to handle the image upload form submission
-  $(document).ready(function() {
-    $('#image-upload-form').submit(function(event) {
-      event.preventDefault();
-      var formData = new FormData(this);
-      $.ajax({
-        type: 'POST',
-        url: '<?php echo $_SERVER['PHP_SELF']; ?>',
-        data: formData,
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function(data) {
-          // Update the thumbnail preview
-          var thumbnail = $('#image-upload-modal .thumbnail-preview img');
-          thumbnail.attr('src', '<?php echo UPLOAD_PATH; ?>/' + data);
-          // Close the modal
-          $('#image-upload-modal').modal('hide');
-          // Show a success message
-          $('#popup-message').fadeIn();
-          $('#popup-message .success').text('Image uploaded successfully');
-        },
-        error: function(xhr, status, error) {
-          // Show an error message
-          $('#popup-message').fadeIn();
-          $('#popup-message .error').text('Error uploading image: ' + error);
-        }
-      });
-    });
-  });
-
-  // Add JavaScript to handle the edit profile form submission
-  $(document).ready(function() {
-    $('#edit-profile-form').submit(function(event) {
-      event.preventDefault();
-      var formData = $(this).serialize();
-      $.ajax({
-        type: 'POST',
-        url: '<?php echo $_SERVER['PHP_SELF']; ?>',
-        data: formData,
-        success: function(data) {
-          // Update the profile information
-          $('#popup-message').fadeIn();
-          $('#popup-message .success').text('Profile updated successfully');
-          // Close the modal
-          $('#edit-profile-modal').modal('hide');
-          // Update the profile information on the page
-          $('#username-display').text($('#username').val());
-          $('#email-display').text($('#email').val());
-          $('#role-display').text($('#role').val());
-          $('#phone-display').text($('#phone').val());
-          $('#address-display').text($('#address').val());
-          $('#description-display').text($('#description').val());
-        },
-        error: function(xhr, status, error) {
-          // Show an error message
-          $('#popup-message').fadeIn();
-          $('#popup-message .error').text('Error updating profile: ' + error);
-        }
-      });
-    });
-  });
-</script>
