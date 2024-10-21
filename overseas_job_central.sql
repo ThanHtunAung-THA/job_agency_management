@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2024 at 10:50 PM
+-- Generation Time: Oct 21, 2024 at 11:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -19,11 +19,11 @@ SET time_zone = "+00:00";
 
 --
 -- Database: `overseas_job_central`
--- if you already had `overseas_job_central` database, remove followed database creating codes, otherwise run all sql as followed
+-- if you already had `overseas_job_central` database, remove followed database creating codes.
+-- otherwise run all sql as followed.
 
 CREATE IF NOT EXISTS DATABASE  `overseas_job_central`;
 USE `overseas_job_central`;
-
 -- --------------------------------------------------------
 
 --
@@ -91,7 +91,7 @@ CREATE TABLE `employees` (
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` varchar(30) DEFAULT NULL,
+  `role` varchar(50) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
   `description` text DEFAULT NULL,
@@ -104,7 +104,7 @@ CREATE TABLE `employees` (
 --
 
 INSERT INTO `employees` (`id`, `username`, `email`, `password`, `role`, `phone`, `address`, `description`, `image`, `created_at`) VALUES
-(1, 'ThanTunAung', 't.thantunaung@gmail.com', '$2y$10$cUyMM0zBnVOOu.WyJbMkVOC1vs7PWLPe3orsewv8Cf51WmEmTOff6', 'Web developer, software develo', '+66 0634711557', 'Building-35, 50 soi ramkhamhaeng, bangkapi, bankkok, thailand.', 'As a passionate and skilled PHP Developer, I specialize in building robust and scalable web applications. With a deep understanding of PHP and hands-on experience in working with frameworks like Laravel and CodeIgniter, I have developed a wide range of web applications that meet both user and business needs.', 'D 98136_1.jpg', '2024-08-08 00:26:00'),
+(1, 'ThanTunAung', 't.thantunaung@gmail.com', '$2y$10$cUyMM0zBnVOOu.WyJbMkVOC1vs7PWLPe3orsewv8Cf51WmEmTOff6', 'Web developer, software developer', '+66 0634711557', 'Building-35, 50 soi ramkhamhaeng, bangkapi, bankkok, thailand.', 'As a passionate and skilled PHP Developer, I specialize in building robust and scalable web applications. With a deep understanding of PHP and hands-on experience in working with frameworks like Laravel and CodeIgniter, I have developed a wide range of web applications that meet both user and business needs.', 'D 98136_1.jpg', '2024-08-08 00:26:00'),
 (2, 'mgmgyoeyar', 'mgmgyoeyar@gmail.com', '$2y$10$tY/95W8y2SMl7rNSImsjZ.EWLOPnp3E6P71gs7QRuQEbrevkmT0.G', 'React developer, php developer', '09798174380, 0997484', 'Building-46, Innwa housing, Myeik street, 20 quarter, South Dagon, Yangon, Myanmar.', 'testing description. testing description. testing description. testing description. testing description. testing description. testing description. testing description. testing description. testing description. testing description. testing description.', 'ThanTunAung-DV size.jpg', '2024-09-13 08:45:43'),
 (3, 'KoKoYoeYar', 'kokoyoeyar@gmail.com', '$2y$10$.WTGrcnbKjpCzjYb9Cg8PuwC.42jFh6Xcixy.U68F2qur2PSnzds.', NULL, NULL, NULL, NULL, NULL, '2024-10-06 16:02:20'),
 (5, 'ThuRein', 'thurein@gmail.com', '$2y$10$EY1q2dgDMyKtFMxjgFd7Vezrx0VKe9zGi4Utpy/zqqgMGMFLPRtg2', NULL, NULL, NULL, NULL, NULL, '2024-10-15 18:23:13');
