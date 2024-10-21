@@ -2,6 +2,7 @@ OJC -- overseas job central
 a sample platform for job search php web app
 
 database for ojc is in the project root "overseas_job_central.sql"
+copy all lines to ur sql  editor and run it to create the database and tables. followed accounts are meant to be used  for testing
 
 # admin accounts
 username = admin1

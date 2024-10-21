@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 08, 2024 at 04:30 PM
+-- Generation Time: Oct 20, 2024 at 02:59 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,7 +20,7 @@ SET time_zone = "+00:00";
 --
 -- Database: `overseas_job_central`
 --
-CREATE Database IF NOT EXISTS `overseas_job_central`;
+CREATE IF NOT EXISTS DATABASE  `overseas_job_central`;
 USE `overseas_job_central`;
 -- --------------------------------------------------------
 
@@ -33,7 +33,6 @@ CREATE TABLE `admins` (
   `username` varchar(50) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `role` enum('super','manager','officer') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -41,11 +40,8 @@ CREATE TABLE `admins` (
 -- Dumping data for table `admins`
 --
 
-INSERT INTO `admins` (`id`, `username`, `email`, `password`, `role`, `created_at`) VALUES
-(1, 'admin1', 'admin1@gmail.com', 'admin12345', 'super', '2024-09-30 03:29:01'),
-(5, 'super', 'super@gmail.com', 'super12345', 'super', '2024-09-30 03:32:21'),
-(6, 'manager', 'manager@gmail.com', 'manager12345', 'manager', '2024-09-30 03:32:59'),
-(7, 'officer', 'officer@gmail.com', 'officer12345', 'officer', '2024-09-30 03:32:59');
+INSERT INTO `admins` (`id`, `username`, `email`, `password`, `created_at`) VALUES
+(1, 'admin1', 'admin1@gmail.com', '$2y$10$RmK0vQ/MUZJTjE1nE7RcWeNUxwSzrVNzebS4zajPCTaiOlHGy/aJK', '2024-09-30 03:29:01');
 
 -- --------------------------------------------------------
 
@@ -79,7 +75,8 @@ INSERT INTO `applied_jobs` (`id`, `employee_id`, `job_id`, `application_date`, `
 (8, 1, 5, '2024-08-15 08:09:25', 'applied', NULL, NULL, NULL),
 (9, 2, 4, '2024-10-05 03:08:57', 'applied', NULL, NULL, NULL),
 (10, 2, 11, '2024-10-05 03:22:12', 'applied', NULL, NULL, NULL),
-(11, 3, 1, '2024-10-06 23:02:43', 'applied', NULL, NULL, NULL);
+(11, 3, 1, '2024-10-06 23:02:43', 'applied', NULL, NULL, NULL),
+(12, 1, 26, '2024-10-16 02:13:47', 'applied', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -95,7 +92,6 @@ CREATE TABLE `employees` (
   `role` varchar(30) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
-  `cv_file_path` varchar(255) DEFAULT NULL,
   `description` text DEFAULT NULL,
   `image` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -105,10 +101,11 @@ CREATE TABLE `employees` (
 -- Dumping data for table `employees`
 --
 
-INSERT INTO `employees` (`id`, `username`, `email`, `password`, `role`, `phone`, `address`, `cv_file_path`, `description`, `image`, `created_at`) VALUES
-(1, 'ThanTunAung', 't.thantunaung@gmail.com', '$2y$10$cUyMM0zBnVOOu.WyJbMkVOC1vs7PWLPe3orsewv8Cf51WmEmTOff6', 'Web developer', '+66 0634711557', 'Building-46, Innwa housing, Myeik street, 20 quarter, South Dagon, Yangon, Myanmar.', NULL, 'As a passionate and skilled PHP Developer, I specialize in building robust and scalable web applications. With a deep understanding of PHP and hands-on experience in working with frameworks like Laravel and CodeIgniter, I have developed a wide range of web applications that meet both user and business needs.', 'D 98136_1.jpg', '2024-08-08 00:26:00'),
-(2, 'mgmgyoeyar', 'mgmgyoeyar@gmail.com', '$2y$10$tY/95W8y2SMl7rNSImsjZ.EWLOPnp3E6P71gs7QRuQEbrevkmT0.G', NULL, NULL, NULL, NULL, NULL, NULL, '2024-09-13 08:45:43'),
-(3, 'KoKoYoeYar', 'kokoyoeyar@gmail.com', '$2y$10$.WTGrcnbKjpCzjYb9Cg8PuwC.42jFh6Xcixy.U68F2qur2PSnzds.', NULL, NULL, NULL, NULL, NULL, NULL, '2024-10-06 16:02:20');
+INSERT INTO `employees` (`id`, `username`, `email`, `password`, `role`, `phone`, `address`, `description`, `image`, `created_at`) VALUES
+(1, 'ThanTunAung', 't.thantunaung@gmail.com', '$2y$10$cUyMM0zBnVOOu.WyJbMkVOC1vs7PWLPe3orsewv8Cf51WmEmTOff6', 'Web developer', '+66 0634711557', 'Building-46, Innwa housing, Myeik street, 20 quarter, South Dagon, Yangon, Myanmar.', 'As a passionate and skilled PHP Developer, I specialize in building robust and scalable web applications. With a deep understanding of PHP and hands-on experience in working with frameworks like Laravel and CodeIgniter, I have developed a wide range of web applications that meet both user and business needs.', 'D 98136_1.jpg', '2024-08-08 00:26:00'),
+(2, 'mgmgyoeyar', 'mgmgyoeyar@gmail.com', '$2y$10$tY/95W8y2SMl7rNSImsjZ.EWLOPnp3E6P71gs7QRuQEbrevkmT0.G', NULL, NULL, NULL, NULL, NULL, '2024-09-13 08:45:43'),
+(3, 'KoKoYoeYar', 'kokoyoeyar@gmail.com', '$2y$10$.WTGrcnbKjpCzjYb9Cg8PuwC.42jFh6Xcixy.U68F2qur2PSnzds.', NULL, NULL, NULL, NULL, NULL, '2024-10-06 16:02:20'),
+(5, 'ThuRein', 'thurein@gmail.com', '$2y$10$EY1q2dgDMyKtFMxjgFd7Vezrx0VKe9zGi4Utpy/zqqgMGMFLPRtg2', NULL, NULL, NULL, NULL, NULL, '2024-10-15 18:23:13');
 
 -- --------------------------------------------------------
 
@@ -278,7 +275,8 @@ INSERT INTO `jobs` (`id`, `job_title`, `job_desc`, `responsibilities`, `experien
 (67, 'Development Team Lead', 'Lead a team of developers in building and maintaining web applications.', 'Develop and maintain high-quality software applications<br>Collaborate with cross-functional teams to identify and prioritize project requirements<br>Design, develop, and test new features and functionality<br>Troubleshoot and resolve technical issues<br>Participate in code reviews and ensure adherence to coding standards', '3-5 years of experience in software development', 'Java, Python, C++, JavaScript, HTML/CSS, Agile, Scrum, Version control systems (Git, SVN)', 'Bachelor\'s degree in Computer Science or related field<br>At least 3 years of experience in software development<br>Proficient in languages such as Java, Python, or C++<br>Experience with Agile development methodologies<br>Strong problem-solving skills and attention to detail', '$80,000 - $120,000 per year', 'Yangon, Myanmar', 'Olivia Evans', 41, 2, '2024-08-08 23:06:50', NULL, NULL),
 (68, 'Make my website responsive device compatible', 'Optimize existing website to be fully responsive and device compatible.', 'Develop and maintain high-quality software applications<br>Collaborate with cross-functional teams to identify and prioritize project requirements<br>Design, develop, and test new features and functionality<br>Troubleshoot and resolve technical issues<br>Participate in code reviews and ensure adherence to coding standards', '3-5 years of experience in software development', 'Java, Python, C++, JavaScript, HTML/CSS, Agile, Scrum, Version control systems (Git, SVN)', 'Bachelor\'s degree in Computer Science or related field<br>At least 3 years of experience in software development<br>Proficient in languages such as Java, Python, or C++<br>Experience with Agile development methodologies<br>Strong problem-solving skills and attention to detail', '$80,000 - $120,000 per year', 'Mandalay, Myanmar', 'Liam Davis', 42, 2, '2024-08-08 23:06:50', NULL, NULL),
 (69, 'Looking Graphic Designer (Logo + UI)', 'Seeking a skilled graphic designer to create logos and user interface designs.', 'Develop and maintain high-quality software applications<br>Collaborate with cross-functional teams to identify and prioritize project requirements<br>Design, develop, and test new features and functionality<br>Troubleshoot and resolve technical issues<br>Participate in code reviews and ensure adherence to coding standards', '3-5 years of experience in software development', 'Java, Python, C++, JavaScript, HTML/CSS, Agile, Scrum, Version control systems (Git, SVN)', 'Bachelor\'s degree in Computer Science or related field<br>At least 3 years of experience in software development<br>Proficient in languages such as Java, Python, or C++<br>Experience with Agile development methodologies<br>Strong problem-solving skills and attention to detail', '$80,000 - $120,000 per year', 'Naypyidaw, Myanmar', 'Sophia Johnson', 43, 2, '2024-08-08 23:06:50', NULL, NULL),
-(70, 'Are you Typography Expert?', 'Looking for a typography expert to enhance text design across various platforms.', 'Develop and maintain high-quality software applications<br>Collaborate with cross-functional teams to identify and prioritize project requirements<br>Design, develop, and test new features and functionality<br>Troubleshoot and resolve technical issues<br>Participate in code reviews and ensure adherence to coding standards', '3-5 years of experience in software development', 'Java, Python, C++, JavaScript, HTML/CSS, Agile, Scrum, Version control systems (Git, SVN)', 'Bachelor\'s degree in Computer Science or related field<br>At least 3 years of experience in software development<br>Proficient in languages such as Java, Python, or C++<br>Experience with Agile development methodologies<br>Strong problem-solving skills and attention to detail', '$80,000 - $120,000 per year', 'Yangon, Myanmar', 'Mason Brown', 44, 2, '2024-08-08 23:06:50', NULL, NULL);
+(70, 'Are you Typography Expert?', 'Looking for a typography expert to enhance text design across various platforms.', 'Develop and maintain high-quality software applications<br>Collaborate with cross-functional teams to identify and prioritize project requirements<br>Design, develop, and test new features and functionality<br>Troubleshoot and resolve technical issues<br>Participate in code reviews and ensure adherence to coding standards', '3-5 years of experience in software development', 'Java, Python, C++, JavaScript, HTML/CSS, Agile, Scrum, Version control systems (Git, SVN)', 'Bachelor\'s degree in Computer Science or related field<br>At least 3 years of experience in software development<br>Proficient in languages such as Java, Python, or C++<br>Experience with Agile development methodologies<br>Strong problem-solving skills and attention to detail', '$80,000 - $120,000 per year', 'Yangon, Myanmar', 'Mason Brown', 44, 2, '2024-08-08 23:06:50', NULL, NULL),
+(72, 'React developer', 'We are seeking a talented React Developer to join our team. You will be responsible for developing and maintaining dynamic web applications using React.js, building reusable components, and optimizing performance. Collaborate with UI/UX designers and back-end developers to create seamless user experiences. Strong proficiency in JavaScript, React, and front-end technologies is required.', 'Develop new user-facing features using React.js and other modern web technologies.\r\nBuild reusable components and front-end libraries for future use.\r\nOptimize components for maximum performance across a vast array of web-capable devices and browsers.\r\nTranslate designs and wireframes into high-quality code.\r\nCollaborate with back-end developers and UI/UX designers to improve usability and deliver seamless experiences.\r\nParticipate in code reviews to ensure adherence to best practices and maintain high-quality standards.\r\nDebug and troubleshoot issues, ensuring the performance and stability of the applications.\r\nStay up-to-date with the latest industry trends and technologies to bring new ideas to the team.', '2+ years of professional experience working with React.js.\r\nStrong proficiency in JavaScript (ES6+), including DOM manipulation and the JavaScript object model.\r\nHands-on experience with state management libraries like Redux or Context API.\r\nExperience in building and consuming RESTful APIs.\r\nFamiliarity with modern front-end build pipelines and tools (Webpack, Babel, NPM).\r\nProven experience in optimizing components for performance and cross-browser compatibility.\r\nWorking knowledge of Git and version control systems.\r\nExperience with responsive design and ensuring cross-device compatibility.\r\n', 'Experience with TypeScript.\r\nFamiliarity with Next.js, Gatsby, or similar React-based frameworks.\r\nUnderstanding of GraphQL.\r\nKnowledge of Agile/Scrum methodologies.\r\nExperience with CICD processes and tools like Docker, Jenkins.\r\nUI/UX design experience or familiarity with tools like Figma or Sketch.\r\nExperience with cloud platforms like AWS, Azure, or Google Cloud.\r\n', '3 years of experience in front-end development with a focus on React.js.\r\nProficient in JavaScript (ES6+), HTML5, and CSS3.\r\nStrong understanding of React.js, its core principles, and workflows (such as Redux or Context API).\r\nFamiliarity with RESTful APIs and asynchronous programming.\r\nExperience with popular React.js state management libraries (Redux, MobX, etc.).\r\nKnowledge of version control systems like Git.\r\nExperience with testing frameworks (Jest, React Testing Library, or similar).\r\nUnderstanding of web performance optimization techniques.\r\nGood problem-solving skills and the ability to think critically.\r\nFamiliarity with front-end build pipelines and tools such as Webpack, Babel, NPM.', '€30,000 - €45,000 per year', 'Germany (Berlin, Munich, Frankfurt)\r\n', 'someboss', 2, 2, '2024-10-11 16:59:21', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -411,25 +409,25 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `applied_jobs`
 --
 ALTER TABLE `applied_jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `employees`
 --
 ALTER TABLE `employees`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `employers`
 --
 ALTER TABLE `employers`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `job_categories`
