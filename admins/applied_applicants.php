@@ -7,7 +7,8 @@ $error = '';
 $success = '';
 $db = new Database();
 $conn = $db->getConnection();
-$job_id = isset($_GET['id']);
+$job_id = isset($_GET['id']) ? $_GET['id'] : null;
+$job_title = isset($_GET['title']) ? $_GET['title'] : null;
 
 // Fetch applications
 $applied_query = "SELECT aj.application_date, j.id, j.job_title, ee.id as employee_id, ee.username as employee_name , ee.email as employee_email, ee.role as employee_role
@@ -17,14 +18,11 @@ $applied_query = "SELECT aj.application_date, j.id, j.job_title, ee.id as employ
     JOIN employers e ON j.employer_id = e.id
     WHERE j.id = '$job_id'";
 $applied_result = mysqli_query($conn, $applied_query);
+
 $applied_data = array();
 while ($row = mysqli_fetch_assoc($applied_result)) {
     $applied_data[] = $row;
-}
-foreach ($applied_data as $job) {
-    $job_id = $job['id'];
-    $job_title = $job['job_title'];
-}
+} 
 ?>
 <?php include '../components/head_admin.php'; ?>
 <body>

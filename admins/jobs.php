@@ -59,7 +59,7 @@ while ($row_job = mysqli_fetch_assoc($results_job)) {
                         ?>
                     </td>
                     <td>
-                    <a href="applied_applicants.php?id=<?= $job['id']; ?>" class="job-listing-link">
+                    <a href="applied_applicants.php?id=<?= $job['id'];?>&title=<?= urlencode($job['job_title']); ?>" class="job-listing-link">
                         <?php echo $applicants_data['applicant_count']; ?> Applied
                     </a>
                     </td>
