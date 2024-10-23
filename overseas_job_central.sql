@@ -22,7 +22,7 @@ SET time_zone = "+00:00";
 -- if you already had `overseas_job_central` database, remove followed database creating codes.
 -- otherwise run all sql as followed.
 
-CREATE IF NOT EXISTS DATABASE  `overseas_job_central`;
+CREATE DATABASE IF NOT EXISTS `overseas_job_central`;
 USE `overseas_job_central`;
 -- --------------------------------------------------------
 
