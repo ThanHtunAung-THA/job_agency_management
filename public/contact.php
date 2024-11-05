@@ -14,17 +14,17 @@ include '../includes/config.php';
           </h4>
           <ul>
             <li >
-              <a href="<?php echo PUBLIC_URL; ?>">
+              <a href="../public">
                 Home
               </a>
             </li>
             <li>
-              <a href="<?php echo PUBLIC_URL; ?>/about.php">
+              <a href="../public/about.php">
                 About
               </a>
             </li>
             <li class="active">
-              <a class="" href="<?php echo PUBLIC_URL; ?>/contact.php">
+              <a class="" href="../public/contact.php">
                 Contact
               </a>
             </li>

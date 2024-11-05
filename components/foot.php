@@ -1,19 +1,19 @@
-<script src="<?php echo ASSETS_URL; ?>/js/jquery-3.4.1.min.js"></script>
+<script src="../assets/js/jquery-3.4.1.min.js"></script>
 <!-- bootstrap js -->
-<script src="<?php echo ASSETS_URL; ?>/js/bootstrap.js"></script>
+<script src="../assets/js/bootstrap.js"></script>
 <!-- nice select -->
-<script src="<?php echo ASSETS_URL; ?>/js/jquery-nice-select.min.js"></script>
+<script src="../assets/js/jquery-nice-select.min.js"></script>
 <!-- custom js -->
-<script src="<?php echo ASSETS_URL; ?>/js/scripts.js"></script>
+<script src="../assets/js/scripts.js"></script>
 <!-- DataTables JS -->
-<script src="<?php echo ASSETS_URL; ?>/dataTables/jquery.dataTables.min.js"></script>
+<script src="../assets/dataTables/jquery.dataTables.min.js"></script>
 <!-- DataTables Buttons JS -->
-<script src="<?php echo ASSETS_URL; ?>/dataTables/dataTables.buttons.min.js"></script>
-<script src="<?php echo ASSETS_URL; ?>/dataTables/buttons.flash.min.js"></script>
-<script src="<?php echo ASSETS_URL; ?>/dataTables/buttons.html5.min.js"></script>
-<script src="<?php echo ASSETS_URL; ?>/dataTables/buttons.print.min.js"></script>
+<script src="../assets/dataTables/dataTables.buttons.min.js"></script>
+<script src="../assets/dataTables/buttons.flash.min.js"></script>
+<script src="../assets/dataTables/buttons.html5.min.js"></script>
+<script src="../assets/dataTables/buttons.print.min.js"></script>
 <!-- JSZip (required for Excel export) -->
-<script src="<?php echo ASSETS_URL; ?>/dataTables/jszip.min.js"></script>
+<script src="../assets/dataTables/jszip.min.js"></script>
 <!-- PDFMake (required for PDF export) -->
-<script src="<?php echo ASSETS_URL; ?>/dataTables/pdfmake.min.js"></script>
-<script src="<?php echo ASSETS_URL; ?>/dataTables/vfs_fonts.js"></script>
+<script src="../assets/dataTables/pdfmake.min.js"></script>
+<script src="../assets/dataTables/vfs_fonts.js"></script>

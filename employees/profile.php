@@ -30,9 +30,9 @@ $employeeData = $result->fetch_assoc();
       <div class="card-body">
         <!-- Profile Image -->
         <?php if (!empty($employeeData['image'])): ?>
-          <img src="<?php echo UPLOAD_PATH; ?>/<?= $employeeData['image'] ?>" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
+          <img src="../uploads/<?= $employeeData['image'] ?>" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
         <?php else: ?>
-          <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
+          <img src="../assets/images/default_profile.png" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
           <p class="text-muted"><i><span class="text-danger">*</span> add image</i></p>
         <?php endif; ?>
         <h3 class="text-dark"><?= $employeeData['username'] ?></h3>
@@ -130,9 +130,9 @@ $employeeData = $result->fetch_assoc();
         <form id="image-upload-form" action="profile_update.php" method="POST" enctype="multipart/form-data">
           <div class="thumbnail-preview mb-3">
             <?php if (!empty($employeeData['image'])): ?>
-              <img src="<?php echo UPLOAD_PATH; ?>/<?= $employeeData['image']; ?>" alt="Current Profile Picture" class="img-thumbnail" width="100">
+              <img src="../uploads/<?= $employeeData['image']; ?>" alt="Current Profile Picture" class="img-thumbnail" width="100">
             <?php else: ?>
-              <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" alt="Default Profile Picture" class="img-thumbnail" width="100">
+              <img src="../assets/images/default_profile.png" alt="Default Profile Picture" class="img-thumbnail" width="100">
             <?php endif; ?>
           </div>
 

@@ -34,7 +34,7 @@
   <ul>
   <?php if (!isset($_SESSION['user_id'])): ?>
       <li class="">
-          <a href="<?php echo AUTH_URL; ?>/login.php">
+          <a href="../auth/login.php">
               <i class="fa fa-user" aria-hidden="true"></i>
               <span class="link-text">
                   Login
@@ -42,7 +42,7 @@
           </a>
       </li>
       <li class="">
-          <a href="<?php echo AUTH_URL; ?>/register.php">
+          <a href="../auth/register.php">
               <i class="fa fa-user" aria-hidden="true"></i>
               <span class="link-text">
                   Sign Up
@@ -59,7 +59,7 @@
           </a>
       </li>
       <li class="">
-          <a href="<?php echo AUTH_URL; ?>/logout.php">
+          <a href="../auth/logout.php">
           <i class="fa fa-sign-out" aria-hidden="true"></i>
               <span class="link-text">
                   Logout

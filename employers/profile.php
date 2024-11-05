@@ -28,9 +28,9 @@ $employerData = $result->fetch_assoc();
       <div class="card-body">
         <!-- Profile Image -->
         <?php if (!empty($employerData['company_logo'])): ?>
-          <img src="<?php echo UPLOAD_PATH; ?>/<?= $employerData['company_logo'] ?>" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
+          <img src="../uploads/<?= $employerData['company_logo'] ?>" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
         <?php else: ?>
-          <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
+          <img src="../assets/images/default_profile.png" class="img-fluid rounded-circle mb-3" alt="Profile Picture" width="150" height="150">
           <p class="text-muted"><i><span class="text-danger">*</span> add image</i></p>
         <?php endif; ?>
         <h3 class="text-dark"><?= $employerData['username'] ?></h3>
@@ -128,9 +128,9 @@ $employerData = $result->fetch_assoc();
         <form id="image-upload-form" action="profile_update.php" method="POST" enctype="multipart/form-data">
           <div class="thumbnail-preview mb-3">
             <?php if (!empty($employerData['company_logo'])): ?>
-              <img src="<?php echo UPLOAD_PATH; ?>/<?= $employerData['company_logo']; ?>" alt="Current Profile Picture" class="img-thumbnail" width="100">
+              <img src="../uploads/<?= $employerData['company_logo']; ?>" alt="Current Profile Picture" class="img-thumbnail" width="100">
             <?php else: ?>
-              <img src="<?php echo ASSETS_URL; ?>/images/default_profile.png" alt="Default Profile Picture" class="img-thumbnail" width="100">
+              <img src="../assets/images/default_profile.png" alt="Default Profile Picture" class="img-thumbnail" width="100">
             <?php endif; ?>
           </div>
           <input type="file" id="imgupload" name="imgupload" class="form-control-file" accept="image/*">

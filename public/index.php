@@ -45,7 +45,7 @@ include '../includes/config.php';
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-6 col-md-4 col-xl-2 px-0">
-          <a href="<?php echo JOBS_URL; ?>/search.php?q=web des" class="box">
+          <a href="../jobs/search.php?q=web des" class="box">
             <div class="img-box">
               <img src="../assets/images/c1.png" alt="">
             </div>
@@ -57,7 +57,7 @@ include '../includes/config.php';
           </a>
         </div>
         <div class="col-sm-6 col-md-4 col-xl-2 px-0">
-          <a href="<?php echo JOBS_URL; ?>/search.php?q=web dev" class="box">
+          <a href="../jobs/search.php?q=web dev" class="box">
             <div class="img-box">
               <img src="../assets/images/c2.png" alt="">
             </div>
@@ -69,7 +69,7 @@ include '../includes/config.php';
           </a>
         </div>
         <div class="col-sm-6 col-md-4 col-xl-2 px-0">
-          <a href="<?php echo JOBS_URL; ?>/search.php?q=graphic" class="box">
+          <a href="../jobs/search.php?q=graphic" class="box">
             <div class="img-box">
               <img src="../assets/images/c3.png" alt="">
             </div>
@@ -81,7 +81,7 @@ include '../includes/config.php';
           </a>
         </div>
         <div class="col-sm-6 col-md-4 col-xl-2 px-0">
-          <a href="<?php echo JOBS_URL; ?>/search.php?q=seo" class="box">
+          <a href="../jobs/search.php?q=seo" class="box">
             <div class="img-box">
               <img src="../assets/images/c4.png" alt="">
             </div>
@@ -93,7 +93,7 @@ include '../includes/config.php';
           </a>
         </div>
         <div class="col-sm-6 col-md-4 col-xl-2 px-0">
-          <a href="<?php echo JOBS_URL; ?>/search.php?q=account" class="box">
+          <a href="../jobs/search.php?q=account" class="box">
             <div class="img-box">
               <img src="../assets/images/c5.png" alt="">
             </div>
@@ -105,7 +105,7 @@ include '../includes/config.php';
           </a>
         </div>
         <div class="col-sm-6 col-md-4 col-xl-2 px-0">
-          <a href="<?php echo JOBS_URL; ?>/search.php?q=content" class="box">
+          <a href="../jobs/search.php?q=content" class="box">
             <div class="img-box">
               <img src="../assets/images/c6.png" alt="">
             </div>
@@ -138,7 +138,7 @@ include '../includes/config.php';
               Our mission is to empower businesses to succeed in an ever-changing global landscape. We achieve this by providing cutting-edge technology, expert consulting, and outstanding customer service. Our values of innovation, collaboration, and integrity guide everything we do, from developing bespoke solutions to building long-term relationships with our clients.
             </p>         
           </div>
-          <a class="btn_link_lg" href="<?php echo PUBLIC_URL; ?>/about.php">
+          <a class="btn_link_lg" href="../public/about.php">
             Learn More About Our Story
           </a>          
         </div>
@@ -168,7 +168,7 @@ include '../includes/config.php';
             <div class="box">
             <div class="job_content-box">
                 <div class="img-box">
-                <img src="<?php echo ASSETS_URL; ?>/images/job_logo1.png" alt="">
+                <img src="../assets/images/job_logo1.png" alt="">
                 </div>
                 <div class="detail-box">
                 <h5>
@@ -194,7 +194,7 @@ include '../includes/config.php';
                 <button class="fav-btn">
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </button>
-                <a href="<?php echo JOBS_URL; ?>/search.php?q=67" class="apply-btn">
+                <a href="../jobs/search.php?q=67" class="apply-btn">
                 Read More
                 </a>
             </div>
@@ -204,7 +204,7 @@ include '../includes/config.php';
             <div class="box">
             <div class="job_content-box">
                 <div class="img-box">
-                <img src="<?php echo ASSETS_URL; ?>/images/job_logo2.png" alt="">
+                <img src="../assets/images/job_logo2.png" alt="">
                 </div>
                 <div class="detail-box">
                 <h5>
@@ -230,7 +230,7 @@ include '../includes/config.php';
                 <button class="fav-btn">
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </button>
-                <a href="<?php echo JOBS_URL; ?>/search.php?q=68" class="apply-btn">
+                <a href="../jobs/search.php?q=68" class="apply-btn">
                 Read More
                 </a>
             </div>
@@ -247,7 +247,7 @@ include '../includes/config.php';
             <div class="box">
             <div class="job_content-box">
                 <div class="img-box">
-                <img src="<?php echo ASSETS_URL; ?>/images/job_logo3.png" alt="">
+                <img src="../assets/images/job_logo3.png" alt="">
                 </div>
                 <div class="detail-box">
                 <h5>
@@ -273,7 +273,7 @@ include '../includes/config.php';
                 <button class="fav-btn">
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </button>
-                <a href="<?php echo JOBS_URL; ?>/search.php?q=69" class="apply-btn">
+                <a href="../jobs/search.php?q=69" class="apply-btn">
                 Read More
                 </a>
             </div>
@@ -283,7 +283,7 @@ include '../includes/config.php';
             <div class="box">
             <div class="job_content-box">
                 <div class="img-box">
-                <img src="<?php echo ASSETS_URL; ?>/images/job_logo6.png" alt="">
+                <img src="../assets/images/job_logo6.png" alt="">
                 </div>
                 <div class="detail-box">
                 <h5>
@@ -309,7 +309,7 @@ include '../includes/config.php';
                 <button class="fav-btn">
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </button>
-                <a href="<?php echo JOBS_URL; ?>/search.php?q=70" class="apply-btn">
+                <a href="../jobs/search.php?q=70" class="apply-btn">
                 Read More
                 </a>
             </div>
@@ -319,7 +319,7 @@ include '../includes/config.php';
             <div class="box">
             <div class="job_content-box">
                 <div class="img-box">
-                <img src="<?php echo ASSETS_URL; ?>/images/job_logo5.png" alt="">
+                <img src="../assets/images/job_logo5.png" alt="">
                 </div>
                 <div class="detail-box">
                 <h5>
@@ -345,7 +345,7 @@ include '../includes/config.php';
                 <button class="fav-btn">
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </button>
-                <a href="<?php echo JOBS_URL; ?>/search.php?q=40" class="apply-btn">
+                <a href="../jobs/search.php?q=40" class="apply-btn">
                 Read More
                 </a>
             </div>
@@ -355,7 +355,7 @@ include '../includes/config.php';
             <div class="box">
             <div class="job_content-box">
                 <div class="img-box">
-                <img src="<?php echo ASSETS_URL; ?>/images/job_logo4.png" alt="">
+                <img src="../assets/images/job_logo4.png" alt="">
                 </div>
                 <div class="detail-box">
                 <h5>
@@ -381,7 +381,7 @@ include '../includes/config.php';
                 <button class="fav-btn">
                 <i class="fa fa-heart-o" aria-hidden="true"></i>
                 </button>
-                <a href="<?php echo JOBS_URL; ?>/search.php?q=1" class="apply-btn">
+                <a href="../jobs/search.php?q=1" class="apply-btn">
                 Read More
                 </a>
             </div>
@@ -390,7 +390,7 @@ include '../includes/config.php';
         </div>
     </div>
     <div class="btn-box">
-        <a href="<?php echo JOBS_URL; ?>/jobs.php">
+        <a href="../jobs/jobs.php">
         View All
         </a>
     </div>
@@ -407,17 +407,17 @@ include '../includes/config.php';
           </h4>
           <ul>
             <li class="active">
-              <a href="<?php echo PUBLIC_URL; ?>">
+              <a href="../public">
                 Home
               </a>
             </li>
             <li>
-              <a href="<?php echo PUBLIC_URL; ?>/about.php">
+              <a href="../public/about.php">
                 About
               </a>
             </li>
             <li>
-              <a class="" href="<?php echo PUBLIC_URL; ?>/contact.php">
+              <a class="" href="../public/contact.php">
                 Contact
               </a>
             </li>

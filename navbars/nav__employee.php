@@ -2,7 +2,7 @@
 <header class="header_section">
   <div class="container-fluid">
     <nav class="navbar navbar-expand-lg custom_nav-container ">
-      <a class="navbar-brand" href="<?php echo PUBLIC_URL; ?>">
+      <a class="navbar-brand" href="../public">
           <img src="../assets/images/ojc-round.png" alt="ojc-round" width="50px" height="50px">
           <span>Overseas Job Central</span>
       </a>
@@ -12,14 +12,14 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav  ml-auto">
           <li class="nav-item">
-              <a class="nav-link" href="<?php echo PUBLIC_URL; ?>"> Home </a>
+              <a class="nav-link" href="../public"> Home </a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="<?php echo JOBS_URL; ?>/jobs.php"> Jobs </a>
+              <a class="nav-link" href="../jobs/jobs.php"> Jobs </a>
           </li>
           <?php if (!isset($_SESSION['user_id'])): ?>
           <li class="nav-item">
-              <a class="nav-link" href="<?php echo AUTH_URL; ?>/login.php">
+              <a class="nav-link" href="../auth/login.php">
               <i class="fa fa-user" aria-hidden="true"></i>
               <span>
                   Login
@@ -27,7 +27,7 @@
               </a>
           </li>
           <li class="nav-item">
-              <a class="nav-link" href="<?php echo AUTH_URL; ?>/register.php">
+              <a class="nav-link" href="../auth/register.php">
               <i class="fa fa-user" aria-hidden="true"></i>
               <span>
                   Sign Up
@@ -41,10 +41,10 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                     <li>
-                        <a class="dropdown-item" href="<?php echo EMPLOYEE_URL; ?>/profile.php"> Profile</a>
-                        <a class="dropdown-item" href="<?php echo EMPLOYEE_URL; ?>/dashboard.php"> Dashboard</a>
+                        <a class="dropdown-item" href="../employees/profile.php"> Profile</a>
+                        <a class="dropdown-item" href="../employees/dashboard.php"> Dashboard</a>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="<?php echo AUTH_URL; ?>/logout.php">Logout</a></li>
+                    <li><a class="dropdown-item" href="../auth/logout.php">Logout</a></li>
                 </ul>
             </li>          
             <?php endif; ?>

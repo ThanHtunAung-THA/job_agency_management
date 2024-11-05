@@ -63,12 +63,12 @@ if ($result !== false) {
           <td class="tb-m"><?= $job['application_date']; ?></td>
           <td class="tb-l"><?= substr($job['responsibilities'], 0, 200); ?>...</td>
           <td class="tb-m"><?= $job['salary']; ?></td>
-          <td class="tb-s"><center><a href="<?php echo JOBS_URL; ?>/detail.php?id=<?= urlencode($job['ID']); ?>" class="btn btn-primary">Detail</a></center></td>
+          <td class="tb-s"><center><a href="../employees/detail_job.php?id=<?= urlencode($job['ID']); ?>" class="btn btn-primary">Detail</a></center></td>
         </tr>
       <?php endforeach; ?>
     </tbody>
   </table>
-  <center><a href="<?php echo EMPLOYEE_URL; ?>/dashboard.php" class="btn btn-primary btn-lg">Go to Dashboard</a></center>
+  <center><a href="../employees/dashboard.php" class="btn btn-primary btn-lg">Go to Dashboard</a></center>
 </div>
 <?php include '../components/foot.php'; ?>
 </body>
